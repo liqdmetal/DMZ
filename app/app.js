@@ -1,7 +1,7 @@
 // DMZ app.js — boot, node + wallet connection, block-driven refresh, the transaction flow, holdings and P&L.
-// Security posture: no server, no accounts, no keys. Reads go to the node, writes go through the wallet's own
-// confirmation prompt. The page ships a Content Security Policy (index.html): only its own scripts run, and the
-// only network destinations are the node/wallet sockets and, if enabled, image hosts (loaded without a referrer).
+// Security posture: no server, no accounts, no keys. DERO reads go to the node, writes go through the wallet's own
+// confirmation prompt. The page ships a Content Security Policy (index.html): only its own scripts run. The only
+// network destinations are the node/wallet sockets and the user-entered Solana RPC of app/solana.js.
 (function () {
   const V = window.Veil, U = V.ui, A = V.amm, D = V.data, W = V.wallet, L = V.live, S = V.stats, { h, toast, openSheet, closeSheet, button, kv, router, icon } = U;
   const app = (V.app = {});

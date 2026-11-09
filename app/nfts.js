@@ -40,7 +40,7 @@
         h("div", { class: "note mt8" }, soldOut ? "Every pass is minted. The marketplace below is the only way in."
           : !open ? "Minting opens at block " + f.start + "."
           : (f.maxsupply - f.minted) + " of " + f.maxsupply + " left at " + dero(f.price) + " each.")),
-      // no image is fetched from the creator's host: the app makes no request but to your node and your wallet
+      // no image is fetched from the creator's host: avatars come from the node, never a third-party image host
       h("div", { class: "stats4 mt" }, stat("Minted", f.minted + " / " + f.maxsupply), stat("Mint price", dero(f.price)), stat("Share", N(f.share) / 100 + "%"), stat("Fee assets", String(f.assets.length))),
       f.descr ? h("div", { class: "note mt8" }, f.descr) : null,
       // the description names wXMR and wZEC; a build with no vault offers neither, and says so beside it (notice.js words)
@@ -155,10 +155,10 @@
       const key = [f ? f.sig : "-", mine ? mine.sig : "-", V.wallet.connected, D.nfts.size, D.nfas.size, V.nfas.key(), V.settings.images, D.lastRefresh > 0].join("|");
       if (key === lastKey) return; lastKey = key;
       render(el, h("h1", { class: "mt" }, "NFTs"),
-        h("div", { class: "sub mb" }, "Assets priced in " + (D.vaults().length ? D.vaults().map((v) => "w" + U.clean(v.sym || "", 8)).join(", ") + " (wrapped 1:1) or DERO" : "DERO") + ", each sold or auctioned by its own contract; the Founders Pass, whose registered passes share the fees the treasury claims, each in the asset it was taken in; and holder NFTs, earned by holding a token."),
+        h("div", { class: "sub mb" }, "Assets priced in " + (D.vaults().length ? D.vaults().map((v) => "w" + U.clean(v.sym || "", 8)).join(", ") + " (wrapped 1:1) or DERO" : "DERO") + ", each sold or auctioned by its own contract; the Founders Pass, whose registered passes share the fees the treasury claims, each in the asset it was taken in; holder NFTs earned by holding a token; and a read-only Solana gallery."),
         f ? h("div", { class: "nft-grid" }, h("div", null, passInstrument(f), minePanel(f), marketplace(f)), h("div", null, accounting(f)))
           : h("div", { class: "card mt" }, h("div", { class: "label" }, "Founders Pass"), h("div", { class: "sub mt8" }, D.cfg.founders ? (D.lastRefresh ? "The contract at the configured id did not verify as a Founders Pass v2, so nothing about it is shown." : "Reading the pass contract…") : "No Founders Pass configured for this deployment.")),
-        V.nfas.section(), collections());
+        V.nfas.section(), collections(), V.solana.section());
       if (f && V.wallet.connected) loadMine().then(() => { if (router.current && router.current.name === "nfts" && mine) draw(); });
     };
     mine = null; lastKey = null; draw(); D.onChange(() => router.current && router.current.name === "nfts" && draw());

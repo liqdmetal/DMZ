@@ -67,8 +67,8 @@
   // system did not already name.
   function avatar(x, size = "") {
     const isAsset = typeof x === "object", id = isAsset ? x.scid || x.ticker || "" : String(x || "");
-    // No image is fetched from a creator's host, ever: the app makes no request but to the user's own node and
-    // wallet. An opt-in toggle used to load them here, and any page on this origin could switch it on (FE-7).
+    // No image is fetched from a creator's host, ever: avatars come from the user's own node and wallet. An opt-in
+    // toggle used to load them here, and any page on this origin could switch it on (FE-7).
     // The one image an avatar shows comes from a profile doc its icon header names (dmz:<scid>): read through the
     // node, checked byte for byte, WebP or PNG only, from a data: URI (app/profile.js). Until then, the plate.
     const label = clean(isAsset ? (x.ticker || "?").slice(0, 3) : V.data.displayName(id).slice(0, 2).toUpperCase(), 3);

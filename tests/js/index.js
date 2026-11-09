@@ -33,3 +33,5 @@ import("./promo.test.mjs");
 import("./see.test.mjs");
 // what a contract payout can actually pay (app/rpc.js payKey): an integrated deroi1/detoi1 is refused, not stripped
 import("./payee.test.mjs");
+// Solana mainnet read-only gallery: public-key parsing, PDA derivation and on-chain NFT checks
+import("./solana.test.mjs");

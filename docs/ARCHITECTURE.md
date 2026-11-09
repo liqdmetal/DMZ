@@ -39,7 +39,12 @@ ringsize 16 (`app/app.js:99,191`). The estimate names the signer to the node onl
 undo the ring (`app/app.js:115-117`). Every TELA DOC and the INDEX itself are installed at ringsize 2, so the INDEX
 stays updatable (`tools/telainstall/main.go:232,249`).
 
-No server: an optional Gnomon read cache is feature-flagged off and the app falls back to the node.
+No DMZ server: an optional Gnomon read cache is feature-flagged off and the app falls back to the DERO node.
+The optional Solana NFT gallery is a browser-only exception to the single-node read path: it queries a user-selected
+Solana JSON-RPC endpoint directly, checks the returned standard SPL/Token-2022 token accounts against their raw bytes,
+checks mint supply and the canonical Metaplex metadata and edition accounts at finalized commitment, and labels the
+result RPC-reported. It is not an independent light client; the endpoint can lie and learns the queried address. The
+gallery does not sign transactions or fetch metadata documents or images.
 
 ## Why one contract per launch, with a built-in AMM
 The DVM cannot call, read, install or fund other contracts (DECISIONS §1.2, §2). A launch therefore owns its whole
@@ -50,8 +55,9 @@ entrypoint exists for it. `pool.bas` exists for assets that already exist on DER
 - **Tokenised equities / "stocks".** Would need a regulated issuer and an oracle; DERO has neither. A synthetic
   price-tracker is a derivative. If this is ever revisited it belongs in a separate contract family with its own
   legal basis, not in `launch.bas`.
-- **Cross-chain memecoins (Solana / Base / …).** No trust-minimised bridge to DERO exists. `contracts/vault.bas` is
-  the research answer and is not one: a named k-of-n federation of bonded signers holds the foreign reserve and can
+- **Cross-chain assets (Solana / Base / …).** No trust-minimised bridge to DERO exists. The read-only Solana NFT
+  gallery is not a bridge, ownership proof, marketplace or DERO asset. `contracts/vault.bas` is the research answer
+  and is not one: a named k-of-n federation of bonded signers holds the foreign reserve and can
   steal or freeze it, and the contract only makes the DERO side honest and auditable. It is installed on the simulator
   only (`deploy/networks.json`), with `app/wrap.js` as its screen; the trust model, party by party, is in
   `research/wrapper/README.md`. The `asset` field of `pool.bas` is the only integration point a wrapped asset needs.

@@ -4,10 +4,12 @@
 application that drives them is a set of static files served from the DERO chain itself. DERO is the execution
 and hosting layer — contracts, gas, delivery. XMR and ZEC are what people come to trade.
 
-There is no server, no database, no API and no account. The application signs nothing and holds nothing; every
-write is a contract call the user's own wallet signs. Two things are run on other people's behalf, and both are
-named wherever a user reads about them: the treasury's bot, which pays the Founders Pass share, and — on the
-simulator only — the federation vault, which is custody by named third parties and is never called trustless.
+There is no DMZ server, database, API or account. The application signs nothing and holds nothing; every write is a
+contract call the user's own wallet signs. The one network read outside DERO is the optional read-only Solana NFT
+gallery, which queries the RPC endpoint the user enters; that operator learns the query and is trusted for its view.
+Two other things are run on other people's behalf, and both are named wherever a user reads about them: the
+treasury's bot, which pays the Founders Pass share, and — on the simulator only — the federation vault, which is
+custody by named third parties and is never called trustless.
 
 ---
 
@@ -18,6 +20,7 @@ here has run on DERO, Monero or Zcash mainnet.**
 
 | Capability | State | Detail |
 |---|---|---|
+| Solana NFT gallery | **Read-only browser integration** | Classic SPL and Token-2022 NFTs with Metaplex metadata/edition PDAs only. Requires a user-chosen CORS-enabled mainnet RPC endpoint. The endpoint is trusted for its view; no wallet signing, NFT transfers, compressed NFTs, images or off-chain metadata fetches. |
 | Token markets (AMM and bonding curve) | **Simulator** | `pool.bas`, `launch.bas`, priced in DERO or in a DERO token |
 | Assets (NFA, ART-NFA-MS1) | **Simulator** | `nfa.bas`: one contract per asset, its own marketplace, priced in any quote |
 | Founders Pass | **Simulator** | `founders.bas` v2: 20 passes, a reward pool per asset, payout addresses for XMR and ZEC (§6) |

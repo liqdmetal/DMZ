@@ -28,7 +28,7 @@
             h("div", { class: "grow" }, h("h1", null, n.name), h("div", { class: "sub ellipsis" }, n.collection))),
           h("div", { class: "label mt" }, "Editions minted"),
           h("div", { class: "big num mt8" }, n.minted + " / " + n.maxsupply)),
-        // no image is fetched from the creator's host: the app makes no request but to your node and your wallet
+        // no image is fetched from the creator's host: avatars come from the node, never a third-party image host
         h("div", { class: "stats4 mt" },
           stat("Mint price", A.fmtDero(n.price, 2) + " DERO"),
           stat("Hold", A.fmtCompact(n.minhold, n.tokenDec) + " " + n.tokenTicker),

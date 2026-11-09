@@ -268,13 +268,13 @@
 
       U.sectionHead("shield", "Security & privacy", "What this build can and cannot do"),
       // An image toggle stood here. Images came from hosts creators chose, and the mainnet rule is that the app makes
-      // no request but to the user's own node and wallet: the plates are the only avatars, and the CSP has no https: image source.
+      // no image or metadata document is fetched from an outside host; the read-only Solana account scan is the only HTTPS request path.
       h("div", { class: "stack mt8", style: "gap:7px" },
-        can(true, "Runs entirely in your browser from the DERO chain. No server, no analytics, no cookies."),
-        can(true, "Reads go to your node. Transactions are built here and signed only inside your wallet after you approve them there."),
+        can(true, "Runs entirely in your browser: DERO data comes from the chain, and the optional Solana gallery reads directly from the RPC endpoint you choose. DMZ has no backend or analytics."),
+        can(true, "DERO reads go to your node. The read-only Solana gallery sends the address you paste and account queries to the Solana RPC endpoint you choose; that operator learns the query and can misreport it. Transactions are built here and signed only inside your DERO wallet after you approve them there."),
         can(true, "Before a contract is shown or traded, its code is hashed and compared with the shipped templates, and its treasury with the one this build ships (the factory's, when it ships none). The code, the registry and the treasury all come from the node above — the app has no second source, so a node you do not run can misreport all three."),
         // UX-09: the policy's connect-src admits any wss:// host, so the limit to one node is this app's code, not the policy
-        can(true, "A Content Security Policy blocks any script that is not part of this build. It lets the page connect to this device and to any wss:// host; this app's own code connects only to the node you set and your wallet on this device, and loads no image, font or script from anywhere else. A link a creator set opens outside DMZ, and only when you click it."),
+        can(true, "A Content Security Policy blocks any script that is not part of this build. It allows HTTPS connections for the user-selected Solana RPC, plus this device and wss:// hosts; DMZ code sends chain reads only to the DERO node you set, your wallet on this device, and the Solana endpoint you enter in the read-only gallery. No NFT image, metadata JSON, font or script is fetched from elsewhere. A link a creator set opens outside DMZ, only when you click it."),
         can(true, "Trades never accept more than 10% slippage; large price impact needs an explicit acknowledgement."),
         can(true, "Nothing is signed unless this build's network, your node's and your wallet's node's are one and the same."),
         can(false, "Cannot see your keys, seed or balances of other people. Cannot send anything without your wallet's confirmation."),
