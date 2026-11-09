@@ -209,6 +209,16 @@
     const w = await app.waitTx(txid, !!opts.code);
     if (w.state === "timeout") { toast(what + " is not in a block after 4.5 minutes: check the wallet history before sending it again", "err", 9000); app.scheduleRefresh(300); return null; }
     if (w.state === "reverted") { toast(what + " was included but did not execute: only the network fee was spent", "err", 8000); app.scheduleRefresh(300); return null; }
+    // A ...To call that the contract refuses does NOT revert: above ring size 2 there is no signer to credit, so the
+    // wrapper commits, pays EVERYTHING attached to dest, and marks the call rf_<txid> (contracts/launch.bas refundto;
+    // pool.bas the same). So the marker decides what to say before anything here calls this trade a trade, and an
+    // unreadable marker is not a success either: the funds may have gone to dest untraded (AUD-15-15).
+    if (opts.refundTo) {
+      const k = V.refundKey(txid), r = opts.refundTo;
+      const m = k ? await V.node.getSC(r.scid, { keys: [k] }).catch(() => null) : null;
+      if (m && m.vals[k] !== undefined) { toast(what + " was refused by the contract: all " + r.text + " went to " + V.shortAddr(r.dest) + " with nothing traded. Only the network fee was spent here.", "err", 12000); app.scheduleRefresh(300); return null; }
+      if (!m) { toast(what + " is in a block, but this app could not read whether the contract refused it. A refusal pays everything you attached to " + V.shortAddr(r.dest) + " untraded: check that address before trading again.", "err", 12000); app.scheduleRefresh(300); return null; }
+    }
     // inclusion is not execution: a reverted call is mined too. When the caller named a balance that must move,
     // read it back from the wallet once the wallet has the block; otherwise say "included", not "confirmed".
     let executed = true, known = !!opts.code;
@@ -249,13 +259,19 @@
   // by its balance; a trade paid elsewhere is verified by inclusion alone and never enters this wallet's P&L.
   app.trade = async (s, side, amount, minOut, publish, q, priv) => {
     if (minOut <= Z || minOut < A.minOut(q.out, MAX_SLIP)) { toast("Refusing: minimum received is below the 10% slippage cap", "err"); return; }
-    const dest = priv && priv.dest ? String(priv.dest).trim() : null;
-    if (priv && !V.isAddress(dest)) { toast("Private mode needs a valid address to receive at", "err"); return; }
+    // ADDRESS_RAW(dest) writes the bare 33-byte key and SEND_*_TO_ADDRESS carries no payload, so an integrated
+    // address's payment id and port are dropped on the way out. A seller who pasted an exchange deposit address
+    // would have the whole payout, and the whole deposit on a refused min_out, land unattributable (AUD-15-04).
+    const want = priv && priv.dest ? String(priv.dest).trim() : null;
+    const dest = want ? V.payKey(want) : null;
+    if (priv && !dest) { toast(want ? "Private mode cannot pay an integrated address: a contract payout carries no payment ID or port, so deroi1… would arrive unattributed. Paste the plain dero1 form" : "Private mode needs a valid address to receive at", "err", 9000); return; }
     if (priv && q.refund > Z) { toast("Refusing: this buy overshoots the curve and the refund would go to the receive address, not back to you: lower the amount", "err", 8000); return; }
-    const toMe = !dest || V.canonAddress(dest) === W.canon;
+    const toMe = !dest || dest === W.canon;
     const opts = { scid: s.scid, entry: (side === 1 ? "SwapDeroForAsset" : "SwapAssetForDero") + (dest ? "To" : ""),
       args: [...(dest ? [["dest", "S", dest]] : []), ["min_out", "U", minOut], ["publish", "U", publish]],
       describe: (side === 1 ? "Buy " : "Sell ") + s.ticker + (dest && !toMe ? " → " + V.shortAddr(dest) : ""), holdings: toMe, ring: dest ? 16 : 2 };
+    // what a refusal would send to dest instead of reverting, in the unit the user typed: app.tx reads the marker
+    if (dest) opts.refundTo = { scid: s.scid, dest, text: A.fmtUnits(amount, side === 1 ? D.qdec(s) : s.dec, 6) + " " + (side === 1 ? D.qsym(s) : s.ticker) };
     if (toMe) opts.outcome = { scid: s.asset, expect: side === 1 ? "up" : "down" }; // the asset balance must move, or the swap reverted
     // A buy pays the market's QUOTE. It used to always send native DERO, so on a wXMR or wZEC market the
     // contract's own stray-DERO guard rejected the call and the trade reverted every time — the user filled in

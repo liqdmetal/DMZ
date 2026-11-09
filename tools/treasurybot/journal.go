@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math"
 	"os"
 	"sort"
 )
@@ -154,6 +155,8 @@ type chain interface {
 	Fees(scid string) (fd, fa uint64)                    // a market's unclaimed fees: fd in its quote, fa in its asset
 	FC(scid string) uint64                               // its cumulative claimed quote-leg counter (only ClaimFees moves it, upward)
 	Legs(scid string, launch bool) (quote, asset string) // the two legs' asset ids, 64 hex; "" when unreadable
+	CodeHash(scid string) string                         // sha256 of its code, hex: the gate's first half (markets.go)
+	MarketTreasury(scid string) string                   // the treasury it pays, DVM spelling: the gate's second half
 	PassDep(asset string) uint64                         // the pass's ad_<i> for this asset; 0 while it has no index for it
 	Registered() uint64                                  // the pass's hst: registered pass units
 	SendClaim(scid string) (string, error)
@@ -163,10 +166,17 @@ type chain interface {
 // shareOf is share bps of x, floored, without overflow: founders.bas bps().
 func shareOf(x, share uint64) uint64 { return (x/10000)*share + ((x%10000)*share)/10000 }
 
-func (j *journal) add(asset string, units uint64) {
-	if units > 0 {
-		j.Owed[asset] += units
+// add records units owed in asset. AUD-15-02: the addition is checked, so a market cannot wrap the total into a small
+// number the bot would then deposit as if it were real.
+func (j *journal) add(asset string, units uint64) error {
+	if units == 0 {
+		return nil
 	}
+	if j.Owed[asset] > math.MaxUint64-units {
+		return fmt.Errorf("the journal owes %s… %d units, and %d more would wrap it: refusing to continue", short(asset), j.Owed[asset], units)
+	}
+	j.Owed[asset] += units
+	return nil
 }
 
 // assets lists every asset the journal owes or has a deposit in flight for, in a fixed order.
@@ -211,8 +221,12 @@ func (j *journal) claimedUnits(ch chain, i int) (uint64, bool) {
 func (j *journal) reconcile(ch chain) error {
 	for i, c := range j.Claims {
 		if units, landed := j.claimedUnits(ch, i); landed {
-			j.add(c.Quote, units)
-			j.add(c.Asset, c.FA)
+			if err := j.add(c.Quote, units); err != nil {
+				return err
+			}
+			if err := j.add(c.Asset, c.FA); err != nil {
+				return err
+			}
 		}
 	}
 	j.Claims = nil
@@ -224,7 +238,11 @@ func (j *journal) reconcile(ch chain) error {
 
 // settleDeposits closes each deposit in flight whose units reached the pass, and sends the others again, unless no
 // pass is registered: v2 refuses a deposit then, so the record is held until one registers.
+// AUD-15-11: a deposit the pass refuses (its own SCID as the asset, a counter at its ceiling) used to end the process,
+// and since reconcile resends every open record the process could never start again. One asset's failure is reported
+// and the rest are still settled; the record stays open for the next sweep.
 func (j *journal) settleDeposits(ch chain) error {
+	var errs []error
 	for _, a := range j.assets() {
 		d := j.Deposits[a]
 		if d == nil {
@@ -241,10 +259,10 @@ func (j *journal) settleDeposits(ch chain) error {
 			continue
 		}
 		if err := j.sendDeposit(ch, a); err != nil {
-			return err
+			errs = append(errs, err)
 		}
 	}
-	return nil
+	return errors.Join(errs...)
 }
 
 // claimMarket records the claim, sends it, and counts it only once the market's fc proves it. It reads fc before the
@@ -273,8 +291,12 @@ func (j *journal) claimMarket(ch chain, scid, quote, asset string) (uint64, uint
 		}
 		return 0, 0, fmt.Errorf("claim tx %s was included but the market's fc did not grow by %d: not counted", short(txid), fd)
 	}
-	j.add(quote, units)
-	j.add(asset, fa)
+	if err := j.add(quote, units); err != nil {
+		return 0, 0, err
+	}
+	if err := j.add(asset, fa); err != nil {
+		return 0, 0, err
+	}
 	return units, fa, j.save()
 }
 
@@ -282,11 +304,9 @@ func (j *journal) claimMarket(ch chain, scid, quote, asset string) (uint64, uint
 // asset. With no pass registered it deposits nothing and holds everything owed. An asset whose share rounds to zero
 // units stays owed and joins the next deposit of that asset.
 func (j *journal) depositShare(ch chain, share uint64) error {
-	if err := j.settleDeposits(ch); err != nil {
-		return err
-	}
+	errs := []error{j.settleDeposits(ch)}
 	if ch.Registered() == 0 {
-		return nil
+		return errors.Join(errs...)
 	}
 	for _, a := range j.assets() {
 		if j.Deposits[a] != nil {
@@ -300,13 +320,13 @@ func (j *journal) depositShare(ch chain, share uint64) error {
 		j.Deposits[a] = &deposit{Units: units, Base: base, Before: ch.PassDep(a)}
 		if err := j.save(); err != nil {
 			delete(j.Deposits, a)
-			return err
+			return errors.Join(append(errs, err)...)
 		}
-		if err := j.sendDeposit(ch, a); err != nil {
-			return err
+		if err := j.sendDeposit(ch, a); err != nil { // one asset's refusal does not stop the others
+			errs = append(errs, err)
 		}
 	}
-	return nil
+	return errors.Join(errs...)
 }
 
 // sendDeposit sends asset a's deposit in flight and closes it only once the pass's ad_<i> proves it landed.

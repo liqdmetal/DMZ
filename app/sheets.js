@@ -71,14 +71,21 @@
       let gasTxt = "", gasSeq = 0, gasTimer = null;
       if (mode === "add") {
         const dIn = h("input", { inputmode: "decimal", placeholder: "0", autocomplete: "off", "aria-label": qsym + " to deposit" }), aIn = h("input", { inputmode: "decimal", placeholder: "0", autocomplete: "off", "aria-label": s.ticker + " to deposit" }), out = reading("LP units minted (estimated)"); let d = Z, a = Z, q = null;
-        const btn = button("Add liquidity", "primary wide mt", () => { closeSheet(); V.app.tx({ scid: s.scid, entry: "AddLiquidity", args: [["min_lp", "U", A.minOut(q.lp, V.app.settings.slippage || 100)]], dero: d, asset: { scid: s.asset, amount: a }, describe: "Add liquidity", holdings: true, probe: { scid: s.scid, keys: ["lp"] } }); }, { disabled: true });
+        // The current template takes min_quote/min_asset, which bound the amounts the call actually uses — without
+        // them a front-run of the first deposit sets the opening price and min_lp cannot notice. A pool installed
+        // from an earlier template is immutable and still takes min_lp alone, so it is sent that alone; the sheet
+        // says what that means rather than promising a bound the code does not enforce.
+        const addArgs = (at, bps) => s.templateLegacy ? [["min_lp", "U", A.minOut(at.lp, bps)]]
+          : [["min_lp", "U", A.minOut(at.lp, bps)], ["min_quote", "U", A.minOut(at.d, bps)], ["min_asset", "U", A.minOut(at.a, bps)]];
+        const btn = button("Add liquidity", "primary wide mt", () => { closeSheet(); V.app.tx({ scid: s.scid, entry: "AddLiquidity", args: addArgs(q, V.app.settings.slippage || 100), dero: d, asset: { scid: s.asset, amount: a }, describe: "Add liquidity", holdings: true, probe: { scid: s.scid, keys: ["lp"] } }); }, { disabled: true });
         let bq = null, ba = null; if (V.wallet.connected) Promise.all([held(s.quote || ""), held(s.asset)]).then(([x, y]) => { bq = x; ba = y; upd(); });
         const paint = () => render(detail, q ? [kv("Minimum LP, or the call reverts", A.fmtUnits(A.minOut(q.lp, slip), qdec, 3)),
+          s.templateLegacy ? null : kv("Minimum amounts used, or the call reverts", A.fmtUnits(A.minOut(q.d, slip), qdec, 6) + " " + qsym + " · " + A.fmtUnits(A.minOut(q.a, slip), s.dec, 6) + " " + s.ticker),
           s.lp === Z ? kv("Locked forever, nobody can withdraw it", lockedLp + " LP") : null,
           q.refundA > Z ? kv("Returned to you, the ratio decides", A.fmtUnits(q.refundA, s.dec, 6) + " " + s.ticker) : null,
           q.refundD > Z ? kv("Returned to you, the ratio decides", A.fmtUnits(q.refundD, qdec, 6) + " " + qsym) : null,
           Sh.gasRow(gasTxt, true), kv("Route", AMM), kv("Ring size", "2 · the payer is public")] : null);
-        const estimate = async () => { const my = ++gasSeq, at = q; try { const t = await Sh.gas({ scid: s.scid, entry: "AddLiquidity", args: [["min_lp", "U", A.minOut(at.lp, slip)]], send: [{ amount: d }, { scid: s.asset, amount: a }] }); if (my !== gasSeq || q !== at) return; gasTxt = t; } catch (e) { if (my !== gasSeq) return; gasTxt = ""; } if (my === gasSeq) paint(); };
+        const estimate = async () => { const my = ++gasSeq, at = q; try { const t = await Sh.gas({ scid: s.scid, entry: "AddLiquidity", args: addArgs(at, slip), send: [{ amount: d }, { scid: s.asset, amount: a }] }); if (my !== gasSeq || q !== at) return; gasTxt = t; } catch (e) { if (my !== gasSeq) return; gasTxt = ""; } if (my === gasSeq) paint(); };
         const upd = () => { d = A.parseUnits(dIn.value, qdec) || Z; if (s.lp > Z) { a = A.poolAssetFor(s, d) || Z; aIn.value = a > Z ? A.fmtUnits(a, s.dec, Number(s.dec)).replace(/,/g, "") : ""; } else a = A.parseUnits(aIn.value, s.dec) || Z; q = d > Z && a > Z ? A.poolAdd(s, d, a) : null;
           out.v.textContent = q ? A.fmtUnits(q.lp, qdec, 3) : "0";
           out.n.textContent = q ? "Share of the pool after this deposit: " + (Number(q.lp * 10000n / (s.lp + q.lp)) / 100).toFixed(2) + "%" : s.lp === Z ? "Enter both amounts. The first deposit must be at least " + A.fmtUnits(100000n, qdec, Number(qdec)) + " " + qsym + "." : "Enter " + qsym + "; the asset amount follows the pool ratio.";
@@ -86,7 +93,9 @@
           paint(); btn.disabled = !q; gate(btn, "Add liquidity", [{ have: bq, amount: d, sym: qsym, dec: qdec }, { have: ba, amount: a, sym: s.ticker, dec: s.dec }]); };
         dIn.oninput = upd; aIn.oninput = upd;
         render(body, h("div", { class: "eyebrow" }, "You deposit"), amountBox(dIn, qsym), amountBox(aIn, s.ticker),
-          s.lp === Z ? h("div", { class: "warnbox mt" }, "This is the first deposit: your two amounts set the opening price, and " + lockedLp + " LP stays locked forever.") : null,
+          s.lp !== Z ? null : s.templateLegacy
+            ? h("div", { class: "warnbox mt" }, "This contract runs an earlier template, which cannot bound the amounts your deposit actually uses. Whoever supplies the first liquidity sets the opening price, and a deposit sent to an empty pool they have just funded takes their ratio. The current template closes this; consider waiting for a pool on it, and " + lockedLp + " LP stays locked forever.")
+            : h("div", { class: "warnbox mt" }, "This is the first deposit: your two amounts set the opening price. The amounts actually used are bounded by the minimums above, so a deposit placed ahead of yours cannot change them, and " + lockedLp + " LP stays locked forever."),
           out.el, h("div", { class: "eyebrow mt" }, "What this costs"), h("div", { class: "mt8" }, detail),
           h("div", { class: "note mt8" }, "Depositing pays no trading fee — you are on the other side of it from now on. " + RINGNOTE + " The network fee is DERO" + (s.quote ? ", not " + qsym : "") + "."),
           btn, confirmNote()); upd();

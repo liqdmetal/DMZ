@@ -64,7 +64,7 @@ func (p *Pool) post(side, in, out, publish uint64, addr string, h, t uint64) {
 }
 
 // AddLiquidity mirrors pool.bas AddLiquidity.
-func (p *Pool) AddLiquidity(in In, minLP, h, t uint64) ([]Send, bool) {
+func (p *Pool) AddLiquidity(in In, minLP, minD, minA, h, t uint64) ([]Send, bool) {
 	d, a := in.D, in.A
 	if d == 0 || a == 0 || in.L != 0 {
 		return nil, false
@@ -79,7 +79,7 @@ func (p *Pool) AddLiquidity(in In, minLP, h, t uint64) ([]Send, bool) {
 			return nil, false
 		}
 		l := d - MinLiq
-		if l < minLP {
+		if d < minD || a < minA || l < minLP {
 			return nil, false
 		}
 		p.tick(h, t, p.RD, p.RA)
@@ -116,7 +116,7 @@ func (p *Pool) AddLiquidity(in In, minLP, h, t uint64) ([]Send, bool) {
 		}
 		d = need
 	}
-	if l == 0 || l < minLP {
+	if d < minD || a < minA || l == 0 || l < minLP {
 		return nil, false
 	}
 	if p.LP+l < p.LP {

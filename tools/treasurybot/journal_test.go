@@ -36,10 +36,12 @@ type fakeChain struct {
 	claims    int
 	deposits  map[string][]uint64
 	received  map[string]uint64 // what ClaimFees sent the treasury, per asset
+	code      map[string]string // the market's code hash, as the chain reports it
+	treasury  map[string]string // the treasury it pays, in the spelling ADDRESS_STRING writes
 }
 
 func newFakeChain(hst uint64) *fakeChain {
-	return &fakeChain{m: map[string]*fakeMarket{}, ad: map[string]uint64{}, hst: hst, deposits: map[string][]uint64{}, received: map[string]uint64{}}
+	return &fakeChain{m: map[string]*fakeMarket{}, ad: map[string]uint64{}, hst: hst, deposits: map[string][]uint64{}, received: map[string]uint64{}, code: map[string]string{}, treasury: map[string]string{}}
 }
 
 var errCrash = errors.New("process died after the send landed")
@@ -50,8 +52,10 @@ func (f *fakeChain) Legs(scid string, launch bool) (string, string) {
 	m := f.m[scid]
 	return m.quote, m.asset
 }
-func (f *fakeChain) PassDep(asset string) uint64 { return f.ad[asset] }
-func (f *fakeChain) Registered() uint64          { return f.hst }
+func (f *fakeChain) CodeHash(scid string) string       { return f.code[scid] }
+func (f *fakeChain) MarketTreasury(scid string) string { return f.treasury[scid] }
+func (f *fakeChain) PassDep(asset string) uint64       { return f.ad[asset] }
+func (f *fakeChain) Registered() uint64                { return f.hst }
 func (f *fakeChain) SendClaim(scid string) (string, error) {
 	f.claims++
 	m := f.m[scid]

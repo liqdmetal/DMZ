@@ -185,7 +185,7 @@ func TestLaunchInstallsAndTradesInAQuoteNothingNames(t *testing.T) {
 // costs: the smallest buy pool.bas will accept, and the storage gas the network charges for it.
 func TestPoolTheCheapestReserveMoveCostsOnlyGas(t *testing.T) {
 	e := newPoolEnv(t, 50, 5000) // the shipped fee: 0.5%, half of it to the treasury
-	if r := e.c.Call(e.pool, "AddLiquidity", rpc.Arguments{harness.U("min_lp", 1)}, e.in(100_000_000, 100_000_000, 0), e.alice); !r.OK() {
+	if r := e.c.Call(e.pool, "AddLiquidity", rpc.Arguments{harness.U("min_lp", 1), harness.U("min_quote", 0), harness.U("min_asset", 0)}, e.in(100_000_000, 100_000_000, 0), e.alice); !r.OK() {
 		t.Fatalf("seed: %v", r.Err)
 	}
 	var min, gas uint64

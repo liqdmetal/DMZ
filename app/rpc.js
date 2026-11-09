@@ -41,13 +41,29 @@
     if (pad) { if (bits) out.push((acc << (to - bits)) & max); } else if (bits >= from || ((acc << (to - bits)) & max)) return null;
     return out;
   }
-  // Address payload (rpc/address.go UnmarshalText): version byte 1, 33-byte compressed key, optional integrated
-  // arguments. Canonical form = the string the DVM writes (ADDRESS_STRING: mainnet "dero" prefix, no arguments).
-  function canonAddress(addr) {
-    const d = bech32Decode(addr); if (!d || !(d.hrp === "dero" || d.hrp === "deto" || d.hrp === "deroi" || d.hrp === "detoi")) return null;
+  // Address payload (rpc/address.go UnmarshalText): version byte 1, 33-byte compressed key, then — under the
+  // deroi/detoi hrp only — the integrated arguments (payment id, port, data). Canonical form = the string the DVM
+  // writes (ADDRESS_STRING: mainnet "dero" prefix, no arguments). extra = argument bytes beyond the key.
+  function addrParts(addr) {
+    const d = typeof addr === "string" ? bech32Decode(addr) : null;
+    if (!d || !(d.hrp === "dero" || d.hrp === "deto" || d.hrp === "deroi" || d.hrp === "detoi")) return null;
     const bytes = convertBits(d.data, 5, 8, false); if (!bytes || bytes.length < 34 || bytes[0] !== 1) return null;
-    return bech32Encode("dero", convertBits(bytes.slice(0, 34), 8, 5, true));
+    return { hrp: d.hrp, key: bech32Encode("dero", convertBits(bytes.slice(0, 34), 8, 5, true)), extra: bytes.length - 34 };
   }
+  function canonAddress(addr) { const p = addrParts(addr); return p ? p.key : null; }
+  // The address a contract can actually pay. ADDRESS_RAW(dest) is NewAddress(dest).Compressed() — the bare 33-byte
+  // key — and SEND_DERO_TO_ADDRESS / SEND_ASSET_TO_ADDRESS carry no payload, so an integrated address's payment id
+  // and port are dropped on the way out and the funds arrive unattributable (AUD-15-04). payKey() therefore names a
+  // payee only when there is nothing to lose: a plain dero1/deto1 with no trailing words. A deroi1/detoi1 always
+  // carries a msgpack argument map (rpc.Arguments), so it is refused whole, as is a "dero1" with trailing words,
+  // which rpc/address.go rejects at the wallet.
+  function payKey(addr) { const p = addrParts(addr); return p && p.extra === 0 && (p.hrp === "dero" || p.hrp === "deto") ? p.key : null; }
+  const isPayable = (a) => !!payKey(a);
+  // The marker a single-payer-refused …To call leaves behind: refundto stores "rf_" + HEX(TXID()) before it returns 0
+  // (contracts/launch.bas:194, pool.bas:216), and HEX in the DVM is lower case. A wallet or node that spells the id
+  // in upper case still names the same transaction, and a key that does not match reads as "no marker", so the
+  // normalisation is what keeps a refusal from being reported as a trade (AUD-15-15).
+  const refundKey = (txid) => (/^[0-9a-fA-F]{64}$/.test(String(txid)) ? "rf_" + String(txid).toLowerCase() : null);
   // raw 33-byte key (hex, as stored by contracts) → canonical address string
   function rawToAddress(rawHex) {
     if (!/^[0-9a-f]{66}$/i.test(rawHex)) return null;
@@ -162,5 +178,5 @@
     async randomAddress() { const r = await this.call("DERO.GetRandomAddress", {}); return r.address && r.address[0]; },
   };
 
-  Object.assign(V, { jsonBig, endpointURL, toBig, hexToBytes, bytesToHex, hexToStr, sha256Hex, bech32Encode, bech32Decode, convertBits, canonAddress, rawToAddress, addressRaw, isAddress, shortAddr, WSRPC, node });
+  Object.assign(V, { jsonBig, endpointURL, toBig, hexToBytes, bytesToHex, hexToStr, sha256Hex, bech32Encode, bech32Decode, convertBits, addrParts, canonAddress, payKey, isPayable, refundKey, rawToAddress, addressRaw, isAddress, shortAddr, WSRPC, node });
 })();

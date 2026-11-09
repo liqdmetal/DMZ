@@ -38,7 +38,7 @@ func TestPoolNonDeroQuoteLifecycle(t *testing.T) {
 	if !res.OK() {
 		t.Fatal(res.Err)
 	}
-	r := c.Call(pool, "AddLiquidity", rpc.Arguments{harness.U("min_lp", 0)}, map[crypto.Hash]uint64{wxmr: 10_000_000, base: 50_000_000}, alice)
+	r := c.Call(pool, "AddLiquidity", rpc.Arguments{harness.U("min_lp", 0), harness.U("min_quote", 0), harness.U("min_asset", 0)}, map[crypto.Hash]uint64{wxmr: 10_000_000, base: 50_000_000}, alice)
 	if !r.OK() {
 		t.Fatalf("AddLiquidity: %v", r.Err)
 	}
@@ -97,7 +97,7 @@ func TestPoolNonDeroQuoteRefusesStrayDero(t *testing.T) {
 	if !res.OK() {
 		t.Fatal(res.Err)
 	}
-	if r := c.Call(pool, "AddLiquidity", rpc.Arguments{harness.U("min_lp", 0)}, map[crypto.Hash]uint64{wxmr: 10000000, base: 50000000}, alice); !r.OK() {
+	if r := c.Call(pool, "AddLiquidity", rpc.Arguments{harness.U("min_lp", 0), harness.U("min_quote", 0), harness.U("min_asset", 0)}, map[crypto.Hash]uint64{wxmr: 10000000, base: 50000000}, alice); !r.OK() {
 		t.Fatal(r.Err)
 	}
 	// buy with the right quote plus a stray DERO burn

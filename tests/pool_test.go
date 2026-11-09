@@ -165,9 +165,13 @@ func (e *poolEnv) checkState(t *testing.T, tag string, r harness.Result, who *rp
 }
 
 func (e *poolEnv) add(t *testing.T, who *rpc.Address, d, a, l, minLP uint64) (harness.Result, bool) {
+	return e.addBound(t, who, d, a, l, minLP, 0, 0)
+}
+
+func (e *poolEnv) addBound(t *testing.T, who *rpc.Address, d, a, l, minLP, minD, minA uint64) (harness.Result, bool) {
 	t.Helper()
-	sends, ok := e.model.AddLiquidity(ref.In{D: d, A: a, L: l}, minLP, e.c.Height, e.c.Timestamp)
-	r := e.c.Call(e.pool, "AddLiquidity", rpc.Arguments{harness.U("min_lp", minLP)}, e.in(d, a, l), who)
+	sends, ok := e.model.AddLiquidity(ref.In{D: d, A: a, L: l}, minLP, minD, minA, e.c.Height, e.c.Timestamp)
+	r := e.c.Call(e.pool, "AddLiquidity", rpc.Arguments{harness.U("min_lp", minLP), harness.U("min_quote", minD), harness.U("min_asset", minA)}, e.in(d, a, l), who)
 	e.note("AddLiquidity", r)
 	if r.OK() != ok {
 		t.Fatalf("AddLiquidity(d=%d a=%d l=%d min=%d): contract ok=%v (%v), model ok=%v", d, a, l, minLP, r.OK(), r.Err, ok)
@@ -251,6 +255,28 @@ func TestPoolInstallValidation(t *testing.T) {
 		t.Fatalf("install storage gas %d exceeds per-TX cap %d", s, harness.MaxStorageGas)
 	}
 	t.Logf("pool.bas install: %d bytes of code, storage gas %d, compute gas %d", len(code), e.storeMax["Install"], e.gasMax["Install"])
+}
+
+func TestPoolFirstDepositFrontRun(t *testing.T) {
+	e := newPoolEnv(t, 50, 5000)
+	// An attacker opens the pool at 100,000 quote : 1 asset before the victim's 1,000 DERO : 1,000,000 asset deposit.
+	e.add(t, e.alice, 100000, 1, 0, 0)
+	poolQuoteBefore, poolAssetBefore := e.c.SCBalance(e.pool, zero), e.c.SCBalance(e.pool, e.asset)
+	victimQuoteBefore := e.c.AccountRecord(zero, e.bob)
+	victimAssetBefore := e.c.AccountRecord(e.asset, e.bob)
+
+	// LP slippage alone accepts the altered ratio: the attacker would make the victim's 1,000 DERO deposit use only
+	// 1,000 asset units. Explicit min_quote/min_asset must reject it and refund both inputs without changing state.
+	_, ok := e.addBound(t, e.bob, 100000000, 1000000000, 0, 98010000, 99000000, 990000000)
+	if ok {
+		t.Fatal("front-run ratio accepted despite min_quote/min_asset")
+	}
+	if e.c.SCBalance(e.pool, zero) != poolQuoteBefore || e.c.SCBalance(e.pool, e.asset) != poolAssetBefore {
+		t.Fatal("refused deposit changed the attacker's seeded reserves")
+	}
+	if e.c.AccountRecord(zero, e.bob) != victimQuoteBefore || e.c.AccountRecord(e.asset, e.bob) != victimAssetBefore {
+		t.Fatal("refused deposit did not refund both victim inputs")
+	}
 }
 
 func TestPoolSmoke(t *testing.T) {

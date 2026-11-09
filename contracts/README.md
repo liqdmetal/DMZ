@@ -66,7 +66,7 @@ stored as `qt`; where this section says DERO, read the quote.
 
 | Entrypoint | Params | Value in | Effect |
 |---|---|---|---|
-| `AddLiquidity` | `min_lp` | DERO `d` + asset `a` | First deposit (d ≥ 1 DERO): `lp = d`, mints `d − 1000` LP (MIN_LIQ locked forever). Else `L = min(⌊d·lp/rd⌋, ⌊a·lp/ra⌋)`, the other side's requirement `⌈L·r/lp⌉` is taken and the excess refunded. Mints `L` of the pool's own SCID. |
+| `AddLiquidity` | `min_lp`, `min_quote`, `min_asset` | DERO `d` + asset `a` | First deposit (d ≥ 1 DERO): `lp = d`, mints `d − 1000` LP (MIN_LIQ locked forever). Else `L = min(⌊d·lp/rd⌋, ⌊a·lp/ra⌋)`, the other side's requirement `⌈L·r/lp⌉` is taken and the excess refunded. Mints `L` of the pool's own SCID. `min_quote`/`min_asset` bound the amounts **actually used** after the refund computation, so a deposit placed ahead of the call cannot change the ratio it enters at (AUD-15-01). Both are required arguments, so code installed before this version takes `min_lp` alone and is kept as a legacy template. |
 | `RemoveLiquidity` | `min_dero, min_asset` | LP `l` (this SCID) | `⌊l·rd/lp⌋` DERO and `⌊l·ra/lp⌋` asset; `l ≤ lp − 1000`. |
 | `SwapDeroForAsset` | `min_out, publish` | DERO `d` | `fee = ⌈d·fee/10⁴⌉`, `pf = ⌊fee·pfee/10⁴⌋`, `out = ⌊(d−fee)·ra / (rd + d − fee)⌋`; `rd += d − pf`, `ra −= out`, `fd += pf`. |
 | `SwapAssetForDero` | `min_out, publish` | asset `a` | symmetric with the fee in asset units; `fa += pf`. |

@@ -32,7 +32,6 @@ import (
 	"log"
 	"os"
 	"regexp"
-	"strconv"
 	"time"
 
 	rpc "veil/tools/simrpc"
@@ -151,6 +150,10 @@ func main() {
 	}
 	var ch chain = &deroChain{c: c, me: me, founders: founders}
 	nfaTpl, oc = nfaTemplates(string(src)), &deroChain{c: c, me: me, founders: founders}
+	poolTpl, launchTpl = marketTemplates(string(src))
+	if len(poolTpl)+len(launchTpl) == 0 {
+		fmt.Println("config.js names no pool or launch template: no registered market can be verified, so none is swept")
+	}
 	promoScid, promoTpl, pro = cfgValue(string(src), "promo"), promoTemplates(string(src)), &deroChain{c: c, me: me, founders: founders} // promo.go
 	if dry {
 		ch = dryChain{ch}
@@ -180,22 +183,10 @@ type market struct{ scid, quote, asset string }
 // sweep is one pass of the bot: claim every listed market's fees, then deposit the passes' share of each asset.
 func sweep(c *rpc.Client, factory, me string, share, minUnits uint64, jn *journal, ch chain) {
 	reg := c.GetSC(factory, false)
-	var markets []market
-	for _, p := range registryPrefixes {
-		for i := uint64(0); i < reg.U(p.count); i++ {
-			s := reg.Str(p.prefix + strconv.FormatUint(i, 10))
-			if len(s) != 64 {
-				continue
-			}
-			// every quote is swept: v2 has a pool per asset, so a wrapped-asset fee is deposited as that asset
-			q, a := ch.Legs(s, p.prefix == "launch_")
-			if !isID(q) || !isID(a) {
-				fmt.Printf("skipping %s…: its quote or asset id cannot be read, so its fees could not be deposited as what they are\n", s[:8])
-				continue
-			}
-			markets = append(markets, market{s, q, a})
-		}
-	}
+	// The registry is permissionless: an entry is swept only when its code is the shipped template for its list and its
+	// treasury is this wallet (markets.go), never because somebody registered it. Every quote is swept: v2 has a pool
+	// per asset, so a wrapped-asset fee is deposited as that asset.
+	markets := listedMarkets(reg, ch, me)
 	// NFA protocol fees: owed by each nfa.bas to the treasury until someone calls PayOwed (payowed.go). A dry run
 	// prints what it would pay and sends nothing.
 	nfaPass(reg, me)
@@ -216,7 +207,8 @@ func sweep(c *rpc.Client, factory, me string, share, minUnits uint64, jn *journa
 		}
 		qd, ad, err := jn.claimMarket(ch, m.scid, m.quote, m.asset) // journaled before the send; reconciled on the next start
 		if err != nil {
-			log.Fatalf("claim %s…: %v", m.scid[:8], err)
+			log.Printf("claim %s…: %v (the record stays in the journal; the next start reconciles it)", m.scid[:8], err)
+			continue
 		}
 		if qd > 0 || ad > 0 {
 			fmt.Printf("%s claimed %d of %s… and %d of %s… from %s…\n", time.Now().Format("15:04:05"), qd, m.quote[:8], ad, m.asset[:8], m.scid[:8])
@@ -225,7 +217,9 @@ func sweep(c *rpc.Client, factory, me string, share, minUnits uint64, jn *journa
 	promoPass(jn, ch, me, minUnits) // promotion proceeds: owed to the passes in the auction's asset, like a market fee (promo.go)
 	hst := ch.Registered()
 	if err := jn.depositShare(ch, share); err != nil {
-		log.Fatalf("deposit: %v", err)
+		// AUD-15-11: a refused or unproven deposit is reported and its record kept. Ending the process here is what
+		// made one bad asset stop every payout until a human edited the journal.
+		log.Printf("deposit: %v (the record stays open; the next sweep tries it again)", err)
 	}
 	printOwed(jn, share, hst)
 }

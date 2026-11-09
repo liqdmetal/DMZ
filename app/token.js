@@ -159,9 +159,10 @@
     // on the curve the whole fee is the protocol's; in an AMM pfee of it is and the rest stays in the reserves
     const protoBps = curve ? 10000n : (s.pfee || Z);
     const taxTo = ["nobody", "the creator", "a buyback that locks tokens", "stakers"][Number(s.tmode || Z)] || "the contract";
-    let slip = V.app.settings.slippage || 100, publish = false, ack = false, amount = Z, balance = null, q = null, priv = false;
+    let slip = V.app.settings.slippage || 100, publish = false, ack = false, privAck = false, amount = Z, balance = null, q = null, priv = false;
     let gasTxt = "", gasSeq = 0, gasTimer = null;
     const destIn = h("input", { placeholder: "address that is not linked to you", class: "mono", autocomplete: "off", spellcheck: "false", "aria-label": "receive at" });
+    const destNote = h("div"), privWarn = h("div");
     const input = h("input", { inputmode: "decimal", placeholder: "0", "aria-label": "amount to " + (buy ? "pay" : "sell"), autocomplete: "off" });
     if (pre) input.value = pre;
     const unit = buy ? qsym : s.ticker, dec = buy ? qdec : s.dec, outUnit = buy ? s.ticker : qsym, outDec = buy ? s.dec : qdec;
@@ -188,7 +189,7 @@
           + (priv ? "At ring size 16 the contract never learns who paid, but the address you name below receives in clear. " : "At ring size 2 the contract pays the signer, so anyone can compute which address made this call. ")
           + "Either way the contract records its reserves at the end of every block they move in, and the difference between two of them is the size of the trade: posting a trade adds your address to the record, never the amount, which is on chain already. "
           + "The network fee is DERO on every market" + (s.quote ? ", so this one needs a little DERO as well as " + qsym : "") + "; your wallet shows the exact amount before you confirm."),
-        priv && V.wallet.canon && V.canonAddress(destIn.value.trim()) === V.wallet.canon ? h("div", { class: "warnbox mt8" }, "This is the connected address: the ring hides who paid, but the receiver is you, in clear.") : null,
+        priv && V.wallet.canon && V.payKey(destIn.value.trim()) === V.wallet.canon ? h("div", { class: "warnbox mt8" }, "This is the connected address: the ring hides who paid, but the receiver is you, in clear.") : null,
         q && q.graduates ? h("div", { class: "warnbox mt8" }, "This buy completes the curve: the token graduates to its locked AMM.") : null);
       // what the button will do, in one place: pair, side, both amounts, the floor, and the network it signs on
       render(review,
@@ -197,7 +198,9 @@
         kv("You pay", amount > Z ? A.fmtUnits(amount, dec, 6) + " " + unit : dash),
         kv("You receive, estimated", q ? A.fmtUnits(q.out, outDec, 6) + " " + outUnit : dash),
         kv("Max slippage", slipEl),
-        kv("Minimum received, or it reverts", q ? A.fmtUnits(A.minOut(q.out, slip), outDec, 6) + " " + outUnit : dash),
+        // at ring 16 a refusal has no signer to refund, so the contract pays dest instead of reverting: the floor is
+        // the same number, and what happens under it is not a revert (AUD-15-15)
+        kv(priv ? "Minimum received, or everything you pay goes to the receive address" : "Minimum received, or it reverts", q ? A.fmtUnits(A.minOut(q.out, slip), outDec, 6) + " " + outUnit : dash),
         kv("Network", "DERO " + net + (priv ? " · ring 16, paid to the address above" : " · ring 2")));
     };
     // the node prices the exact call before the user commits, so the gas row is a number rather than a promise
@@ -205,7 +208,11 @@
     const estGas = async () => {
       const my = ++gasSeq, at = q;
       try {
-        const dest = priv && V.isAddress(destIn.value.trim()) ? destIn.value.trim() : null;
+        const want = priv ? destIn.value.trim() : "";
+        const dest = want ? V.payKey(want) : null;
+        // an address a contract cannot pay is not priced: the prompt would show a call the sheet will not send
+        if (want && !dest) { gasTxt = ""; if (my === gasSeq) paint(); return; }
+        if (curveCap()) { gasTxt = ""; if (my === gasSeq) paint(); return; }
         const args = dest ? [["dest", "S", dest]] : [];
         args.push(["min_out", "U", A.minOut(at.out, slip)], ["publish", "U", publish && !priv ? 1n : Z]);
         // what the call actually sends: the quote asset on a buy (DERO is the asset whose id is the zero hash),
@@ -216,6 +223,15 @@
       } catch (e) { if (my !== gasSeq) return; gasTxt = ""; }
       if (my === gasSeq) paint();
     };
+    // A private buy that a small prior buy would push past the end of the curve is refused here, not priced there:
+    // the contract caps out at what is left and pays the excess to dest, which need not be the payer (AUD-15-15).
+    // The test is the same buy against the curve as it would be with the slippage fraction already sold.
+    const curveCap = () => {
+      if (!(priv && buy && launch && s.phase === Z) || !(amount > Z) || !(s.cs > s.sold)) return false;
+      const shrink = (s.cs - s.sold) * BigInt(slip) / 10000n; if (shrink === Z) return false;
+      const alt = A.launchBuy(Object.assign({}, s, { sold: s.sold + shrink }), amount);
+      return !!alt && alt.refund > Z;
+    };
     let balFail = false;
     const quote = () => {
       amount = A.parseUnits(input.value, dec) || Z;
@@ -223,8 +239,21 @@
       const big = q && q.impact > 1500, mid = q && q.impact > 500;
       // fail closed: a connected wallet whose balance has not been read, or could not be, gets no button
       const noBal = V.wallet.connected && balance === null;
-      confirm.disabled = (!!s.quote && !qv) || !q || noBal || (big && !ack) || (balance !== null && amount > balance) || (priv && !V.isAddress(destIn.value.trim())) || (priv && q.refund > Z);
-      confirm.textContent = s.quote && !qv ? "Priced in an asset this app does not name" : noBal ? (balFail ? "Balance unreadable" : "Reading your " + unit + " balance…") : balance !== null && amount > balance ? "Not enough " + unit + ": " + A.fmtUnits(amount - balance, dec, 4) + " short" : priv && q.refund > Z ? "Overshoots the curve: lower the amount" : (buy ? "Buy " : "Sell ") + s.ticker;
+      // ADDRESS_RAW(dest) writes the bare key: an integrated address (deroi1/detoi1) would lose its payment id and
+      // port, so a payout to an exchange deposit address arrives unattributable (AUD-15-04). Name the key that will
+      // be paid and refuse an address that has arguments to drop.
+      const destKey = priv ? V.payKey(destIn.value.trim()) : null, payOpt = !!destKey;
+      render(destNote, priv && destIn.value.trim() && !payOpt ? h("div", { class: "errbox mt8" }, "A contract payout carries no payment ID or port, so this integrated address would receive the funds unattributed. Paste its plain dero1 form.") : null);
+      // The contract cannot refund a ring-16 refusal to the payer: it pays dest. Where dest is someone else, a
+      // price-protected buy that is refused is a plain transfer to them, so that is acknowledged before signing.
+      const offMe = payOpt && !!V.wallet.canon && destKey !== V.wallet.canon;
+      render(privWarn, offMe ? h("div", { class: "riskbox danger mt8" }, icon("warn"), h("div", null,
+        h("b", null, "A refusal pays this address, not you"),
+        h("div", null, "At ring size 16 the contract cannot tell who paid, so it cannot send a refusal back. If the price moves past your floor before the transaction is mined, everything you attach is paid to " + V.shortAddr(destKey) + " with nothing traded, and the network fee is spent here."),
+        U.toggle("I understand, send it anyway", privAck, (on) => { privAck = on; quote(); }, null, "privAckSw"))) : null);
+      const cap = curveCap();
+      confirm.disabled = (!!s.quote && !qv) || !q || noBal || (big && !ack) || (balance !== null && amount > balance) || (priv && !payOpt) || (offMe && !privAck) || (priv && (q.refund > Z || cap));
+      confirm.textContent = s.quote && !qv ? "Priced in an asset this app does not name" : noBal ? (balFail ? "Balance unreadable" : "Reading your " + unit + " balance…") : balance !== null && amount > balance ? "Not enough " + unit + ": " + A.fmtUnits(amount - balance, dec, 4) + " short" : priv && !payOpt ? "Cannot pay an integrated address" : offMe && !privAck ? "Acknowledge where a refusal pays" : priv && q.refund > Z ? "Overshoots the curve: lower the amount" : cap ? "Too large for a private buy: lower the amount" : (buy ? "Buy " : "Sell ") + s.ticker;
       outV.textContent = q ? A.fmtUnits(q.out, outDec, 6) + " " + outUnit : amount > Z ? "—" : "0";
       // the price this order really executes at, next to the price the market quotes: the gap is what size costs
       const exec = q ? (buy ? Number(amount) / 10 ** Number(qdec) / (Number(q.out) / 10 ** Number(s.dec)) : Number(q.out) / 10 ** Number(qdec) / (Number(amount) / 10 ** Number(s.dec))) : 0;
@@ -257,9 +286,10 @@
       if (fresh.out < A.minOut(q.out, slip)) { T.tradeSheet(cur, side, input.value); return toast("The price moved while this sheet was open. Re-priced from the market as it is now — check the numbers and confirm again.", "err", 9000); }
       const min = A.minOut(fresh.out, slip);
       closeSheet();
-      await V.app.trade(cur, side, amount, min, publish && !priv ? 1 : 0, fresh, priv ? { dest: destIn.value.trim() } : null);
+      await V.app.trade(cur, side, amount, min, publish && !priv ? 1 : 0, fresh, priv ? { dest: V.payKey(destIn.value.trim()) } : null);
     };
-    destIn.oninput = () => quote();
+    // a different address is a different acknowledgement
+    destIn.oninput = () => { privAck = false; quote(); };
     // switch to another market without leaving the sheet (same side); the route row says which maths applies
     // The picker declares its rows (V.sheets.see) and keeps their figures current while it is open: each refresh
     // rewrites the price cells in place, so the order under the pointer and the keyboard focus never move, and a
@@ -297,7 +327,10 @@
       U.details("Private mode: hide who paid", h("div", { class: "stack", style: "gap:8px;padding:6px 0 10px" },
         U.toggle("Ring size 16, pay a named address", priv, (on) => { priv = on; quote(); }, "The contract never learns who paid. To anyone reading the chain the payer is one of 8: the ring has 16 members, and a public bit in every DERO proof says which half the payer is in. What you buy or sell goes to the address below, which is public. Sending it to the connected address hides nothing.", "privSw"),
         h("div", { class: "field" }, "Receive at", destIn),
-        h("div", { class: "note" }, "A private trade is never posted: a public record would name the receiver. A trade paid to another address can only be checked by inclusion in a block: this app cannot read that wallet's balance, and the trade will not appear in this portfolio."))),
+        destNote, privWarn,
+        h("div", { class: "note" }, "A private trade is never posted: a public record would name the receiver. A trade paid to another address can only be checked by inclusion in a block: this app cannot read that wallet's balance, and the trade will not appear in this portfolio. "
+          + "A contract payout carries no payment ID, so an exchange or custodial deposit address cannot attribute it even in its plain form: withdraw to a wallet you hold first. "
+          + "Nothing about this call reverts: the contract cannot refund a ring-16 caller, so a call it refuses pays everything you attached to the receive address instead."))),
       h("div", { class: "eyebrow mt" }, "Review"),
       h("div", { class: "mt8" }, review),
       confirm,

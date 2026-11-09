@@ -162,12 +162,12 @@ func TestConservationPool(t *testing.T) {
 		return rpc.Arguments{harness.S("dest", dest.String()), harness.U("min_out", min), harness.U("publish", 0)}
 	}
 	remove := rpc.Arguments{harness.U("min_dero", 0), harness.U("min_asset", 0)}
-	call("seed", "AddLiquidity", rpc.Arguments{harness.U("min_lp", 1)}, e.in(50_000_000, 50_000_000, 0), e.alice)
+	call("seed", "AddLiquidity", rpc.Arguments{harness.U("min_lp", 1), harness.U("min_quote", 0), harness.U("min_asset", 0)}, e.in(50_000_000, 50_000_000, 0), e.alice)
 	for step = 0; step < consSteps(); step++ {
 		who := consPick(rng, users)
 		switch rng.Intn(10) {
 		case 0:
-			call("add", "AddLiquidity", rpc.Arguments{harness.U("min_lp", 1)}, e.in(consUpTo(rng, 5_000_000), consUpTo(rng, 5_000_000), 0), who)
+			call("add", "AddLiquidity", rpc.Arguments{harness.U("min_lp", 1), harness.U("min_quote", 0), harness.U("min_asset", 0)}, e.in(consUpTo(rng, 5_000_000), consUpTo(rng, 5_000_000), 0), who)
 		case 1:
 			call("remove", "RemoveLiquidity", remove, e.in(0, 0, consUpTo(rng, lp.of(who))), who)
 		case 2:

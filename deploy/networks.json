@@ -96,8 +96,9 @@
         ]
       },
       "pool": {
-        "sha256": "304ca766363a493edea83f19102091291275eb0ba2573f27cc0680c5a5041580",
+        "sha256": "dced10e0aa5a23adb91fdc01251152ae2ca35cfcac13fa01209a1091c88127dc",
         "legacy": [
+          "304ca766363a493edea83f19102091291275eb0ba2573f27cc0680c5a5041580",
           "d4e42ece020cff3c7cfa172d31f648ec53c8a7d6c84364f5fbe6b18bce295591",
           "e47fb60aeab453d4771182c161198189699738ada630953bb00c5eb9e2a4f6dc",
           "0c619b14551f7b8ff2628442b556f3d323548f69a5d5344558df8ee6dd70e0b6",
@@ -156,8 +157,10 @@
         "legacy": []
       },
       "pool": {
-        "sha256": "304ca766363a493edea83f19102091291275eb0ba2573f27cc0680c5a5041580",
-        "legacy": []
+        "sha256": "dced10e0aa5a23adb91fdc01251152ae2ca35cfcac13fa01209a1091c88127dc",
+        "legacy": [
+          "304ca766363a493edea83f19102091291275eb0ba2573f27cc0680c5a5041580"
+        ]
       }
     },
     "tela": {

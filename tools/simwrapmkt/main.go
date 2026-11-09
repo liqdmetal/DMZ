@@ -129,7 +129,7 @@ func main() {
 			q = rpc.Transfer{SCID: quoteA, Burn: *dero}
 		}
 		c.Send(*holder, me, "", *pool, []rpc.Transfer{q, {SCID: baseA, Burn: *units}},
-			[]rpc.Arg{rpc.S("entrypoint", "AddLiquidity"), rpc.U("min_lp", 0)})
+			[]rpc.Arg{rpc.S("entrypoint", "AddLiquidity"), rpc.U("min_lp", 0), rpc.U("min_quote", 0), rpc.U("min_asset", 0)})
 		st = c.GetSC(*pool, false)
 	}
 	fmt.Printf("  reserves: %d DERO / %d wrapped, lp %d\n", st.U("rd"), st.U("ra"), st.U("lp"))

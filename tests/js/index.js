@@ -31,3 +31,5 @@ import("./perfscale.test.mjs");
 import("./promo.test.mjs");
 // the screens' declarations to that layer (D.see): each surface's ids, scrolling, paging, navigation, read-age tags
 import("./see.test.mjs");
+// what a contract payout can actually pay (app/rpc.js payKey): an integrated deroi1/detoi1 is refused, not stripped
+import("./payee.test.mjs");

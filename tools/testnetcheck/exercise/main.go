@@ -267,9 +267,9 @@ func market(c *rpc.Client, n *netcfg.Network) {
 
 	fmt.Println("6. lp adds 2 DERO + 1,000,000 DTC units")
 	d, a := uint64(200000), uint64(1000000)
-	txid, _, h = c.Send(*lpW, lp, "", pool, []rpc.Transfer{{Destination: c.RandomAddress(), Burn: d}, {SCID: launch, Burn: a}}, []rpc.Arg{rpc.S("entrypoint", "AddLiquidity"), rpc.U("min_lp", 0)})
+	txid, _, h = c.Send(*lpW, lp, "", pool, []rpc.Transfer{{Destination: c.RandomAddress(), Burn: d}, {SCID: launch, Burn: a}}, []rpc.Arg{rpc.S("entrypoint", "AddLiquidity"), rpc.U("min_lp", 0), rpc.U("min_quote", 0), rpc.U("min_asset", 0)})
 	tx("AddLiquidity", txid, h)
-	pm.AddLiquidity(ref.In{D: d, A: a}, 0, uint64(h), 0)
+	pm.AddLiquidity(ref.In{D: d, A: a}, 0, 0, 0, uint64(h), 0)
 	checkPool("AddLiquidity", c.GetSC(pool, false), pm)
 
 	fmt.Println("7. trades: trader buys 0.5 DERO (published), sells 20,000 units, buys 0.2 DERO")

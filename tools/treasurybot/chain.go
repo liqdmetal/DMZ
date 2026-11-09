@@ -18,9 +18,12 @@ type deroChain struct {
 	me, founders string
 }
 
+// Fees reads a market's two unclaimed fee balances. A key that is absent is 0, not a reason to end the process
+// (AUD-15-09): a contract that is not a shipped market is refused by listedMarkets before this is asked, and an entry
+// that slips through unanswered is simply not claimable.
 func (d *deroChain) Fees(scid string) (uint64, uint64) {
 	st := d.c.GetSC(scid, false)
-	return st.U("fd"), st.U("fa")
+	return st.U0("fd"), st.U0("fa")
 }
 
 // Legs reports a market's two asset ids. The quote is the stored qt as 64 hex characters (a v1 market has no qt key

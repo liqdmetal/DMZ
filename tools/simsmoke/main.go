@@ -69,8 +69,8 @@ func main() {
 
 	fmt.Println("4. w0 adds 2 DERO + 1,000,000 units")
 	d, a := uint64(200000), uint64(1000000)
-	_, gas, h := c.Send(*w0, a0, "", poolSCID, []rpc.Transfer{{Destination: c.RandomAddress(), Burn: d}, {SCID: assetSCID, Burn: a}}, []rpc.Arg{rpc.S("entrypoint", "AddLiquidity"), rpc.U("min_lp", 0)})
-	m.AddLiquidity(ref.In{D: d, A: a}, 0, uint64(h), 0)
+	_, gas, h := c.Send(*w0, a0, "", poolSCID, []rpc.Transfer{{Destination: c.RandomAddress(), Burn: d}, {SCID: assetSCID, Burn: a}}, []rpc.Arg{rpc.S("entrypoint", "AddLiquidity"), rpc.U("min_lp", 0), rpc.U("min_quote", 0), rpc.U("min_asset", 0)})
+	m.AddLiquidity(ref.In{D: d, A: a}, 0, 0, 0, uint64(h), 0)
 	check("AddLiquidity", c.GetSC(poolSCID, false), m)
 	fmt.Printf("  gas %d/%d\n", gas.GasCompute, gas.GasStorage)
 

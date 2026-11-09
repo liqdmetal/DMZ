@@ -28,11 +28,11 @@
     const out = mulDiv(aeff, s.rd, s.ra + aeff);
     return out && out > Z ? { out, fee, tax: Z, impact: impactSell(s.rd, s.ra, a, out) } : null;
   }
-  function poolAdd(s, d, a) {
-    if (s.lp === Z) { if (d < FIRST_DEPOSIT_MIN) return null; return { lp: d - MIN_LIQ, d, a, refundD: Z, refundA: Z }; }
+  function poolAdd(s, d, a, minD = Z, minA = Z) {
+    if (s.lp === Z) { if (d < FIRST_DEPOSIT_MIN || d < minD || a < minA) return null; return { lp: d - MIN_LIQ, d, a, refundD: Z, refundA: Z }; }
     const ld = mulDiv(d, s.lp, s.rd), la = mulDiv(a, s.lp, s.ra); if (ld === null || la === null) return null;
-    if (ld <= la) { const need = mulDivUp(ld, s.ra, s.lp); return need === null ? null : { lp: ld, d, a: need, refundD: Z, refundA: a - need }; }
-    const need = mulDivUp(la, s.rd, s.lp); return need === null ? null : { lp: la, d: need, a, refundD: d - need, refundA: Z };
+    if (ld <= la) { const need = mulDivUp(ld, s.ra, s.lp); return need === null || d < minD || need < minA ? null : { lp: ld, d, a: need, refundD: Z, refundA: a - need }; }
+    const need = mulDivUp(la, s.rd, s.lp); return need === null || need < minD || a < minA ? null : { lp: la, d: need, a, refundD: d - need, refundA: Z };
   }
   function poolRemove(s, l) {
     if (l === Z || l > s.lp || s.lp - l < MIN_LIQ) return null;

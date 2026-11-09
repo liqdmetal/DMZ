@@ -117,13 +117,16 @@
     const read = () => {
       const p = A.parseUnits(price.value, dec); let hrs = BigInt(Math.max(0, parseInt(hours.value || "0", 10) || 0)); if (hrs === Z) hrs = 1n; if (hrs > 168n) hrs = 168n; // generateEndBlock
       let cp = BigInt(Math.max(0, parseInt(cperc.value || "0", 10) || 0)); if (cp > room) cp = room; // Start 155–165 clamps it the same way
-      const ca = cp > Z ? V.canonAddress(caddr.value.trim()) : ""; return { p, hrs, cp, ca };
+      // the contract pays the charity with ADDRESS_RAW(charityDonateAddr), which writes the bare key and no
+      // payload: an integrated address would lose its payment id, so it is refused here rather than paid
+      // unattributably (AUD-15-04)
+      const ca = cp > Z ? V.payKey(caddr.value.trim()) : ""; return { p, hrs, cp, ca };
     };
     const draw = () => {
       const r = read(); ok = null;
       if (!r.p || r.p === Z) return render(out, h("div", { class: "note" }, why = "Enter the price a buyer pays" + (type === "auction" ? " to open the bidding" : "") + ", in " + sym(s) + "."));
       if (r.p > BOUND) return render(out, h("div", { class: "errbox" }, why = "Above the contract's bound of " + amt(s, BOUND) + ": a sale at this price could never settle."));
-      if (r.cp > Z && !r.ca) return render(out, h("div", { class: "errbox" }, why = "A charity share needs a valid DERO address, or the listing does not start."));
+      if (r.cp > Z && !r.ca) return render(out, h("div", { class: "errbox" }, why = V.isAddress(caddr.value.trim()) ? "A charity share needs a plain dero1 address: the contract pays it in a call that carries no payment ID, so an integrated address would receive the funds unattributed." : "A charity share needs a valid DERO address, or the listing does not start."));
       ok = r;
       render(out, h("div", { class: "label" }, type === "sale" ? "If it sells at " + amt(s, r.p) : "If it sells at the start price"), split(s, r.p, r.cp, r.ca),
         h("div", { class: "note mt8" }, (type === "sale" ? "Runs " : "Bidding runs ") + r.hrs + " hour" + (r.hrs === 1n ? "" : "s") + " from the block that includes it (1 to 168; the contract clamps)" + (type === "auction" ? ", and a bid in the last 15 minutes extends it by 15 minutes, without a cap" : "") + ". You can cancel within the first " + left(N(s.cancelBuffer)) + "; after that it runs to its end. The unit moves into the contract now and comes back to you if nothing sells" + (r.cp === room && r.cp > Z ? " · charity share clamped to the " + room + "% the fees leave" : "") + ". " + RING2));
