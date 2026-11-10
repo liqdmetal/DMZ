@@ -15,7 +15,7 @@ tests, and the directory where evidence must land.*
 - **Evidence** is `research/wrapper/evidence/WT-XX/`. The directory does not exist yet. Create it when the first
   artifact lands; the required contents and the no-secrets rule are in `research/wrapper/evidence/README.md`.
 - **Code state** is a separate audit against the merged tree: `docs/WRAP_CITATION_TRIAGE.md` marks all 74 rows
-  `implemented` / `partial` / `missing` / `stale` (currently 0 / 46 / 27 / 1). It does not replace the status below.
+  `implemented` / `partial` / `missing` / `stale` (currently 0 / 47 / 27 / 0). It does not replace the status below.
 - **Status** starts at `open` for every row. The matrix's Current protection column describes code, not accepted
   risk; a row is accepted only when its required mitigation and required tests exist.
 

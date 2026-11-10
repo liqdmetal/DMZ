@@ -1,7 +1,7 @@
 # Wrap acceptance citation triage
 
 **Date:** 2026-11-10
-**Tree:** `a55ce01` (WT-17/WT-69 app fix; code tree `a417a8e`, `origin/main`)
+**Tree:** `a55ce01` (WT-17/WT-69 app fix; code tree `a417a8e`, `origin/main`); this citation refresh is docs-only on top.
 **Source:** `docs/WRAP_ACCEPTANCE_MATRIX.md` — all 74 rows
 
 This is a citation and implementation audit of the merged tree, not an acceptance run. It resolves every prefixed
@@ -17,8 +17,10 @@ many rows cite the code that demonstrates the gap.
   `tools/zcashtx`.
 - `wm:` and `wv:` have no branch or worktree in this clone. Their 43 and 27 cite tokens resolve to no merged file.
   A row that needs them cannot be `implemented` against this tree.
-- Every prefixed cited line range was checked against the current file. `WT-45`'s `zfee:wrapkit.js:62-64` is past
-  the current file end; that citation is stale. `WT-58` is the row whose own purpose is to replace drifted cites.
+- Every prefixed cited line range was checked against the current file. `WT-45`'s old `zfee:wrapkit.js:62-64`
+  reference is past the current file end and has been replaced with the current config/formatting code. `WT-58`'s
+  document ranges were refreshed to the passages that now carry the contradictions; the row moves from `stale` to
+  `partial` because the underlying document rewrite and `doccites` test are still absent.
 - Bare follow-on cites (`main.go:864`, `backend.go:670-713`) inherit the file from the preceding prefixed cite. They
   were read in context where they decide a row's state, but are not separate rows in the table.
 - The `Merged code` column lists the files whose citations resolve. It does **not** mean those files implement the
@@ -38,9 +40,9 @@ many rows cite the code that demonstrates the gap.
 | State | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
 | implemented | 0 | 0 | 0 | 0 | **0** |
-| partial | 15 | 17 | 10 | 4 | **46** |
+| partial | 15 | 17 | 11 | 4 | **47** |
 | missing | 4 | 11 | 9 | 3 | **27** |
-| stale | 0 | 0 | 1 | 0 | **1** |
+| stale | 0 | 0 | 0 | 0 | **0** |
 | **total** | **19** | **28** | **20** | **7** | **74** |
 
 ## Findings
@@ -53,9 +55,10 @@ many rows cite the code that demonstrates the gap.
   Monero release path, the v4 contract, and the v4 app cannot be verified or counted.
 - **`wz:`, `wc:` and `zfee:` resolve.** The Zcash backend, coordination nodes and the Deposit & withdraw hub are
   present under their merged paths; their rows are still partial where a required change was never made.
-- **Citation drift is real but narrower than the branch gap.** `WT-45` has one out-of-range `zfee:` cite; `WT-58`
-  records the older `main.go`/`wrap.js` drift and is marked `stale`. The other resolved line ranges still contain the
-  cited code.
+- **Citation drift is real but narrower than the branch gap.** WT-45's out-of-range `wrapkit.js` cite and WT-58's
+  document ranges are now refreshed. WT-58 is `partial`, not `stale`: its citations resolve, but the doc rewrite,
+  gas reconciliation and `doccites` test are still missing. The matrix's other `main:` cites still need their own
+  regeneration pass.
 - **The app-side WT-17 and WT-69 fixes are present in this tree.** Both rows remain `partial`, not `implemented`,
   because WT-17 still needs its DVM/uitest checks and WT-69 still needs simulator e2e; the v4 contract/daemon cites
   are also still unavailable here.
@@ -115,7 +118,7 @@ many rows cite the code that demonstrates the gap.
 | WT-42 | medium | **partial** | `contracts/vault.bas`, `tools/vaultsigner/zcashvault/backend.go` | wm:xmrvault/signer.go:459 | Per-output accounting exists; the per-(txid,j) aggregation/disclosure is absent. |
 | WT-43 | medium | **partial** | `tools/vaultsigner/main.go`, `app/move.js` | — | Minting exists in `Deposits()` order; oldest-first/`mw_`/max-deposit gating is absent. |
 | WT-44 | medium | **missing** | `tools/vaultsigner/main.go` | — | Refunded is a manual k-vote with no tool; deterministic Zcash refund/ledger is absent. |
-| WT-45 | medium | **partial** | `app/config.js`, `tools/vaultsigner/zcash_backend.go` | wm:xmrvault/signer.go:219-221; stale: zfee:wrapkit.js:62-64 | Config has decimals; `Decimals` is unread, no contract/deployment rule; `wrapkit.js:62-64` citation is stale. |
+| WT-45 | medium | **partial** | `app/config.js`, `app/wrapui.js`, `tools/vaultsigner/zcash_backend.go` | wm:xmrvault/signer.go:219-221 | Config sets XMR `dec` 12 / ZEC `dec` 8; `wrapui.js:10` only bounds 0–18 and no app code checks 12/8. `Decimals` is unread and no contract/deployment rule exists. |
 | WT-46 | medium | **partial** | `app/move.js` | wv:vault.bas:267 | The v3 table exists; v4 arithmetic, verifydeploy v4 and app version split are absent. |
 | WT-48 | medium | **missing** | `tools/vaultsigner/main.go`, `tools/vaultsigner/coordwire.go` | — | Only logs; loopback `/health`, `/metrics` and `vaultwatch` are absent. |
 | WT-49 | medium | **partial** | `tools/vaultsigner/main.go` | — | Mainnet separation exists; the `DERO.GetInfo` network comparison is absent. |
@@ -127,7 +130,7 @@ many rows cite the code that demonstrates the gap.
 | WT-55 | medium | **partial** | `tools/zcashtx` | — | `zcashtx` has transparent v6/ZIP229; shielded v6 is refused and no app warning exists. |
 | WT-56 | medium | **partial** | `tools/vaultsigner/zcashvault/backend.go` | wm:xmrvault/release.go:626-644 | The ordering is right in the merged code, but the Monero half is unmerged and the ordering test is wrong. |
 | WT-57 | medium | **missing** | — | wm:xmrvault/signer.go:533-535 | No Monero key-image coverage check in Health. |
-| WT-58 | medium | **stale** | — | — | The matrix itself records that `main.go`/`wrap.js` cites drifted; the row asks for a v4 rewrite. |
+| WT-58 | medium | **partial** | `research/wrapper/RUNBOOKS.md`, `research/wrapper/README.md`, `deploy/VAULT_PARAMETERS.md`, `docs/HANDOVER.md`, `contracts/README.md` | — | Citations now resolve to the current contradictory passages, but the v4 document rewrite, gas reconciliation, `doccites` test and matrix-wide cite pass are still absent. |
 | WT-59 | medium | **missing** | — | wv:tests/vault_v4_test.go:42 | `tests/vault_v4_test.go` and `TestVaultV4InstallGas` are absent. |
 | WT-72 | medium | **missing** | `tools/vaultsigner/zcashvault/build.go`, `contracts/vault.bas` | wm:xmrvault/release.go:690-692 | No consolidation round or fee accounting for it. |
 | WT-73 | medium | **missing** | `tools/vaultsigner/zcashvault/seed.go`, `tools/vaultsigner/zcash_backend.go` | — | Seed is plaintext hex; no encryption/OS keystore or mainnet refusal. |
