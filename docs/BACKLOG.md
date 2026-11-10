@@ -27,6 +27,12 @@ wZEC. §1's mainnet sequence is replaced by Phase Y, and mainnet waits until wXM
 tracks of §2 (the Monero swap) and §3 (the transparent-Zcash market) are withdrawn with the swaps. Their items are
 kept as written, and none is to be started.
 
+**New direction, 2026-11-10.** DERO is the public signalling layer for now; SporeM3 is the fallback transport; the
+money is in NFTs and the other chains, Ethereum and Solana first. The ZEC/XMR test above applies only to the legacy
+vault track. New work is the signal schema, the read-only DERO board, the Ethereum adapter, the Solana adapter and
+the SporeM3 fallback in `docs/SIGNAL_DEX.md`. The vault work is parked, not deleted, and the two tracks are not to be
+mixed in one launch claim.
+
 ---
 
 ## 1. The mainnet sequence (the order things go live)
@@ -485,7 +491,7 @@ item above or is closed with a written reason.
 
 - **A ninth tab for NFAs.** The phone tab bar is a seven-column grid; an eighth visible tab failed the UI pass.
   NFAs are the first section of the NFTs tab with their own page (`docs/NFA_BUILD.md` §3.C). 2026-09-09.
-- **spore as a bridge.** It is a messenger; its Monero backend is mock-only. Rendezvous channel only. 2026-09-08.
+- **spore as a bridge.** It is a messenger; its Monero backend is mock-only. Transport only (rendezvous or signal fallback), never settlement. 2026-09-08; extended 2026-11-10.
 - **The federation as "trustless".** It is k-of-n custody by named signers; the README says so; the trustless
   Monero path is the key-share swap. 2026-09-08.
 

@@ -1,5 +1,9 @@
 # DMZ architecture (as built)
 
+> **Direction, 2026-11-10.** New work is signal-first: DERO publishes public intents, SporeM3 is the fallback
+> transport, and NFT settlement stays on Ethereum or Solana. The vault/swaps below are the legacy track and are
+> parked as a launch dependency. See `docs/SIGNAL_DEX.md`; this diagram describes what exists, not the new target.
+
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
 │ Browser (served by a TELA host: Engram / tela-cli / tools/telainstall) │

@@ -539,3 +539,25 @@ record); `tools/telainstall -network X` and `tools/netwallet -network X` set the
 (simulator = testnet+simulator, testnet, mainnet). The app warns when the connected node's network differs from
 the build's. Rules: mainnet transactions are only ever sent by an operator following `deploy/README.md (Mainnet)` with its
 go/no-go gates; testnet is exercised first (`deploy/README.md (Testnet)`); the same commit must pass the simulator suite.
+
+### 10.15 Signal-first NFT DEX (D-14, operator instruction 2026-11-10)
+The operator direction is: **DERO is the public signalling layer for now; SporeM3 is the fallback transport; the
+money is in NFTs and the other chains, Ethereum and Solana first.** This supersedes the ZEC/XMR-first priority for
+new work. It does not delete the existing vault work: wXMR/wZEC contracts, tests and evidence stay in the tree and
+remain available, but they are parked as the launch dependency.
+
+- DERO publishes and timestamps public intents: chain, collection/contract, token id, side, price, payment asset,
+  expiry, maker, nonce, settlement adapter and a terms hash. A signal is discovery data, never proof of ownership
+  and never settlement.
+- SporeM3 (the Spore line already in the repo) is the private/fallback transport for terms that must not be public.
+  It is a messenger, not a bridge or an escrow. Its 144-byte payload limit, linkability and availability are
+  disclosed rather than hidden.
+- Settlement happens on the NFT's native chain. A taker verifies ownership and approval on Ethereum or Solana before
+  signing, and the trade executes there through the wallet's normal marketplace/program. DERO holds neither the NFT
+  nor the purchase price.
+- A DERO receipt is optional and is only a hash of the source-chain settlement. It is not a transferable claim.
+- Work order: signal schema/validator, read-only DERO board, Ethereum adapter, Solana adapter, SporeM3 fallback;
+  then re-scope the vault track. The design note and threat model are `docs/SIGNAL_DEX.md`.
+
+The 2026-09-15 ruling that mainnet waits for wXMR/wZEC remains true for the vault track; it no longer gates the
+NFT signal track. The two tracks are not to be mixed in one launch claim.
