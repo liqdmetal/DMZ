@@ -1,0 +1,938 @@
+{
+  "version": 1,
+  "description": "Shared v1 signal vectors: tools/signal and app/signal.js must agree on every record, raw JSON case and expiry.",
+  "records": [
+    {
+      "name": "ethereum sell",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"eth\",\"asset\":\"0x1111111111111111111111111111111111111111\",\"token\":\"0\",\"side\":\"sell\",\"price\":\"1000000000000000000\",\"pay\":\"0x3333333333333333333333333333333333333333\",\"expiry\":\"time:2000000000\",\"maker\":\"0x2222222222222222222222222222222222222222\",\"nonce\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"adapter\":\"seaport/1.6.0\",\"ref\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"}",
+      "live": [
+        {
+          "now": 1999999999,
+          "height": 0,
+          "valid": true
+        },
+        {
+          "now": 2000000000,
+          "height": 0,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "solana buy",
+      "record": {
+        "v": 1,
+        "chain": "sol",
+        "asset": "So11111111111111111111111111111111111111112",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "side": "buy",
+        "price": "2500000",
+        "pay": "native",
+        "expiry": "height:250000000",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "adapter": "magiceden/2.0.0",
+        "ref": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"sol\",\"asset\":\"So11111111111111111111111111111111111111112\",\"token\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"side\":\"buy\",\"price\":\"2500000\",\"pay\":\"native\",\"expiry\":\"height:250000000\",\"maker\":\"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\"nonce\":\"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\",\"adapter\":\"magiceden/2.0.0\",\"ref\":\"dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd\"}",
+      "live": [
+        {
+          "now": 0,
+          "height": 249999999,
+          "valid": true
+        },
+        {
+          "now": 0,
+          "height": 250000000,
+          "valid": false,
+          "field": "expiry"
+        },
+        {
+          "now": 0,
+          "height": 0,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "name": "wrong version",
+      "record": {
+        "v": 2,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "zero version",
+      "record": {
+        "v": 0,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "version is text",
+      "record": {
+        "v": "1",
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "unknown chain",
+      "record": {
+        "v": 1,
+        "chain": "base",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "chain"
+    },
+    {
+      "name": "empty asset",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "missing asset",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "uppercase eth asset",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "checksummed eth asset",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0xAbCdEf0123456789aBcDeF0123456789AbCdEf01",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "zero eth asset",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x0000000000000000000000000000000000000000",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "sol asset on eth",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "So11111111111111111111111111111111111111112",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "eth leading-zero token",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "01",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "eth negative token",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "-1",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "eth token overflow",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "bad side",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "trade",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "side"
+    },
+    {
+      "name": "zero price",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "0",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "leading-zero price",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "01",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "signed price",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "+1",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "price overflow",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "symbol pay",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "USDC",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "wrong-chain pay",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "So11111111111111111111111111111111111111112",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "empty expiry",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "zero time expiry",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:0",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "negative height expiry",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "height:-1",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "unknown expiry kind",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "block:100",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "zero maker",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x0000000000000000000000000000000000000000",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "maker"
+    },
+    {
+      "name": "short nonce",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "uppercase nonce",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "zero nonce",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "0000000000000000000000000000000000000000000000000000000000000000",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "adapter without version",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "adapter"
+    },
+    {
+      "name": "adapter with partial version",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "adapter"
+    },
+    {
+      "name": "uppercase adapter",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "Seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "valid": false,
+      "field": "adapter"
+    },
+    {
+      "name": "short ref",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bb"
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "uppercase ref",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "zero ref",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "sol token is not an address",
+      "record": {
+        "v": 1,
+        "chain": "sol",
+        "asset": "So11111111111111111111111111111111111111112",
+        "token": "not-a-mint",
+        "side": "buy",
+        "price": "2500000",
+        "pay": "native",
+        "expiry": "height:250000000",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "adapter": "magiceden/2.0.0",
+        "ref": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "sol zero asset",
+      "record": {
+        "v": 1,
+        "chain": "sol",
+        "asset": "11111111111111111111111111111111",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "side": "buy",
+        "price": "2500000",
+        "pay": "native",
+        "expiry": "height:250000000",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "adapter": "magiceden/2.0.0",
+        "ref": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "sol zero token",
+      "record": {
+        "v": 1,
+        "chain": "sol",
+        "asset": "So11111111111111111111111111111111111111112",
+        "token": "11111111111111111111111111111111",
+        "side": "buy",
+        "price": "2500000",
+        "pay": "native",
+        "expiry": "height:250000000",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "adapter": "magiceden/2.0.0",
+        "ref": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "sol zero maker",
+      "record": {
+        "v": 1,
+        "chain": "sol",
+        "asset": "So11111111111111111111111111111111111111112",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "side": "buy",
+        "price": "2500000",
+        "pay": "native",
+        "expiry": "height:250000000",
+        "maker": "11111111111111111111111111111111",
+        "nonce": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "adapter": "magiceden/2.0.0",
+        "ref": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "valid": false,
+      "field": "maker"
+    },
+    {
+      "name": "unknown field",
+      "record": {
+        "v": 1,
+        "chain": "eth",
+        "asset": "0x1111111111111111111111111111111111111111",
+        "token": "0",
+        "side": "sell",
+        "price": "1000000000000000000",
+        "pay": "0x3333333333333333333333333333333333333333",
+        "expiry": "time:2000000000",
+        "maker": "0x2222222222222222222222222222222222222222",
+        "nonce": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "adapter": "seaport/1.6.0",
+        "ref": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "extra": 1
+      },
+      "valid": false,
+      "field": "extra"
+    }
+  ],
+  "json": [
+    {
+      "name": "unknown field",
+      "raw": "{\"v\":1,\"chain\":\"eth\",\"asset\":\"0x1111111111111111111111111111111111111111\",\"token\":\"0\",\"side\":\"sell\",\"price\":\"1000000000000000000\",\"pay\":\"0x3333333333333333333333333333333333333333\",\"expiry\":\"time:2000000000\",\"maker\":\"0x2222222222222222222222222222222222222222\",\"nonce\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"adapter\":\"seaport/1.6.0\",\"ref\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"extra\":1}",
+      "field": "extra"
+    },
+    {
+      "name": "version is a fraction",
+      "raw": "{\"v\":1.0,\"chain\":\"eth\",\"asset\":\"0x1111111111111111111111111111111111111111\",\"token\":\"0\",\"side\":\"sell\",\"price\":\"1000000000000000000\",\"pay\":\"0x3333333333333333333333333333333333333333\",\"expiry\":\"time:2000000000\",\"maker\":\"0x2222222222222222222222222222222222222222\",\"nonce\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"adapter\":\"seaport/1.6.0\",\"ref\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"}",
+      "field": "v"
+    },
+    {
+      "name": "version is an exponent",
+      "raw": "{\"v\":1e0,\"chain\":\"eth\",\"asset\":\"0x1111111111111111111111111111111111111111\",\"token\":\"0\",\"side\":\"sell\",\"price\":\"1000000000000000000\",\"pay\":\"0x3333333333333333333333333333333333333333\",\"expiry\":\"time:2000000000\",\"maker\":\"0x2222222222222222222222222222222222222222\",\"nonce\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"adapter\":\"seaport/1.6.0\",\"ref\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"}",
+      "field": "v"
+    },
+    {
+      "name": "duplicate key",
+      "raw": "{\"v\":1,\"v\":1,\"chain\":\"eth\",\"asset\":\"0x1111111111111111111111111111111111111111\",\"token\":\"0\",\"side\":\"sell\",\"price\":\"1000000000000000000\",\"pay\":\"0x3333333333333333333333333333333333333333\",\"expiry\":\"time:2000000000\",\"maker\":\"0x2222222222222222222222222222222222222222\",\"nonce\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"adapter\":\"seaport/1.6.0\",\"ref\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"}",
+      "field": "signal"
+    },
+    {
+      "name": "trailing object",
+      "raw": "{\"v\":1,\"chain\":\"eth\",\"asset\":\"0x1111111111111111111111111111111111111111\",\"token\":\"0\",\"side\":\"sell\",\"price\":\"1000000000000000000\",\"pay\":\"0x3333333333333333333333333333333333333333\",\"expiry\":\"time:2000000000\",\"maker\":\"0x2222222222222222222222222222222222222222\",\"nonce\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"adapter\":\"seaport/1.6.0\",\"ref\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"}{}",
+      "field": "signal"
+    },
+    {
+      "name": "array",
+      "raw": "[{\"v\":1,\"chain\":\"eth\",\"asset\":\"0x1111111111111111111111111111111111111111\",\"token\":\"0\",\"side\":\"sell\",\"price\":\"1000000000000000000\",\"pay\":\"0x3333333333333333333333333333333333333333\",\"expiry\":\"time:2000000000\",\"maker\":\"0x2222222222222222222222222222222222222222\",\"nonce\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"adapter\":\"seaport/1.6.0\",\"ref\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"}]",
+      "field": "signal"
+    },
+    {
+      "name": "empty",
+      "raw": "",
+      "field": "signal"
+    },
+    {
+      "name": "trailing comma",
+      "raw": "{\"v\":1,\"chain\":\"eth\",\"asset\":\"0x1111111111111111111111111111111111111111\",\"token\":\"0\",\"side\":\"sell\",\"price\":\"1000000000000000000\",\"pay\":\"0x3333333333333333333333333333333333333333\",\"expiry\":\"time:2000000000\",\"maker\":\"0x2222222222222222222222222222222222222222\",\"nonce\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"adapter\":\"seaport/1.6.0\",\"ref\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",}",
+      "field": "signal"
+    },
+    {
+      "name": "top-level string",
+      "raw": "\"not a record\"",
+      "field": "signal"
+    },
+    {
+      "name": "top-level null",
+      "raw": "null",
+      "field": "v"
+    }
+  ],
+  "expiry": [
+    {
+      "input": "time:2000000000",
+      "valid": true,
+      "kind": "time",
+      "value": "2000000000"
+    },
+    {
+      "input": "height:250000000",
+      "valid": true,
+      "kind": "height",
+      "value": "250000000"
+    },
+    {
+      "input": "time:01",
+      "valid": true,
+      "kind": "time",
+      "value": "1"
+    },
+    {
+      "input": "height:18446744073709551615",
+      "valid": true,
+      "kind": "height",
+      "value": "18446744073709551615"
+    },
+    {
+      "input": "time:0",
+      "valid": false
+    },
+    {
+      "input": "height:0",
+      "valid": false
+    },
+    {
+      "input": "height:-1",
+      "valid": false
+    },
+    {
+      "input": "height:1.5",
+      "valid": false
+    },
+    {
+      "input": "time:+1",
+      "valid": false
+    },
+    {
+      "input": "time:9223372036854775808",
+      "valid": false
+    },
+    {
+      "input": "time:18446744073709551615",
+      "valid": false
+    },
+    {
+      "input": "height:18446744073709551616",
+      "valid": false
+    },
+    {
+      "input": "date:2000000000",
+      "valid": false
+    },
+    {
+      "input": "time",
+      "valid": false
+    },
+    {
+      "input": "time:",
+      "valid": false
+    }
+  ]
+}

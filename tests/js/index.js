@@ -33,3 +33,5 @@ import("./promo.test.mjs");
 import("./see.test.mjs");
 // WT-69: height-gated Reclaim and Register must not go through the height-0 estimator
 import("./wrap.heightgate.test.mjs");
+// the v1 signal validator: app/signal.js and tools/signal share one fixture
+import("./signal.vectors.test.mjs");

@@ -37,6 +37,10 @@ signal (DERO, public)  ->  verify (ETH/SOL)  ->  settle (ETH/SOL)  ->  optional 
 
 Minimum public fields:
 
+The concrete v1 field rules, canonical JSON and expiry semantics are in `docs/SIGNAL_SCHEMA.md`;
+the Go validator and its table tests are in `tools/signal`, and its browser mirror is `app/signal.js`.
+Both are driven by `tools/signal/testdata/signal_v1_vectors.json`.
+
 | Field | Meaning |
 |---|---|
 | `v` | signal schema version |
