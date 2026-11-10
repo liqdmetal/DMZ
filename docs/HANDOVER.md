@@ -218,15 +218,16 @@ Rules the daemon now enforces, each of which came from an audit finding:
   inflight`, where `inflight` is every burned withdrawal the contract has not closed. The claim leaves the
   reserve when the federation pays it and leaves `sup` only when the `Released` quorum records the payment, so
   between those moments the reserve is legitimately short. Comparing against `sup` alone halted the vault on its
-  first withdrawal, and because `Released` refuses while halted the halt could never clear — a permanent freeze
+  first withdrawal, and because the pre-fix contract refused `Released` while halted the halt could never clear — a permanent freeze
   with no operator to lift it (found and fixed 2026-09-07; `tools/simvault/e2e.sh` now fails on any halt).
 - **A signer votes `Released` only for a payment it verified itself** (`Backend.VerifyRelease`, re-checked
   before every vote): a peer or coordinator cannot make it certify a payment nobody made. A payment that stays
   invisible for `-verify-tries` passes is treated as one that did not happen and the backend is asked to pay
   again, which is safe because `Release` is idempotent per `j` — never voting at all would be a freeze.
 - **A withdrawal already being paid is never vetoed** — the units would go back while the coins were gone.
-- The state file is bound to one vault (its intents name that vault's withdrawal indexes) and the lock file is
-  removed on every exit path, including a signal.
+- The state file is bound to one vault (its intents name that vault's withdrawal indexes). The lock file is
+  removed on a clean exit and on SIGINT/SIGTERM, but a crash, `log.Fatal` or SIGKILL can leave it behind; a lock
+  untouched for 30 minutes is taken over, so a dead signer never waits for a human to delete it.
 
 ### 5.2 The backend contract every implementation must satisfy
 
@@ -376,8 +377,9 @@ of FROST is young; that is why it waits.
   `RequestDeposit` intents with expiry so a deposit is attributed to exactly one account (DESIGN §C2),
   encrypted destinations (S19), and `Compensate` (W6: a slashed bond goes to the treasury, so victims are never
   made whole). Each is a backlog item with its own test file — but `vault.bas` is 22,196 bytes on disk and
-  installs (canonicalised by `tools/simvault`) for 16,392 of the 20,000 storage gas one transaction may spend
-  (measured 2026-09-15, `research/regtest/vault-zcash-e2e.log`), so an addition has about 3,600 units of headroom.
+  installs (canonicalised by `tools/simvault`) for 16,358–16,407 of the 20,000 storage gas one transaction may
+  spend: 16,358 at the smoke shape, 16,392 at the Zcash parameter shape and 16,407 at the Monero shape (measured
+  2026-09-15, `research/regtest/vault-zcash-e2e.log`), so an addition has at least 3,593 units of headroom.
   Measure again after any change; past the limit the wrapper splits into two contracts.
 - Formal model: update `research/wrapper/formal/` (TLA+) for every new vote family; run TLC.
 
@@ -397,8 +399,9 @@ A backend is done when all of these hold, and the loop record shows the evidence
    `.sim/vault_e2e.log`, kept under `research/wrapper/evidence/` (no machine paths).
 5. The reserve invariant `reserve ≥ sup − inflight` (inflight = every burned withdrawal the contract has not
    closed) checked continuously by every signer and by an independent script using only the published viewing
-   key. Not `reserve ≥ sup`: that halts on every honest withdrawal, and since `Released` refuses while halted
-   the halt can never clear. It froze the vault on its first withdrawal until it was fixed on 2026-09-07.
+   key. Not `reserve ≥ sup`: that halts on every honest withdrawal, and in the pre-fix contract `Released`
+   refused while halted, so the halt could never clear. It froze the vault on its first withdrawal until it was
+   fixed on 2026-09-07.
 6. Runbooks updated (`research/wrapper/RUNBOOKS.md`): ceremony, rotation, halt/resume, shortfall, refund.
 7. The trust statement updated and still true; the marketing copy still forbidden words.
 8. A pilot with a low cap on testnet for at least a week of real deposits and withdrawals before any mainnet

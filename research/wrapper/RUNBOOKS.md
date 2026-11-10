@@ -92,7 +92,10 @@ vaultsigner -network simulator -backend sim -daemon 127.0.0.1:<rpc> -wallet 127.
 - `-confs 0` takes the network table's confirmations for the backend (sim: 2). Never lower it on mainnet.
 - `-state` defaults to `vaultsigner-<first 8 characters of the vault scid>-<last 12 of the signer address>.json`
   in the working directory. One file per (vault, signer) pair; never share it between two daemons. The daemon
-  holds `<state>.lock` while it runs, so a second daemon on the same file will not start.
+  holds `<state>.lock`, refreshing it every five minutes, so a second daemon on the same file will not start
+  while the lock is fresh. A clean exit and SIGINT/SIGTERM remove it; SIGKILL, a power cut or a fatal dependency
+  can leave it behind. A lock untouched for 30 minutes is taken over, so a dead signer never waits for a human
+  to delete a file.
 - `-verify-tries` bounds how many passes a recorded foreign payment may stay invisible before the backend is
   asked to pay that withdrawal again. It exists because not voting is right but never voting is a freeze, and
   there is nobody to unfreeze it.
@@ -163,16 +166,17 @@ RESERVE SHORTFALL: foreign reserve 46000 < supply 71000 less 5000 in flight; vot
 The last line is the pass summary; compare it across signers to spot one that is behind. Read `reserve` against
 the supply **less** the in-flight total, never against the supply alone: during any ordinary withdrawal a
 perfectly correct vault is short of its own supply by exactly what is in flight. A signer that compared the
-reserve to `sup` alone would halt on the first withdrawal, and the halt could never clear, because `Released` is
-refused while halted so `sup` could never fall. That is not hypothetical — it is the bug found and fixed on
-2026-09-07.
+reserve to `sup` alone would halt on the first withdrawal, and the halt could never clear, because the pre-fix
+contract refused `Released` while halted so `sup` could never fall. That is not hypothetical — it is the bug
+found and fixed on 2026-09-07.
 
 A large withdrawal earns its extra delay at burn time: `Burn` records `w_<j>_rel` as the height from which the
 withdrawal may be released (`wdelay`, plus `bigdelay` when the burn exceeds `bigbps` of the supply), and
 `Released` refuses before it. The daemon has no size flag and no override — it reads `w_<j>_rel` and waits, and
 doing nothing pays the user. To stop a withdrawal the signers vote `Veto(j)`, which returns the units to the
-burner, or `Halt(1)`, which blocks `Released` while the halt lasts ([halt and resume](#halt-and-resume)). The
-daemon votes `Veto` on its own only when the destination is one the foreign chain cannot pay.
+burner, or `Halt(1)`, which stops new exposure but still lets `Burn` and `Released` work
+([halt and resume](#halt-and-resume)). The daemon votes `Veto` on its own only when the destination is one the
+foreign chain cannot pay.
 
 
 ---
@@ -261,10 +265,12 @@ stop for good. `AddSigner` still refuses at `n >= 20`, which is only reachable b
 
 `Halt(want)` is a k-of-n vote. `want = 1` halts, `want = 0` resumes. Votes live in 2000-block buckets under the
 current halt epoch `he`; k votes flip the state and open a new epoch. While halted: no registrations, no
-attestations, no mints, no burns, no releases — `Register`, `Attest`, `Mint`, `Burn` and `Released` are the five
-entrypoints a halt blocks, and the only ones that guard on `halted`. `Veto(j)` carries no such guard and still works, which is how a withdrawal that
-cannot be paid is returned to its burner while the vault is halted; so do `Refunded`, `Slash`, `SetCap`,
-`Tighten`, `Bond`, `Unbond`, `AddSigner2`, `SetViewKey` and `ClaimFees`. Wrapped units keep their claim.
+attestations, no mints — `Register`, `Attest` and `Mint` are the three entrypoints that refuse while halted,
+because they add exposure. (`Halt(0)` also reads `ishalted()`, only to refuse a redundant resume.) `Burn` and
+`Released` have no halt guard and work: a holder must be able to exit, and a payment already made must be
+recordable. `Veto(j)` carries no such guard and still works, which is how a withdrawal that cannot be paid is
+returned to its burner while the vault is halted; so do `Refunded`, `Slash`, `SetCap`, `Tighten`, `Bond`,
+`Unbond`, `AddSigner2`, `SetViewKey`, `ClaimFees` and `Reclaim`. Wrapped units keep their claim.
 
 ### When a halt happens
 
@@ -305,8 +311,8 @@ anyway:
 
 The halt clears itself. Every honest daemon votes `Halt(0)` on its next pass once the reserve covers what is
 owed, so a resume needs no human and cannot be withheld by one. There is nothing to restart: the daemons never
-stopped. If you want the resume sooner, the only honest move is to make the reserve whole — `sup` cannot be
-lowered while halted, because `Released` is one of the entrypoints a halt blocks.
+stopped. If you want the resume sooner, make the reserve whole or settle withdrawals: `Released`, `Veto` and
+`Reclaim` work while halted, so `sup` can fall when a payment is recorded or units are returned.
 
 
 ---
@@ -329,8 +335,9 @@ next.
 3. **Stop the bleeding.** If a signer is compromised, `Slash(target)` (k votes). If a backend paid twice, stop
    that daemon and fix the backend's lookup before restarting.
 4. **Make the reserve whole, or say the supply exceeds it.** The federation tops up the reserve from the bonds'
-   owners, or accepts that `sup` exceeds the reserve and says so publicly. `sup` cannot be lowered while halted,
-   because `Released` is blocked, so publish the numbers while the shortfall stands rather than after it closes.
+   owners, or accepts that `sup` exceeds the reserve and says so publicly. Settle or return withdrawals while the
+   halt stands (`Released`, `Veto` and `Reclaim` still work), and publish the numbers either way rather than after
+   the shortfall closes.
 5. **The halt clears itself** once the reserve covers what is owed: the daemons vote `Halt(0)` on their next
    pass. Nobody signs off. Publish the count regardless.
 
@@ -398,8 +405,9 @@ seed):
 }
 ```
 
-- Every signer of a vault must use the same `network`, `k`, `xpubs` and the defaults for `finalityDepth` (100),
-  `epoch` (10), `expiryWindow` (40) and `maxInputs` (200), or their transactions differ and nothing is signed.
+- Every signer of a vault must use the same `network`, `k`, `xpubs` and the backend's finality default
+  (`finalityDepth` 100 on Zcash, 10 on Monero), `epoch` (10), `expiryWindow` (40) and `maxInputs` (200), or
+  their transactions differ and nothing is signed.
 - Name at least two nodes the signer runs, on different machines if it can: deposits are credited only when every node
   shows them identically, and the reserve is the lowest any node shows.
 - `coordinatorDir` (a shared directory) exists for the regtest pilot only; on testnet and mainnet the signatures

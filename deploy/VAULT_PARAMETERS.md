@@ -1,10 +1,11 @@
 # Vault parameters, per foreign chain
 
-Every parameter below is in the **foreign chain's base units** — piconero for Monero, zatoshi for Zcash — and
-four of them are immutable the moment `Seal()` runs. The simulator's defaults are shaped for a five-decimal
-asset. Copying them to a real Monero vault is wrong by 10⁷: the documented `capratio` of 3 would cap a Monero
-vault at 0.00000018 XMR, and an operator following the old runbook would deploy a vault that cannot hold
-anything. This table exists so that cannot happen again.
+Every parameter below is in the **foreign chain's base units** — piconero for Monero, zatoshi for Zcash. The table
+says which are immutable at `Seal()` and which have a constrained post-Seal path; `SetLimits` is owner-only before
+Seal, and only k-vote `Tighten` can move `wdelay` or `winmax` afterwards, in the safe direction. The simulator's
+defaults are shaped for a five-decimal asset. Copying them to a real Monero vault is wrong by 10⁷: the documented
+`capratio` of 3 would cap a Monero vault at 0.00000018 XMR, and an operator following the old runbook would deploy
+a vault that cannot hold anything. This table exists so that cannot happen again.
 
 ## The rule that ties them together
 
@@ -28,9 +29,9 @@ written as a division, never `bondtot * capratio`, so none can overflow a uint64
 | `wfee` | install | **no** | 100 | 100 000 000 (0.0001 XMR) | 10 000 (0.0001 ZEC) | fee kept by the federation, per withdrawal; must be `< minburn` |
 | `mindep` | install / `Tighten` | tighten only | 1 | 1 000 000 000 (0.001 XMR) | 100 000 (0.001 ZEC) | smallest deposit that will ever be minted — **below it is an unrecoverable loss** |
 | `regfee` | install | **no** | 0 | 0 | 0 | DERO paid to the treasury per `Register` |
-| `wdelay` | `SetLimits` before Seal | no | 0 | see below | see below | blocks a burn waits before it is releasable |
+| `wdelay` | `SetLimits` before Seal / `Tighten` | tighten only (k votes; can rise, never fall) | 0 | see below | see below | blocks a burn waits before it is releasable |
 | `bigbps` / `bigdelay` | install | no | 2000 / 500 | 2000 / 500 | 2000 / 500 | a withdrawal above `bigbps` of supply waits `bigdelay` extra blocks |
-| `winmax` | `SetLimits` before Seal | no | 0 | see below | see below | most minted over two consecutive 2000-block windows (0 = unlimited) |
+| `winmax` | `SetLimits` before Seal / `Tighten` | tighten only (k votes; can fall, never rise to 0) | 0 | see below | see below | most minted over two consecutive 2000-block windows (0 = unlimited) |
 
 With three signers at `minbond`, `bondtot = 60 000`. The Monero column gives `cap / capratio = 50 000 ≤ 60 000`;
 so does the Zcash column. Raise `capratio` in proportion if the cap must grow without more bond.
@@ -46,6 +47,16 @@ These are hard-coded in `vault.bas` and are in **DERO blocks** (18 s), so they a
 | reclaim window | 20 000 blocks after `w_<j>_rel` | `Reclaim` line 14 | an **unmarked** burn may be taken back by the burner after this |
 | vote bucket | 2 000 blocks | every `votek` scope | operational votes are scoped by height bucket and epoch |
 
+## Finality by backend
+
+`Finalized()` is the daemon's vote floor for deposits and releases; a lower `wdelay` never makes an earlier
+payment safe, because nothing is voted above this height.
+
+| Backend | Finalized height | Notes |
+|---|---|---|
+| Zcash | tip − 100 (Zebra's reorganisation limit) | the default; every configured node must agree |
+| Monero | tip − 10 (wallet-rpc spendable age) | the default and minimum; it is policy, not a proof of finality, so the daemon re-reads the payment |
+
 ## What the Zcash backend adds (transparent P2SH k-of-n, docs/HANDOVER.md §5.4)
 
 These are properties of `tools/vaultsigner/zcashvault`, not contract parameters, but they decide what the contract's
@@ -53,7 +64,6 @@ numbers mean on Zcash.
 
 | Property | Value | What it means for the parameters above |
 |---|---|---|
-| finality | tip − 100 (Zebra's reorganisation limit) | a deposit is minted, and a payment recorded by `Released`, only 100 blocks (about 2 h) after it is mined; `wdelay` need not cover it, since nothing is voted before it |
 | network fee | ZIP 317's conventional fee of the release, with maximum-size signatures: 10 000 zatoshi for one or two inputs of a 2-of-3 vault, 5 000 more per ~150 bytes | taken from the withdrawal: the destination receives `w_<j>_v` less it. With `minburn` 1 000 000 and `wfee` 10 000 the smallest withdrawal pays out at least 970 000 zatoshi |
 | smallest selectable output | its own ZIP 317 cost (10 000 zatoshi for a 2-of-3 input) | deposits between `mindep` (100 000) and that are counted in the reserve but never spent alone; `mindep` must stay above it |
 | inputs per release | at most 200 | a withdrawal larger than the 200 largest final outputs waits; keep `mindep` high enough that a flood of minimum deposits cannot fragment the reserve past that |
@@ -75,5 +85,7 @@ compromised; set it from the cap and the expected honest inflow. Record the chos
 | Monero (simulated) | `f23403b0…686fb` | 12 | 10¹⁴ | 2·10⁹ | 10¹⁰ | 10⁹ | 10⁸ | 16 407 |
 | Zcash (simulated) | `93013bb2…3ccf0` | 8 | 10¹¹ | 2·10⁶ | 10⁶ | 10⁵ | 10⁴ | 16 392 |
 
-Both installed 2026-09-08 with the halt-lease / `Reclaim` state machine. Earlier simulator vaults
+Install gas depends on the install arguments' widths: 16,358 at the smoke shape, 16,392 at the Zcash shape above
+and 16,407 at the Monero shape. `contracts/README.md` records the same 16,358–16,407 range; measure again before
+deploying. Both installed 2026-09-08 with the halt-lease / `Reclaim` state machine. Earlier simulator vaults
 (`d69c933f…`, `bfd444b7…`, `c32e6572…`, `ab32063f…`) were five-decimal-shaped and are superseded.

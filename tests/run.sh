@@ -8,6 +8,9 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DST="$ROOT/vendor/derohe/veil"
+# Tests run from the copied tree, but doc-citation tests must read the documents at the real root. The
+# environment is passed through `go test`, so no source or doc tree is duplicated.
+export VEIL_REPO_ROOT="$(cd "$ROOT" && pwd -W 2>/dev/null || printf '%s' "$ROOT")"
 rm -rf "$DST"
 mkdir -p "$DST"
 cp -r "$ROOT/reference" "$DST/reference"

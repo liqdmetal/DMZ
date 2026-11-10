@@ -35,7 +35,7 @@ withdrawal's `w_<j>_v` less the network fee of the paying transaction (ZIP 317's
 | **the contract owner, before `Seal`** | choose the signers | `Seal` removes every owner power; after it the owner is nobody | `tests/vault_test.go` |
 | **one honest signer's daemon, crashing** | pay a withdrawal twice, or never | durable intents (paying → paid → voted) with an idempotent foreign `Release`; a corrupt state file stops the daemon instead of emptying its memory | `tools/vaultsigner/exactly_once_test.go` |
 | **fewer than k signers** | freeze nothing: a deposit is minted when k votes agree on `(j, id, amount)`; a lying signer's vote is a dead tuple | tuple-keyed votes, slash epochs voiding a removed signer's votes | `tests/vault_test.go` |
-| **the foreign chain reorganising** | un-happen a deposit after it was minted | confirmation depth per chain before a vote (network table); a deposit that vanishes below policy depth is never voted | `chainTable`; foreign finality per backend is still open (S16b) |
+| **the foreign chain reorganising** | un-happen a deposit after it was minted | confirmation depth per chain before a vote (network table); a deposit that vanishes below policy depth is never voted | `chainTable`; per-backend `Finalized()` (Zcash 100, Monero 10) |
 | **DERO reorganising** | un-happen a burn after it was paid abroad | a burn is paid only at or below DERO's stable height | `withdrawalFinal`, run in `poc/vault-e2e-v2-finality.log` |
 | **the viewing-key holders** | see every deposit and withdrawal amount and timing on the foreign side | that is the design: the federation must see deposits to credit them; publishing the viewing key is what makes the reserve auditable by anyone. `SetViewKey(key)` (k votes) shipped, so whether a given vault has published one is itself checkable on chain under `viewkey` | `contracts/vault.bas:129-143` |
 | **the vault's treasury address** | take the accrued withdrawal fees (`ClaimFees`, treasury-only), and receive every registration fee and every slashed bond | nothing: it is named at install and there is no setter, so it can never be changed. If that key is lost, the fee units in `feepool` stay counted in `sup` for the life of the vault — a permanent, unredeemable claim on the reserve that no vote can clear | `contracts/vault.bas:68, 266, 434, 503` |
@@ -53,9 +53,9 @@ withdrawal's `w_<j>_v` less the network fee of the paying transaction (ZIP 317's
   the invariant the signers check: `reserve >= sup − inflight`, where `inflight` is every burned withdrawal the
   contract has not closed. The subtraction is not a weakening — a payment leaves the reserve before the `Released`
   quorum records it, so between those two moments the reserve is legitimately short of `sup`. Comparing the reserve
-  to `sup` alone halts on every ordinary withdrawal, and because `Released` refuses while halted, `sup` can then
-  never fall and the halt can never clear; that froze the vault on its first withdrawal until it was found and fixed
-  on 2026-09-07 (`tools/vaultsigner/reserve_test.go`). Until a given deployment has published a viewing key, that
+  to `sup` alone halts on every ordinary withdrawal; in the pre-fix contract `Released` also refused while halted,
+  so `sup` could then never fall and the halt could never clear. That froze the vault on its first withdrawal until
+  it was found and fixed on 2026-09-07 (`tools/vaultsigner/reserve_test.go`). Until a given deployment has published a viewing key, that
   vault's reserve is the signers' word plus their bonds.
 
 ### 4. What the chain reveals (linkage disclosure)
@@ -111,7 +111,7 @@ are trusted for custody on the foreign chain.
 
 | party | can | cannot |
 |---|---|---|
-| k colluding signers | mint up to `cap` without a deposit; refuse to release withdrawals; move the foreign-chain reserve | mint above `cap`; raise `cap` past the bond bound (`cap / capratio > bondtot` is refused); mint the same deposit id twice; mint, burn or release while halted (they can un-halt with k votes, and the halt clears itself anyway once the reserve covers what is owed) |
+| k colluding signers | mint up to `cap` without a deposit; refuse to release withdrawals; move the foreign-chain reserve | mint above `cap`; raise `cap` past the bond bound (`cap / capratio > bondtot` is refused); mint the same deposit id twice; mint while halted (they can un-halt with k votes, and the halt clears itself anyway once the reserve covers what is owed). `Burn` and `Released` work while halted |
 | fewer than k signers | vote, bond, attest | change any state that moves value; pin or redirect a deposit (v2) |
 | the owner | add signers and seal, before sealing only | anything after `Seal()` |
 | a user | register, burn (≥ minburn, minus wfee), read everything | mint, change caps, vote |
@@ -157,9 +157,9 @@ and they forfeit their bonds if the others slash them.
 - `Released(j, ftx)` needs k votes on the same foreign txid.
 - Burn requires `minburn`, refuses more than `sup` (no underflow), deducts `wfee` into `feepool`, records the burn
   height and the release height `w_<j>_rel`.
-- Only Register, Attest, Mint, Burn and Released refuse while halted; everything else — Slash, Halt, Veto, Refunded,
-  SetCap, Tighten, Bond, Unbond, AddSigner2, SetViewKey and ClaimFees — still works, because returning funds is the
-  one thing a halted vault must still do.
+- Only Register, Attest and Mint refuse while halted; `Burn` and `Released` work, because a holder must be able to
+  exit and a payment already made must be recordable. Everything else — Slash, Halt, Veto, Refunded, SetCap,
+  Tighten, Bond, Unbond, AddSigner2, SetViewKey, ClaimFees and Reclaim — also still works.
 - `Veto(j)` returns a pending withdrawal's units, fee included, to the address that burned them, so a user is never
   left with neither wrapped units nor coins.
 - Re-attestation: k votes on a new address bump `dver_<j>`; the history stays on chain.
@@ -199,7 +199,7 @@ and they forfeit their bonds if the others slash them.
 
 ### Open items (backlog ids)
 
-S16 done for the sim backend (durable release intents, atomic state, reserve-shortfall Halt vote: `tools/vaultsigner/exactly_once_test.go`); S16b reorg detection and real-backend finality (DERO side done: a burn is paid only at or below the stable height, C6); S19 encrypted destinations;
+S16 done for the sim backend (durable release intents, atomic state, reserve-shortfall Halt vote: `tools/vaultsigner/exactly_once_test.go`); S16b finality per backend (Zcash 100, Monero 10; DERO side done: a burn is paid only at or below the stable height, C6), with reorg-watch detection still open; S19 encrypted destinations;
 S20 output_index and watcher quorum; S21 done (`AddSigner2` rotation on k votes, which bumps the slash epoch, and `Unbond` for a candidate never voted in; note the lifetime ceiling of 20 signer slots, which `Slash` never gives back); S22 done (rolling two-bucket mint window, withdrawal delay, size-tiered `bigdelay`, `Veto`: `tests/vault_limits_test.go`; no per-deposit maximum by design); S23 in part (`SetViewKey` publishes the foreign viewing key on k votes and `Register` charges `regfee`; the reserve invariant `reserve >= sup − inflight` is checked by the daemon, `tools/vaultsigner/reserve_test.go`);
 C4 done (`tests/vault_fuzz_test.go`, 600 random steps, conservation held after every one); a refundable deposit for `Register` (spam) and incremental
 state reads in the daemon.

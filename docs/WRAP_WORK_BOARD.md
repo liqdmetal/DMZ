@@ -43,8 +43,8 @@ tests, and the directory where evidence must land.*
 
 | Test form | Rows |
 |---|---|
-| At least one named Go/JS test | 38 |
-| Verification type only; no named test in the matrix | 36 |
+| At least one named Go/JS test | 39 |
+| Verification type only; no named test in the matrix | 35 |
 
 ## Load by accountable owner
 
@@ -127,7 +127,7 @@ be open at G3.
 | WT-55 | medium | Deposits from current Zcash wallets (v6 with shielded parts) cannot be verified | zcash-backend | open | verification: Unit, Regtest | `research/wrapper/evidence/WT-55/` |
 | WT-56 | medium | A co-signer crashes between signing and recording | monero-backend | open | verification: Unit | `research/wrapper/evidence/WT-56/` |
 | WT-57 | medium | After a restore, the Monero subaddress lookahead misses deposits | monero-backend | open | verification: Regtest | `research/wrapper/evidence/WT-57/` |
-| WT-58 | medium | Operator documents contradict the contract: halt scope, parameter mutability, lock file, gas, cites, finality, custody | ops | open | verification: Parse test, TLC | `research/wrapper/evidence/WT-58/` |
+| WT-58 | medium | Operator documents contradict the contract: halt scope, parameter mutability, lock file, gas, cites, finality, custody | ops | in-progress | tests/doccites_test.go (also: Parse test, TLC) | `research/wrapper/evidence/WT-58/` |
 | WT-59 | medium | Storage-gas headroom for v4 plus these fixes is unmeasured | vault-contract | open | verification: DVM | `research/wrapper/evidence/WT-59/` |
 | WT-72 | medium | A fragmented reserve and fixed fee bounds make withdrawals unpayable, or charge one user for other people's deposits. Someone pays 400 outputs just above the per-input c… | zcash-backend | open | verification: Regtest, Unit, DVM, uitest | `research/wrapper/evidence/WT-72/` |
 | WT-73 | medium | The Zcash signing seed is plaintext hot material, and every vault key sits under a published xpub. A backup, a disk image or any process running as the signer's user can… | zcash-backend | open | TestMainnetRefusesAPlaintextSeed, TestNoExportedFunctionReturnsAChildPrivateKey (also: Unit, Runbook review) | `research/wrapper/evidence/WT-73/` |

@@ -24,11 +24,11 @@ transaction. It moves a little with the install arguments, so each figure names 
 | `pool.bas` | 14,250 | 10,604 | 10,940 | 488,000 | `pool_test.go` |
 | `social.bas` | 2,355 | 1,736 | **not measured**: no test and no install log prints it | — | — |
 | `swap.bas` v2 | 5,967 | 2,767 | 2,816 at `wmin` 1,600; 2,813 at `wmin` 3 | — | `swap_gaps_test.go`, `swap_test.go` |
-| `vault.bas` v3 | 22,196 | 16,027 | 16,358 (`k` 2) | — | `vault_smoke_test.go` |
+| `vault.bas` v3 | 22,196 | 16,027 | 16,358–16,407 by install shape: 16,358 (`k` 2 smoke), 16,392 (Zcash), 16,407 (Monero) | — | `vault_smoke_test.go`; `research/regtest/vault-zcash-e2e.log` |
 
 The byte counts are `TestEveryContractFitsTheInstallGasCapAsInstalled` (`tests/canon_test.go`). Every measured figure
 is under the cap. The closest is `launch.bas` with every metadata field at its maximum, 3,085 units below it, and next
-`vault.bas`, 3,642 below. Per call, in the same run: an `htlc.bas` Claim
+`vault.bas`, 3,593 below at its largest install shape. Per call, in the same run: an `htlc.bas` Claim
 takes 304 storage and 537,800 compute gas, a Reclaim 231 and 434,600, a Punish 90 and 322,200 (`htlc_test.go`,
 `htlc_v3_test.go`, `htlc_v2_test.go`); the founders v2 calls are tabled in its section below. Re-measure with `DERO.GetGasEstimate` before deploying rather than trusting a table.
 
