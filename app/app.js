@@ -142,6 +142,11 @@
 
   // ---- transactions ----
   const MAX_FEE = 100000n; // 1 DERO: a node or wallet that estimates more than this is refused, never signed
+  // The daemon estimator runs contracts at BLOCK_HEIGHT() = 0. These entrypoints depend on the current height, so
+  // they go out at a fixed fee instead of being refused before the wallet ever sees them. 0.05 DERO is the same
+  // fixed fee the Zcash tools use for their height-gated calls, and it is well below MAX_FEE.
+  const HEIGHT_GATED_FEE = 5000;
+  const HEIGHT_GATED = new Set(["Reclaim", "Register", "Paying", "Veto", "Released"]);
   let inFlight = false;    // one transaction at a time: the sheet closes before the wallet answers
   const arg = ([name, type, value]) => ({ name, datatype: type, value: type === "U" ? BigInt(value) : value });
   const short = (m) => (m || "").split("\n")[0].slice(0, 160);
@@ -174,8 +179,11 @@
     const scRPC = opts.code ? args : [{ name: "entrypoint", datatype: "S", value: opts.entry }, ...args];
     const estRPC = opts.code ? [...args, { name: "SC_ACTION", datatype: "U", value: 1 }, { name: "SC_CODE", datatype: "S", value: opts.code }] : [...scRPC, { name: "SC_ACTION", datatype: "U", value: 0 }, { name: "SC_ID", datatype: "H", value: opts.scid }];
     const base = opts.code ? { sc: opts.code } : { scid: opts.scid };
-    // opts.fee skips the estimate: the daemon estimator runs contracts at BLOCK_HEIGHT() = 0 (DECISIONS §3)
+    // opts.fee skips the estimate: the daemon estimator runs contracts at BLOCK_HEIGHT() = 0 (DECISIONS §3).
+    // Height-gated entrypoints use the fixed fee even when the caller does not pass one: estimating them at height 0
+    // refuses Reclaim and Register before the wallet can sign, which is WT-69.
     let fees = opts.fee;
+    if (!fees && HEIGHT_GATED.has(opts.entry)) fees = HEIGHT_GATED_FEE;
     if (!fees) {
       // the estimator takes the signer only for entrypoints that read SIGNER(); a private (ring 16) call never does,
       // and naming the payer to the node would undo the ring (review 2026-09-06)

@@ -379,9 +379,9 @@
         const r = await WK().tx({
           scid: w.scid, entry: "Burn", args: [["dest", "S", dst], ["refund", "S", me()]], asset: { scid: w.scid, amount: units },
           describe: "Burn " + amt(units, 8) + " and withdraw",
-          // wn counts everyone's burns: this one executed only if a withdrawal opened since then names this wallet. w_<j>_by
-          // is ADDRESS_RAW(refund), 66 hex characters from the node, compared with this wallet's raw key
-          probe: { scid: w.scid, keys: ["wn"], check: async (a, b) => { const raw = V.addressRaw(me()), ks = []; for (let j = +a.vals.wn || 0; j < (+b.vals.wn || 0) && ks.length < 16; j++) ks.push("w_" + j + "_by"); const g = ks.length ? await D.fetchKeys(w.scid, ks) : {}; return !!raw && ks.some((k) => g[k] === raw); } },
+          // wn counts everyone's burns: this one executed only if a withdrawal opened since then names this wallet, has our
+          // destination, and holds the net units. The read selects the contract version's w_by encoding (WT-17).
+          probe: { scid: w.scid, keys: ["wn"], check: (a, b) => D.burnOpened(w, me(), +a.vals.wn || 0, +b.vals.wn || 0, dst, units) },
         });
         if (r.ok) { amountEl.value = ""; toast("Burned. It becomes payable at the height shown below.", "ok"); reload(true); } else fail(r);
       });

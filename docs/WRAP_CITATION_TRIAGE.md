@@ -1,7 +1,7 @@
 # Wrap acceptance citation triage
 
 **Date:** 2026-11-10
-**Tree:** `a723bbb` (docs/tests on top of `a417a8e`, `origin/main`)
+**Tree:** `a723bbb` plus the WT-17/WT-69 app fix in the working tree (code tree `a417a8e`, `origin/main`)
 **Source:** `docs/WRAP_ACCEPTANCE_MATRIX.md` — all 74 rows
 
 This is a citation and implementation audit of the merged tree, not an acceptance run. It resolves every prefixed
@@ -38,8 +38,8 @@ many rows cite the code that demonstrates the gap.
 | State | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
 | implemented | 0 | 0 | 0 | 0 | **0** |
-| partial | 15 | 16 | 10 | 4 | **45** |
-| missing | 4 | 12 | 9 | 3 | **28** |
+| partial | 15 | 17 | 10 | 4 | **46** |
+| missing | 4 | 11 | 9 | 3 | **27** |
 | stale | 0 | 0 | 1 | 0 | **1** |
 | **total** | **19** | **28** | **20** | **7** | **74** |
 
@@ -56,6 +56,9 @@ many rows cite the code that demonstrates the gap.
 - **Citation drift is real but narrower than the branch gap.** `WT-45` has one out-of-range `zfee:` cite; `WT-58`
   records the older `main.go`/`wrap.js` drift and is marked `stale`. The other resolved line ranges still contain the
   cited code.
+- **The app-side WT-17 and WT-69 fixes are present in this tree.** Both rows remain `partial`, not `implemented`,
+  because WT-17 still needs its DVM/uitest checks and WT-69 still needs simulator e2e; the v4 contract/daemon cites
+  are also still unavailable here.
 
 ## Rows
 
@@ -77,7 +80,7 @@ many rows cite the code that demonstrates the gap.
 | WT-14 | critical | **missing** | `tools/vaultsigner/zcashvault/backend.go` | — | NONE; the cited Zcash output loop is the gap. |
 | WT-15 | critical | **partial** | `tools/vaultsigner/main.go`, `contracts/vault.bas`, `tools/vaultsigner/zcashvault/backend.go` | wv:vault.bas:454-467, wm:xmrvault/signer.go:587-595 | Main `reserve >= sup - inflight` exists; marked/verified-supply rule and Monero reserve do not. |
 | WT-16 | critical | **partial** | `tools/vaultsigner/zcashvault/descriptor.go`, `contracts/vault.bas`, `contracts/README.md`, `app/wrap.js` | wm:xmrvault/ceremony.go:72-74, wv:vault.bas:260, wv:vault.bas:580 | Zcash enforces 2<=k<n<=15; main contract allows n=20; operator ruling/Monero missing. |
-| WT-17 | critical | **partial** | `app/move.js` | wv:vault.bas:285-292, wv:app/vault.js:32-33 | v3 raw-key path exists; v4 `ADDRESS_STRING` path is absent and the v4 tests fail. |
+| WT-17 | critical | **partial** | `app/move.js`, `app/vault.js`, `app/wrap.js` | wv:vault.bas:285-292, wv:app/vault.js:32-33 | v3 raw and v4 `ADDRESS_STRING` reads now both work; the Burn probe checks its own record. DVM and uitest are still missing. |
 | WT-21 | critical | **partial** | `tools/vaultsigner/main.go`, `tools/vaultsigner/zcashvault/backend.go` | wm:xmrvault/signer.go:311-314 | Main re-verifies at vote time; no second independent node; Monero witness check missing. |
 | WT-66 | critical | **partial** | `contracts/vault.bas`, `tools/vaultsigner/main.go`, `tools/vaultsigner/zcashvault/build.go` | wv:vault.bas:454-467, wm:xmrvault/release.go:685-745 | Inflight counting exists; the verified-supply gate is absent. |
 | WT-18 | high | **partial** | `contracts/vault.bas`, `tools/vaultsigner/coordwire.go`, `tools/vaultsigner/zcashvault/backend.go` | — | Coordination warning and Zcash xpubs exist; daemon `isg_` check and custody epoch do not. |
@@ -96,7 +99,7 @@ many rows cite the code that demonstrates the gap.
 | WT-32 | high | **partial** | `contracts/vault.bas`, `app/wrap.js`, `tools/vaultsigner/main.go`, `tools/vaultsigner/zcashvault/backend.go` | wm:xmrvault/signer.go:551-566 | Zcash transparent checks exist; app length-only check and veto-mark rule remain; Monero missing. |
 | WT-33 | high | **partial** | `tools/vaultsigner/zcashvault/descriptor.go` | wm:xmrvault/release.go:82-84 | Zcash binds the ledger to the vault; Monero vault binding is missing. |
 | WT-34 | high | **missing** | `app/wrap.js`, `tools/vaultsigner/zcash_backend.go` | wm:monerorpc/address.go:254 | The app displays a returned `da_`; it does not derive or cross-check it. |
-| WT-35 | high | **partial** | `app/move.js`, `contracts/vault.bas`, `app/vault.js` | wv:vault.bas:500-503 | Hub scans the newest 60; v3 raw-key listing and the real-estimator Reclaim path are missing. |
+| WT-35 | high | **partial** | `app/move.js`, `contracts/vault.bas`, `app/vault.js` | wv:vault.bas:500-503 | Hub still scans only the newest 60 and no daemon calls Reclaim; the app now lists v3/v4 withdrawals and sends Reclaim at a fixed fee. |
 | WT-37 | high | **missing** | `app/wrap.js`, `app/move.js` | — | The screen reads balance; `mint_`/`mj_`/`ma_`/`mh_`/`rf_` status is absent. |
 | WT-38 | high | **partial** | `app/wrap.js` | wv:app/vault.js:32-33 | Kind/version checks exist; `templates.vault` code-hash matching and legacy behavior do not. |
 | WT-39 | high | **missing** | `app/wrapui.js` | — | One `sym` is used on both sides; the XMR/wXMR naming rule is absent. |
@@ -105,7 +108,7 @@ many rows cite the code that demonstrates the gap.
 | WT-47 | high | **missing** | `tools/simvault/main.go`, `docs/SIGNER_RUNBOOK.md` | — | No `vaultctl`; simvault hard-codes wallets; no compromise runbook/sweep. |
 | WT-67 | high | **missing** | `tools/vaultsigner/main.go` | wm:monero.go:100-101 | No loopback/login enforcement in vaultsigner; Monero checks are unmerged. |
 | WT-68 | high | **missing** | `tools/vaultsigner/main.go`, `tools/vaultsigner/zcashvault/backend.go` | wm:monero.go:268-279, wm:monero.go:128-133 | One node is accepted; no second independent node or stable-height cross-check. |
-| WT-69 | high | **missing** | `app/wrap.js`, `contracts/vault.bas` | wv:vault.bas:501-503, wv:vault.bas:283, wv:vault.bas:292, wv:main.go:873, wv:vault.bas:462-463 | Both height-gated calls still use the height-0 estimator; the required fixed-fee path is absent. |
+| WT-69 | high | **partial** | `app/app.js`, `app/wrap.js`, `contracts/vault.bas` | wv:vault.bas:501-503, wv:vault.bas:283, wv:vault.bas:292, wv:main.go:873, wv:vault.bas:462-463 | Reclaim and Register now use a fixed capped fee and skip the height-0 estimator; simulator e2e is still missing. |
 | WT-70 | high | **missing** | `tools/vaultsigner/zcashvault/build.go` | wm:xmrvault/release.go:117-124, wm:monero.go:159-165, wv:vault.bas:580 | No sweep code; the runbook describes a process the tree does not implement. |
 | WT-71 | high | **partial** | `contracts/vault.bas`, `tools/vaultsigner/main.go`, `tools/vaultsigner/zcashvault/build.go` | wm:xmrvault/release.go:180-188 | Contract `fu_` check exists; the daemon-side adopt/refuse path is incomplete. |
 | WT-36 | medium | **partial** | `app/wrap.js` | — | A confirmation sheet exists; reload-before-open, absolute heights and fingerprint are absent. |
@@ -139,5 +142,5 @@ many rows cite the code that demonstrates the gap.
 ## What this does not change
 
 The board's `open` / `in-progress` / `blocked` / `done` column records acceptance work. These states are a separate,
-stricter code audit. No row becomes `done` from this document; the failing WT-17 and WT-69 tests remain the
-reproductions for those rows.
+stricter code audit. No row becomes `done` from this document; the WT-17 and WT-69 passing unit logs are app-side
+evidence, and both rows still need the DVM/uitest or simulator e2e the matrix requires.

@@ -28,6 +28,7 @@ const app = (n) => readFileSync(join(ROOT, "app", n), "utf8");
 const ME = { deto: "deto1qyyvq8xp22kkzta3g25r8eful0nqsm9jr23522mqfn4xmp89skhkgqqc62nc9", raw: "08c01cc152ad612fb142a833e53cfbe6086cb21aa3452b604cea6d84e585af6400", dero1: "dero1qyyvq8xp22kkzta3g25r8eful0nqsm9jr23522mqfn4xmp89skhkgqqzrktad" };
 const OTHER = { raw: "0da6f57058e06383fbc2d0133562cd567df15fa8f99d03ea2c3d9c5245bba6ca01" };
 const STRANGER = "deto1qy9zd2uaw5hahz628n863sszfuzupy2npmzlsjq3342erpfvze2kzqqr3axw3"; // wallet 30015: no index, no burn
+const DEST = "44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A";
 const SCID = "e".repeat(64);
 
 // ---- a DERO node over vault.bas's storage ----
@@ -153,6 +154,9 @@ test("myVault finds the connected wallet's index, its deposit address and only i
   assert.deepEqual([s.indexes, s.dep, s.withdrawals], [0, null, []]);
   assert.equal(await D.vaultIndexes(SCID, ME.deto), 1);
   assert.equal(await D.vaultIndexes(SCID, STRANGER), 0);
+  // the Burn probe's real record check: burn 2 is this wallet's, for the signed destination and net units
+  assert.equal(await D.burnOpened(D.vault, ME.deto, 2, 3, DEST, 2000n), true);
+  assert.equal(await D.burnOpened(D.vault, ME.deto, 2, 3, DEST, 2001n), false, "a different net amount is not this burn");
 });
 
 test("fail closed: a node that does not answer the raw read, or an address that cannot be encoded, is an error, not 'no index'", async () => {
@@ -165,7 +169,7 @@ test("fail closed: a node that does not answer the raw read, or an address that 
   await assert.rejects(W.vaultIndexes(SCID, "not an address"), /not a DERO address/);
 });
 
-test("the Wrap screen's Register and Burn probes read the contract's encoding, and Deposit & withdraw decodes raw", () => {
+test("the Wrap screen's Register and Burn probes select the contract version's encoding, and Deposit & withdraw decodes raw", () => {
   const w = app("wrap.js");
   assert.doesNotMatch(w, /"uc_" \+ me\(\)/, "uc_ is never asked for by the dero1 text");
   assert.doesNotMatch(w, /hexToStr\(g\[k\]/, "w_<j>_by is never compared as text");
@@ -173,11 +177,12 @@ test("the Wrap screen's Register and Burn probes read the contract's encoding, a
   assert.match(reg, /const n0 = await D\.vaultIndexes\(w\.scid, me\(\)\)\.catch\(\(\) => null\)/);
   assert.match(reg, /check: async \(\) => \(await D\.vaultIndexes\(w\.scid, me\(\)\)\) > n0/);
   const burn = w.slice(w.indexOf("const doBurn"), w.indexOf("// ---- load ----"));
-  assert.match(burn, /const raw = V\.addressRaw\(me\(\)\)/);
-  assert.match(burn, /ks\.some\(\(k\) => g\[k\] === raw\)/);
+  assert.match(burn, /check: \(a, b\) => D\.burnOpened\(w, me\(\), \+a\.vals\.wn \|\| 0, \+b\.vals\.wn \|\| 0, dst, units\)/);
   const v = app("vault.js");
   assert.doesNotMatch(v, /"uc_" \+ addr|"ul_" \+ addr/);
-  assert.match(v, /by\["w_" \+ j \+ "_by"\] === raw/);
+  assert.match(v, /by\["w_" \+ j \+ "_by"\] === owner/);
+  assert.match(v, /V\.hexToStr\(g\["w_" \+ j \+ "_to"\] \|\| ""\) === dest/);
+  assert.match(v, /val\("w_" \+ j \+ "_v"\) === want/);
   // move.js reads ua_<j> and w_<j>_by (both raw) through rawToAddr
   assert.match(app("move.js"), /D\.rawToAddr\(v\) === me/);
 });
@@ -190,10 +195,12 @@ test("WT-17: a v4 vault loads before its Register or Burn can be called", async 
 
 test("WT-17: v4's ADDRESS_STRING keys are visible to the Register and Burn probes", async () => {
   const V = loadApp(makeNode(v4State()));
-  // bypass loadVault's version gate to isolate the key encoding: this is the state a successful v4 Register/Burn
-  // leaves, and the probe reads it through uc_<string> and w_<j>_by = <string>.
-  V.data.vault = { scid: SCID, wn: 1n };
+  // this is the state a successful v4 Register/Burn leaves, and the probe reads it through uc_<string> and
+  // w_<j>_by = <string> after the v4 vault is loaded normally.
+  assert.ok(await V.data.loadVault(SCID));
   const m = await V.data.myVault(ME.deto);
   assert.equal(m.indexes, 1, "uc_ is keyed by ADDRESS_STRING in v4, not by the 33 raw bytes");
   assert.deepEqual(m.withdrawals.map((x) => x.j), [0], "w_0_by is ADDRESS_STRING in v4, not 66 hex characters");
+  assert.equal(await V.data.burnOpened(V.data.vault, ME.deto, 0, 1, DEST, 1000n), true);
+  assert.equal(await V.data.burnOpened(V.data.vault, ME.deto, 0, 1, DEST, 1001n), false);
 });

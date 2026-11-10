@@ -2,10 +2,11 @@
 // loadVault, vaultIndexes, myVault and vaultWithdrawals to V.data for the Wrap screen (wrap.js), which loads after
 // it. Every read is from the vault contract by exact key, in the encoding the contract stores; nothing is assumed.
 //
-// contracts/vault.bas keys the per-address records by the RAW 33-byte key, never by the dero1 text: Register stores
-// uc_<SIGNER()> and ul_<SIGNER()>_<c>, and Burn stores w_<j>_by = ADDRESS_RAW(refund). A raw key cannot be named
-// through DERO.GetSC keysstring (JSON text), so uc_ and ul_ are read through keysbytes (V.node.getSC raw), and a raw
-// value comes back as 66 hex characters and is compared as those bytes (tests/js/vaultkeys.test.mjs).
+// The vault's key encoding is selected by its version: v3 keys every per-address record by the RAW 33-byte key, while
+// v4 keys uc_ and ul_ by the dero1 text (ADDRESS_STRING) and stores w_<j>_by = ADDRESS_STRING(refund). Reading v4 with
+// v3's raw key returns nothing, so the Wrap screen silently believed a successful Register or Burn had not executed
+// (WT-17, tests/js/vaultkeys.test.mjs). Values still come back through the hex-encoded SC API; a raw value is 66 hex
+// characters and a string value is the hex of the text, so each is compared in the form the contract wrote.
 (function () {
   const V = window.Veil, U = V.ui, D = V.data, B = BigInt;
   const Z = 0n;
@@ -19,6 +20,12 @@
   const hx = (s) => V.bytesToHex(new TextEncoder().encode(s));
   // the raw key of an address, or an error: an address the app cannot encode is never read as "nothing registered"
   const rawOf = (addr) => { const r = V.addressRaw(addr); if (!r) throw new Error("not a DERO address: " + U.clean(String(addr || ""), 20)); return r; };
+  // the dero1 key of an address, or an error, for the v4 encoding
+  const textOf = (addr) => { const s = V.canonAddress(addr); if (!s) throw new Error("not a DERO address: " + U.clean(String(addr || ""), 20)); return s; };
+  const v4 = (w) => !!w && w.v === 4n;
+  const ucKey = (w, addr) => v4(w) ? hx("uc_" + textOf(addr)) : hx("uc_") + rawOf(addr);
+  const ulKey = (w, addr, c) => v4(w) ? hx("ul_" + textOf(addr) + "_" + c) : hx("ul_") + rawOf(addr) + hx("_" + c);
+  const byHex = (w, addr) => v4(w) ? hx(textOf(addr)) : rawOf(addr);
 
   Object.assign(D, {
     vault: null,
@@ -37,7 +44,8 @@
       if (kind !== "vault") { console.warn("configured vault is not a vault contract"); return null; }
       const w = { scid, asset: rec, viewkey: U.clean(V.hexToStr(r.vals.viewkey || ""), 200) };
       for (const k of NUM) w[k] = num(r.vals, k);
-      if (w.v !== 3n) { console.warn("vault version " + w.v + " is not the version this app reads"); return null; }
+      // v3 stores raw keys; v4 stores ADDRESS_STRING keys. Both are read below by the same accessors, selected by w.v.
+      if (w.v !== 3n && w.v !== 4n) { console.warn("vault version " + w.v + " is not a version this app reads"); return null; }
       w.headroom = w.cap > w.sup ? w.cap - w.sup : Z;
       // the size above which a burn earns the extra delay: bigbps of the current supply, contract arithmetic
       w.bigAt = w.bigbps === Z ? Z : (w.sup / 10000n) * w.bigbps + ((w.sup % 10000n) * w.bigbps) / 10000n;
@@ -45,10 +53,11 @@
       return w;
     },
 
-    // How many deposit indexes addr has registered in vault scid: uc_<raw key> (vault.bas Register, line 278). The
-    // Wrap screen's Register reads it before and after, because un counts everyone's. Throws when it cannot be read.
+    // How many deposit indexes addr has registered in vault scid: uc_<raw key> (v3) or uc_<dero1> (v4). The Wrap
+    // screen's Register reads it before and after, because un counts everyone's. Throws when it cannot be read.
     async vaultIndexes(scid, addr) {
-      const k = hx("uc_") + rawOf(addr), r = await V.node.getSC(scid, { raw: [k] });
+      const w = this.vault && this.vault.scid === scid ? this.vault : null;
+      const k = ucKey(w, addr), r = await V.node.getSC(scid, { raw: [k] });
       return isNum(r.raws[k]) ? Number(r.raws[k]) : 0;
     },
 
@@ -60,8 +69,8 @@
       const n = await this.vaultIndexes(w.scid, addr);
       let dep = null;
       if (n > 0) {
-        // ul_<raw key>_<c> holds index j of this address's c-th registration (vault.bas Register, line 277)
-        const idk = hx("ul_") + rawOf(addr) + hx("_" + (n - 1));
+        // ul_<raw key>_<c> (v3) or ul_<dero1>_<c> (v4) holds index j of this address's c-th registration
+        const idk = ulKey(w, addr, n - 1);
         const got = (await V.node.getSC(w.scid, { raw: [idk] })).raws;
         if (isNum(got[idk])) {
           const j = got[idk];
@@ -81,19 +90,20 @@
       return Object.assign({ units }, { indexes: n, dep, withdrawals: await this.vaultWithdrawals(addr) });
     },
 
-    // The last SCAN withdrawals, filtered to this address. w_<j>_by is ADDRESS_RAW(refund): the node returns those
-    // 33 bytes as 66 hex characters, which are compared with this address's own raw key, never as text.
+    // The last SCAN withdrawals, filtered to this address. w_<j>_by is ADDRESS_RAW(refund) in v3 and
+    // ADDRESS_STRING(refund) in v4; both are hex on the wire, so each is compared with this address's key in the same
+    // form the contract wrote it.
     async vaultWithdrawals(addr) {
       const w = this.vault;
       if (!w || !addr) return [];
-      const raw = rawOf(addr), SCAN = 60;
+      const owner = byHex(w, addr), SCAN = 60;
       const wn = Number(w.wn), from = Math.max(0, wn - SCAN);
       if (wn === 0) return [];
       const keys = [];
       for (let j = from; j < wn; j++) keys.push("w_" + j + "_by");
       const by = await this.fetchKeys(w.scid, keys);
       const mine = [];
-      for (let j = from; j < wn; j++) if (by["w_" + j + "_by"] === raw) mine.push(j);
+      for (let j = from; j < wn; j++) if (by["w_" + j + "_by"] === owner) mine.push(j);
       if (!mine.length) return [];
       const want = [];
       for (const j of mine) want.push("w_" + j + "_v", "w_" + j + "_f", "w_" + j + "_to", "w_" + j + "_h", "w_" + j + "_rel", "w_" + j + "_st", "w_" + j + "_ftx", "w_" + j + "_p");
@@ -112,6 +122,26 @@
         // coins may already have left. Unmarked, the burner may Reclaim it once the window has passed.
         marked: isNum(g(j, "p")) ? Number(g(j, "p")) : 0,
       }));
+    },
+
+    // Did the Burn just sent leave this wallet's withdrawal in [from, to)? wn counts everyone's burns, so a change
+    // in wn alone does not prove ours executed. The record must name this wallet in the version's encoding, carry the
+    // destination that was signed, and hold the net units. Used by the Wrap screen's Burn probe (WT-17).
+    async burnOpened(w, addr, from, to, dest, units) {
+      if (!w || !addr) return false;
+      const js = [];
+      for (let j = from; j < to && js.length < 16; j++) js.push(j);
+      if (!js.length) return false;
+      const ks = []; for (const j of js) ks.push("w_" + j + "_to", "w_" + j + "_v", "w_" + j + "_by");
+      const g = await this.fetchKeys(w.scid, ks);
+      const mine = v4(w) ? textOf(addr) : rawOf(addr);
+      const want = units > w.wfee ? units - w.wfee : Z;
+      const val = (k) => typeof g[k] === "string" && /^\d+$/.test(g[k]) ? B(g[k]) : null;
+      return js.some((j) => {
+        const by = g["w_" + j + "_by"] || "";
+        const byOk = v4(w) ? V.hexToStr(by) === mine : by === mine;
+        return byOk && V.hexToStr(g["w_" + j + "_to"] || "") === dest && val("w_" + j + "_v") === want;
+      });
     },
   });
 })();

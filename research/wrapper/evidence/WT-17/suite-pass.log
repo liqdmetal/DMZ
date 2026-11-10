@@ -1,0 +1,754 @@
+$ .tools/node-v22.10.0-win-x64/node.exe --test tests/js
+# 2026-11-10T00:37:03Z
+TAP version 13
+# Subtest: index.html has exactly one navigation, and it is closed
+ok 1 - index.html has exactly one navigation, and it is closed
+  ---
+  duration_ms: 0.7471
+  ...
+# Subtest: a pair named as text uses U.pairText, never String() of the U.pair element
+ok 2 - a pair named as text uses U.pairText, never String() of the U.pair element
+  ---
+  duration_ms: 0.2065
+  ...
+# founders contract is not a v2 pass
+# Subtest: pool swaps quote what the contract paid (vectors.json, from TestPoolFuzz)
+ok 3 - pool swaps quote what the contract paid (vectors.json, from TestPoolFuzz)
+  ---
+  duration_ms: 24.195
+  ...
+# Subtest: pool swaps quote a pool whose spot price floors to zero at 18 decimals
+ok 4 - pool swaps quote a pool whose spot price floors to zero at 18 decimals
+  ---
+  duration_ms: 0.8361
+  ...
+# Subtest: launch buys and sells quote what reference/launch.go pays, through graduation
+ok 5 - launch buys and sells quote what reference/launch.go pays, through graduation
+  ---
+  duration_ms: 4.8355
+  ...
+# Subtest: the graduating buy's refund is the contract's refund
+ok 6 - the graduating buy's refund is the contract's refund
+  ---
+  duration_ms: 2.018
+  ...
+# Subtest: priceOf reads the quote's decimals off the market — DERO 5, ZEC 8, XMR 12
+ok 7 - priceOf reads the quote's decimals off the market — DERO 5, ZEC 8, XMR 12
+  ---
+  duration_ms: 0.2332
+  ...
+# Subtest: parseUnits and fmtUnits carry a 12-decimal amount without a float
+ok 8 - parseUnits and fmtUnits carry a 12-decimal amount without a float
+  ---
+  duration_ms: 0.4498
+  ...
+# Subtest: safeUrl refuses every scheme but https and every character that could break out of an attribute
+ok 9 - safeUrl refuses every scheme but https and every character that could break out of an attribute
+  ---
+  duration_ms: 0.3379
+  ...
+# Subtest: clean strips control, bidi and zero-width characters and bounds the length
+ok 10 - clean strips control, bidi and zero-width characters and bounds the length
+  ---
+  duration_ms: 0.2738
+  ...
+# Subtest: safeUrl accepts a userinfo URL whose visible prefix is not where it goes
+ok 11 - safeUrl accepts a userinfo URL whose visible prefix is not where it goes
+  ---
+  duration_ms: 0.0879
+  ...
+# Subtest: the look-alike fold that markets get is applied to NFAs too
+ok 12 - the look-alike fold that markets get is applied to NFAs too
+  ---
+  duration_ms: 0.3996
+  ...
+# Subtest: stats.enrich survives a record with no price history (what loadNFA returns)
+ok 13 - stats.enrich survives a record with no price history (what loadNFA returns)
+  ---
+  duration_ms: 2.4735
+  ...
+# Subtest: an NFA filed under pool_<i> cannot abort decorate() or the ranking
+ok 14 - an NFA filed under pool_<i> cannot abort decorate() or the ranking
+  ---
+  duration_ms: 3.3093
+  ...
+# Subtest: every registry loop files a record only when its kind matches the list
+ok 15 - every registry loop files a record only when its kind matches the list
+  ---
+  duration_ms: 0.2522
+  ...
+# Subtest: vault.bas keys uc_ / ul_ / ua_ / w_*_by by the raw 33 bytes, never by the dero1 string
+ok 16 - vault.bas keys uc_ / ul_ / ua_ / w_*_by by the raw 33 bytes, never by the dero1 string
+  ---
+  duration_ms: 0.2322
+  ...
+# Subtest: every other contract keys per-address records by ADDRESS_STRING
+ok 17 - every other contract keys per-address records by ADDRESS_STRING
+  ---
+  duration_ms: 0.2719
+  ...
+# Subtest: V.addressRaw gives the bytes SIGNER() stores, for the dero1 and the deto1 spelling alike
+ok 18 - V.addressRaw gives the bytes SIGNER() stores, for the dero1 and the deto1 spelling alike
+  ---
+  duration_ms: 1.1299
+  ...
+# Subtest: the text spelling of a raw key is a different key, and keysstring cannot carry the raw one
+ok 19 - the text spelling of a raw key is a different key, and keysstring cannot carry the raw one
+  ---
+  duration_ms: 1.465
+  ...
+# Subtest: myVault finds the connected wallet's index, its deposit address and only its own withdrawals
+ok 20 - myVault finds the connected wallet's index, its deposit address and only its own withdrawals
+  ---
+  duration_ms: 2.5806
+  ...
+# Subtest: fail closed: a node that does not answer the raw read, or an address that cannot be encoded, is an error, not 'no index'
+ok 21 - fail closed: a node that does not answer the raw read, or an address that cannot be encoded, is an error, not 'no index'
+  ---
+  duration_ms: 1.0868
+  ...
+# Subtest: the Wrap screen's Register and Burn probes select the contract version's encoding, and Deposit & withdraw decodes raw
+ok 22 - the Wrap screen's Register and Burn probes select the contract version's encoding, and Deposit & withdraw decodes raw
+  ---
+  duration_ms: 0.3988
+  ...
+# Subtest: WT-17: a v4 vault loads before its Register or Burn can be called
+ok 23 - WT-17: a v4 vault loads before its Register or Burn can be called
+  ---
+  duration_ms: 0.4329
+  ...
+# Subtest: WT-17: v4's ADDRESS_STRING keys are visible to the Register and Burn probes
+ok 24 - WT-17: v4's ADDRESS_STRING keys are visible to the Register and Burn probes
+  ---
+  duration_ms: 1.0399
+  ...
+# Subtest: FE-2: the pool_/launch_ loop takes only pool and launch records
+ok 25 - FE-2: the pool_/launch_ loop takes only pool and launch records
+  ---
+  duration_ms: 0.206
+  ...
+# Subtest: FE-2: a record with no price history no longer throws, so one poisoned id cannot cost every market its metrics
+ok 26 - FE-2: a record with no price history no longer throws, so one poisoned id cannot cost every market its metrics
+  ---
+  duration_ms: 1.0279
+  ...
+# Subtest: APP-1: NFAs get the impersonation, look-alike and shared-name marks the markets get
+ok 27 - APP-1: NFAs get the impersonation, look-alike and shared-name marks the markets get
+  ---
+  duration_ms: 0.8753
+  ...
+# Subtest: ADV-PRICE-04: 200 dust blocks no longer out-rank five real ones
+ok 28 - ADV-PRICE-04: 200 dust blocks no longer out-rank five real ones
+  ---
+  duration_ms: 0.8911
+  ...
+# Subtest: FE-1: a contract on a legacy template hash is recorded as such, not merely as verified
+ok 29 - FE-1: a contract on a legacy template hash is recorded as such, not merely as verified
+  ---
+  duration_ms: 0.6578
+  ...
+# Subtest: FE-1: app.tx refuses the ...To entrypoints on a contract that is not on the current template
+ok 30 - FE-1: app.tx refuses the ...To entrypoints on a contract that is not on the current template
+  ---
+  duration_ms: 0.3012
+  ...
+# Subtest: UX-06: the chain noun is short and whole for every vault this build ships
+ok 31 - UX-06: the chain noun is short and whole for every vault this build ships
+  ---
+  duration_ms: 0.8452
+  ...
+# Subtest: PRIV-01: no screen claims a trade is private, and both first-read screens say what is public
+ok 32 - PRIV-01: no screen claims a trade is private, and both first-read screens say what is public
+  ---
+  duration_ms: 2.3038
+  ...
+# Subtest: UX-04: the burn form no longer blames the contract for publishing the burner
+ok 33 - UX-04: the burn form no longer blames the contract for publishing the burner
+  ---
+  duration_ms: 0.1692
+  ...
+# Subtest: UX-01: the deposit section states the ceiling as well as the floor, and the pill reads what the vault can do
+ok 34 - UX-01: the deposit section states the ceiling as well as the floor, and the pill reads what the vault can do
+  ---
+  duration_ms: 0.1618
+  ...
+# Subtest: FE-4: min_out is derived from the market re-read at the moment of signing
+ok 35 - FE-4: min_out is derived from the market re-read at the moment of signing
+  ---
+  duration_ms: 0.1494
+  ...
+# Subtest: FE-4: the guard is the one that makes the slippage setting mean something
+ok 36 - FE-4: the guard is the one that makes the slippage setting mean something
+  ---
+  duration_ms: 0.1229
+  ...
+# Subtest: LIV-04: the burn names the wallet that signs it, and no other address can be named from this app
+ok 37 - LIV-04: the burn names the wallet that signs it, and no other address can be named from this app
+  ---
+  duration_ms: 0.1981
+  ...
+# Subtest: FEE-05: no screen promises a share of every protocol fee
+ok 38 - FEE-05: no screen promises a share of every protocol fee
+  ---
+  duration_ms: 0.3994
+  ...
+# Subtest: no screen claims the fee share is enforced or universal, or repeats a v1 sentence
+ok 39 - no screen claims the fee share is enforced or universal, or repeats a v1 sentence
+  ---
+  duration_ms: 3.0229
+  ...
+# Subtest: the screens that state the founders share name the asset rule and the trust in the bot
+ok 40 - the screens that state the founders share name the asset rule and the trust in the bot
+  ---
+  duration_ms: 0.2395
+  ...
+# Subtest: the pass screen offers no payout address: only Clear, for an address stored before
+ok 41 - the pass screen offers no payout address: only Clear, for an address stored before
+  ---
+  duration_ms: 3.5942
+  ...
+# Subtest: notice.js on a build with the vault: no swaps, custody through the vault, and the fee flow in the pass's terms
+ok 42 - notice.js on a build with the vault: no swaps, custody through the vault, and the fee flow in the pass's terms
+  ---
+  duration_ms: 1.7089
+  ...
+# Subtest: notice.js on a build with no vault: nothing comes in or goes out, and no federation or wrapped unit is named
+ok 43 - notice.js on a build with no vault: nothing comes in or goes out, and no federation or wrapped unit is named
+  ---
+  duration_ms: 0.4852
+  ...
+# Subtest: notice.js has no word of the removed swaps' fee or of XMR and ZEC payouts, and never calls custody trustless
+ok 44 - notice.js has no word of the removed swaps' fee or of XMR and ZEC payouts, and never calls custody trustless
+  ---
+  duration_ms: 0.5911
+  ...
+# Subtest: notice.js names promotion proceeds only on a build whose config names a promotion contract
+ok 45 - notice.js names promotion proceeds only on a build whose config names a promotion contract
+  ---
+  duration_ms: 1.1286
+  ...
+# Subtest: loadFounders reads only the assets the app can name, and only a v2 pass
+ok 46 - loadFounders reads only the assets the app can name, and only a v2 pass
+  ---
+  duration_ms: 1.5287
+  ...
+# Subtest: myFounders offers each claim with the hints and the amount founders.bas computes
+ok 47 - myFounders offers each claim with the hints and the amount founders.bas computes
+  ---
+  duration_ms: 0.9495
+  ...
+# Subtest: a held bid is disclosed as a standing claim when the asset is not listed
+ok 48 - a held bid is disclosed as a standing claim when the asset is not listed
+  ---
+  duration_ms: 1.8319
+  ...
+# Subtest: a held bid is still on the page once the owner starts a new listing
+ok 49 - a held bid is still on the page once the owner starts a new listing
+  ---
+  duration_ms: 11.7774
+  ...
+# Subtest: the bidder of a strand is not called the top bidder of a listing they did not bid on
+ok 50 - the bidder of a strand is not called the top bidder of a listing they did not bid on
+  ---
+  duration_ms: 0.7294
+  ...
+# Subtest: an ended listing with no bid but a held bid does not promise the unit back
+ok 51 - an ended listing with no bid but a held bid does not promise the unit back
+  ---
+  duration_ms: 0.5093
+  ...
+# Subtest: an asset with no held bid says nothing about one
+ok 52 - an asset with no held bid says nothing about one
+  ---
+  duration_ms: 0.2844
+  ...
+# Subtest: an ended auction that took a real bid still reads as a settlement, not a strand
+ok 53 - an ended auction that took a real bid still reads as a settlement, not a strand
+  ---
+  duration_ms: 0.4646
+  ...
+# Subtest: xmrswap, happy path: a deposit with the XMR lock confirming, 3 of 10
+ok 54 - xmrswap, happy path: a deposit with the XMR lock confirming, 3 of 10
+  ---
+  duration_ms: 0.8082
+  ...
+# Subtest: xmrswap, refund path: a withdrawal refunded, which ends the polling
+ok 55 - xmrswap, refund path: a withdrawal refunded, which ends the polling
+  ---
+  duration_ms: 0.233
+  ...
+# Subtest: zecswap, happy path: a withdrawal whose ZEC claim is confirming, with a Zcash deadline the app cannot count
+ok 56 - zecswap, happy path: a withdrawal whose ZEC claim is confirming, with a Zcash deadline the app cannot count
+  ---
+  duration_ms: 0.1696
+  ...
+# Subtest: zecswap, refund path: a deposit whose ZEC came back at cltv
+ok 57 - zecswap, refund path: a deposit whose ZEC came back at cltv
+  ---
+  duration_ms: 0.1526
+  ...
+# Subtest: an answer is refused whole when it is not what this build expects
+ok 58 - an answer is refused whole when it is not what this build expects
+  ---
+  duration_ms: 0.7352
+  ...
+# Subtest: a field that cannot be read is shown as unreadable, never as a value
+ok 59 - a field that cannot be read is shown as unreadable, never as a value
+  ---
+  duration_ms: 0.2745
+  ...
+# Subtest: the listings and the build's own contracts pass as before; anything else is refused
+ok 60 - the listings and the build's own contracts pass as before; anything else is refused
+  ---
+  duration_ms: 0.5056
+  ...
+# Subtest: promo and rate: only the entrypoints this app calls, and only once the code matches the shipped template
+ok 61 - promo and rate: only the entrypoints this app calls, and only once the code matches the shipped template
+  ---
+  duration_ms: 0.4565
+  ...
+# Subtest: an unverified promo or rate contract is refused: other code, no template, or no answer from the node
+ok 62 - an unverified promo or rate contract is refused: other code, no template, or no answer from the node
+  ---
+  duration_ms: 0.5287
+  ...
+# Subtest: V.app.tx checks the allowlist, and promo.js and sentiment.js send only through V.app.tx
+ok 63 - V.app.tx checks the allowlist, and promo.js and sentiment.js send only through V.app.tx
+  ---
+  duration_ms: 0.3975
+  ...
+# Subtest: under 5 votes only the counts are shown
+ok 64 - under 5 votes only the counts are shown
+  ---
+  duration_ms: 0.4409
+  ...
+# Subtest: from 5 votes the percentages add up to 100, and a side with votes never reads 0% or its complement 100%
+ok 65 - from 5 votes the percentages add up to 100, and a side with votes never reads 0% or its complement 100%
+  ---
+  duration_ms: 16.627
+  ...
+# Subtest: of() reads the two counters, and the wallet's own vote only with a wallet
+ok 66 - of() reads the two counters, and the wallet's own vote only with a wallet
+  ---
+  duration_ms: 0.8075
+  ...
+# Subtest: every doubt reads as null, never as a count
+ok 67 - every doubt reads as null, never as a count
+  ---
+  duration_ms: 0.7289
+  ...
+# Subtest: the words: many addresses, a count and not a verdict, no warning colour
+ok 68 - the words: many addresses, a count and not a verdict, no warning colour
+  ---
+  duration_ms: 0.5622
+  ...
+# Subtest: fmtPriceSub: subscript zeros below a ten-thousandth, suffixes from a million, a dash for anything not a price
+ok 69 - fmtPriceSub: subscript zeros below a ten-thousandth, suffixes from a million, a dash for anything not a price
+  ---
+  duration_ms: 1.8823
+  ...
+# Subtest: fmtPriceSub: every positive double from 1e-323 to 1e308 prints as a number, never NaN, Infinity or exponent-minus
+ok 70 - fmtPriceSub: every positive double from 1e-323 to 1e308 prints as a number, never NaN, Infinity or exponent-minus
+  ---
+  duration_ms: 2.7791
+  ...
+# Subtest: fmtDeroShort: suffixes past a billion, a dash for a non-number, the old scale untouched in between
+ok 71 - fmtDeroShort: suffixes past a billion, a dash for a non-number, the old scale untouched in between
+  ---
+  duration_ms: 0.0921
+  ...
+# Subtest: intervals: only those the loaded history spans four candles of, finest 1m, and the default chosen from them
+ok 72 - intervals: only those the loaded history spans four candles of, finest 1m, and the default chosen from them
+  ---
+  duration_ms: 1.9438
+  ...
+# Subtest: windowFor: the newest maxC candles of an interval; ALL at the finest interval that fits maxC across the history
+ok 73 - windowFor: the newest maxC candles of an interval; ALL at the finest interval that fits maxC across the history
+  ---
+  duration_ms: 0.4564
+  ...
+# Subtest: candles: flat, sparse, a huge swing, a zero-reserve start, the left edge, and a bound on how many
+ok 74 - candles: flat, sparse, a huge swing, a zero-reserve start, the left edge, and a bound on how many
+  ---
+  duration_ms: 1.0603
+  ...
+# Subtest: chart: flat, one point, sparse, a huge swing, tiny prices, empty and loading all draw without NaN
+ok 75 - chart: flat, one point, sparse, a huge swing, tiny prices, empty and loading all draw without NaN
+  ---
+  duration_ms: 60.5548
+  ...
+# Subtest: market.js: the pair through U.pair, a wrapped side marked 1:1, a deposit link only for an empty wrapped quote
+ok 76 - market.js: the pair through U.pair, a wrapped side marked 1:1, a deposit link only for an empty wrapped quote
+  ---
+  duration_ms: 0.4412
+  ...
+# Subtest: the swaps are gone from the market page: no offers section, no V.zswapOffers, no route to the swap board
+ok 77 - the swaps are gone from the market page: no offers section, no V.zswapOffers, no route to the swap board
+  ---
+  duration_ms: 0.45
+  ...
+# Subtest: chart: the crosshair works by keyboard and reads each candle out through a live region
+ok 78 - chart: the crosshair works by keyboard and reads each candle out through a live region
+  ---
+  duration_ms: 2.2165
+  ...
+# Subtest: coin: a valid form gives launch.bas's fifteen arguments, in order, with the ticker upper-cased
+ok 79 - coin: a valid form gives launch.bas's fifteen arguments, in order, with the ticker upper-cased
+  ---
+  duration_ms: 0.5561
+  ...
+# Subtest: coin: name and ticker say how to fix them
+ok 80 - coin: name and ticker say how to fix them
+  ---
+  duration_ms: 0.3615
+  ...
+# Subtest: coin: supply, decimals and graduation are held to InitializePrivate's bounds
+ok 81 - coin: supply, decimals and graduation are held to InitializePrivate's bounds
+  ---
+  duration_ms: 0.3141
+  ...
+# Subtest: coin: allocation and tax, and the tax mode rule of lines 27-28
+ok 82 - coin: allocation and tax, and the tax mode rule of lines 27-28
+  ---
+  duration_ms: 0.1225
+  ...
+# Subtest: coin: the icon header takes an https URL, or the profile document's reference in its place
+ok 83 - coin: the icon header takes an https URL, or the profile document's reference in its place
+  ---
+  duration_ms: 0.1133
+  ...
+# Subtest: coin: the review's figures are the contract's (launch.bas 40-45): 80/20 split and a 16x rise
+ok 84 - coin: the review's figures are the contract's (launch.bas 40-45): 80/20 split and a 16x rise
+  ---
+  duration_ms: 0.104
+  ...
+# Subtest: pool: the asset is 64 hex, not DERO, not the quote
+ok 85 - pool: the asset is 64 hex, not DERO, not the quote
+  ---
+  duration_ms: 0.146
+  ...
+# Subtest: holder NFT: nft.bas 22-24 — name, token, a hold above 0, 1 to 10,000,000 blocks, at least one edition
+ok 86 - holder NFT: nft.bas 22-24 — name, token, a hold above 0, 1 to 10,000,000 blocks, at least one edition
+  ---
+  duration_ms: 0.2789
+  ...
+# Subtest: NFA: royalty, artificer share and the protocol fee fit in 10000 bps; checks come in pairs
+ok 87 - NFA: royalty, artificer share and the protocol fee fit in 10000 bps; checks come in pairs
+  ---
+  duration_ms: 0.2912
+  ...
+# Subtest: links: https only, each on the host its name promises, with an example of the fix
+ok 88 - links: https only, each on the host its name promises, with an example of the fix
+  ---
+  duration_ms: 0.3757
+  ...
+# Subtest: costs: two confirmations without a profile document, three with, and why each exists
+ok 89 - costs: two confirmations without a profile document, three with, and why each exists
+  ---
+  duration_ms: 0.164
+  ...
+# Subtest: record: stored without secrets, arguments round-trip, and what is left is read against the chain
+ok 90 - record: stored without secrets, arguments round-trip, and what is left is read against the chain
+  ---
+  duration_ms: 0.5369
+  ...
+# Subtest: U.pair names a market by its pair, in the quote's real symbol, and never cuts the ticker
+ok 91 - U.pair names a market by its pair, in the quote's real symbol, and never cuts the ticker
+  ---
+  duration_ms: 1.0873
+  ...
+# Subtest: row warnings: impersonation, look-alike, the thin half of a split pair and a retired vault; a shared ticker is not one
+ok 92 - row warnings: impersonation, look-alike, the thin half of a split pair and a retired vault; a shared ticker is not one
+  ---
+  duration_ms: 0.2091
+  ...
+# Subtest: the risk box: new is not a risk, thin follows the quote's scale, an unknown scale is said to be unreadable
+ok 93 - the risk box: new is not a risk, thin follows the quote's scale, an unknown scale is said to be unreadable
+  ---
+  duration_ms: 0.2259
+  ...
+# Subtest: badges: NEW is neutral, HOT is gone, Promoted comes from the promotion slots and is never 'endorsed'
+ok 94 - badges: NEW is neutral, HOT is gone, Promoted comes from the promotion slots and is never 'endorsed'
+  ---
+  duration_ms: 0.6128
+  ...
+# Subtest: sections rank by the figure they name
+ok 95 - sections rank by the figure they name
+  ---
+  duration_ms: 0.4449
+  ...
+# Subtest: XMR and ZEC sections: the markets priced in a vault's unit; with no vault, the wrapped asset is not offered
+ok 96 - XMR and ZEC sections: the markets priced in a vault's unit; with no vault, the wrapped asset is not offered
+  ---
+  duration_ms: 1.1653
+  ...
+# Subtest: search: typed results over markets, NFAs and holder NFTs
+ok 97 - search: typed results over markets, NFAs and holder NFTs
+  ---
+  duration_ms: 0.4262
+  ...
+# Subtest: the guides: five steps to deposit and four to withdraw, each with who acts, on which chain, in the vault's own numbers
+ok 98 - the guides: five steps to deposit and four to withdraw, each with who acts, on which chain, in the vault's own numbers
+  ---
+  duration_ms: 1.0315
+  ...
+# Subtest: custody in plain words: who holds the reserve, whether it can be checked, and that the bonds bound the cap
+ok 99 - custody in plain words: who holds the reserve, whether it can be checked, and that the bonds bound the cap
+  ---
+  duration_ms: 0.1681
+  ...
+# Subtest: a build with no vault: deposits and withdrawals are unavailable, and nothing mentions a swap
+ok 100 - a build with no vault: deposits and withdrawals are unavailable, and nothing mentions a swap
+  ---
+  duration_ms: 0.0833
+  ...
+# Subtest: a deposit index's stages are the ones the vault records; the foreign payment and the mint are marked not visible
+ok 101 - a deposit index's stages are the ones the vault records; the foreign payment and the mint are marked not visible
+  ---
+  duration_ms: 0.162
+  ...
+# Subtest: a withdrawal's stages: burned, release height, marked, then Released or returned, with the height each waits for
+ok 102 - a withdrawal's stages: burned, release height, marked, then Released or returned, with the height each waits for
+  ---
+  duration_ms: 0.3436
+  ...
+# Subtest: every failure in words: what happened, what to do, and what was reported behind it
+ok 103 - every failure in words: what happened, what to do, and what was reported behind it
+  ---
+  duration_ms: 0.6541
+  ...
+# Subtest: backoff doubles from its base, is 0 with no failure, and never passes its cap
+ok 104 - backoff doubles from its base, is 0 with no failure, and never passes its cap
+  ---
+  duration_ms: 2.4283
+  ...
+# Subtest: plan: new, shown, starred and recently changed records every block; the cold tier in turn, spread
+ok 105 - plan: new, shown, starred and recently changed records every block; the cold tier in turn, spread
+  ---
+  duration_ms: 2.3876
+  ...
+# Subtest: plan: every cold record is read within COLD_EVERY blocks, and no block reads more than its share
+ok 106 - plan: every cold record is read within COLD_EVERY blocks, and no block reads more than its share
+  ---
+  duration_ms: 1.0527
+  ...
+# Subtest: LRU: a full store drops the least recently used copy, never the one being written nor other keys
+ok 107 - LRU: a full store drops the least recently used copy, never the one being written nor other keys
+  ---
+  duration_ms: 0.9693
+  ...
+# Subtest: LRU: copies are kept within their budget, evicted oldest first in one batch
+ok 108 - LRU: copies are kept within their budget, evicted oldest first in one batch
+  ---
+  duration_ms: 0.8024
+  ...
+# Subtest: the trade ledger is not cut at 500, and a full store makes room for it from market copies
+ok 109 - the trade ledger is not cut at 500, and a full store makes room for it from market copies
+  ---
+  duration_ms: 195.2724
+  ...
+# Subtest: the registry is read once and then only its new slots; a lower counter reads it whole
+ok 110 - the registry is read once and then only its new slots; a lower counter reads it whole
+  ---
+  duration_ms: 3.6533
+  ...
+# Subtest: a refresh reads one state, and asks for no key twice
+ok 111 - a refresh reads one state, and asks for no key twice
+  ---
+  duration_ms: 29.4835
+  ...
+# Subtest: a first load is not a change: once a screen declares, the markets it does not show go cold at the next block
+ok 112 - a first load is not a change: once a screen declares, the markets it does not show go cold at the next block
+  ---
+  duration_ms: 11.4557
+  ...
+# Subtest: asks made during a refresh run once after it; a failing node is left alone until its backoff ends
+ok 113 - asks made during a refresh run once after it; a failing node is left alone until its backoff ends
+  ---
+  duration_ms: 4.5118
+  ...
+# Subtest: incremental decorate computes exactly what a full decorate computes
+ok 114 - incremental decorate computes exactly what a full decorate computes
+  ---
+  duration_ms: 10.627
+  ...
+# Subtest: a cold market keeps the points its figures read, gives the same figures, and gets the rest back
+ok 115 - a cold market keeps the points its figures read, gives the same figures, and gets the rest back
+  ---
+  duration_ms: 2.6209
+  ...
+# Subtest: read-age tags are tracked, not found by scanning the document, and let go once removed
+ok 116 - read-age tags are tracked, not found by scanning the document, and let go once removed
+  ---
+  duration_ms: 0.7577
+  ...
+# Subtest: until: before it, enrich gives the same figures for an unchanged market
+ok 117 - until: before it, enrich gives the same figures for an unchanged market
+  ---
+  duration_ms: 0.8991
+  ...
+# Subtest: the auction's asset is DERO or a wrapped asset this build ships, named 'wXMR (XMR, wrapped 1:1)'; any other is not named
+ok 118 - the auction's asset is DERO or a wrapped asset this build ships, named 'wXMR (XMR, wrapped 1:1)'; any other is not named
+  ---
+  duration_ms: 0.2364
+  ...
+# Subtest: bps is floor(x * f / 10000), exactly, for any uint64
+ok 119 - bps is floor(x * f / 10000), exactly, for any uint64
+  ---
+  duration_ms: 1.4659
+  ...
+# Subtest: the minimum next bid is the contract's: the minimum while a slot is free, else lowest + increment, at least + 1
+ok 120 - the minimum next bid is the contract's: the minimum while a slot is free, else lowest + increment, at least + 1
+  ---
+  duration_ms: 0.2391
+  ...
+# Subtest: ranking is bid down, then the earlier bid first
+ok 121 - ranking is bid down, then the earlier bid first
+  ---
+  duration_ms: 0.0798
+  ...
+# Subtest: claimable is pr plus every final bid not yet swept, and nothing standing
+ok 122 - claimable is pr plus every final bid not yet swept, and nothing standing
+  ---
+  duration_ms: 0.0907
+  ...
+# Subtest: slots() shows the current epoch's winners that the app can verify, once each, best first
+ok 123 - slots() shows the current epoch's winners that the app can verify, once each, best first
+  ---
+  duration_ms: 0.4126
+  ...
+# Subtest: parse keeps only well-formed slots
+ok 124 - parse keeps only well-formed slots
+  ---
+  duration_ms: 0.2391
+  ...
+# Subtest: WT-69: Reclaim is sent at a fixed fee, not refused by the height-0 estimator
+ok 125 - WT-69: Reclaim is sent at a fixed fee, not refused by the height-0 estimator
+  ---
+  duration_ms: 1.4653
+  ...
+# Subtest: WT-69: Register is sent at a fixed fee, not refused by the height-0 estimator
+ok 126 - WT-69: Register is sent at a fixed fee, not refused by the height-0 estimator
+  ---
+  duration_ms: 1.0378
+  ...
+# Subtest: a well-formed logo doc reads back: PNG and each WebP layout, from a data: URI whose type comes from the magic
+ok 127 - a well-formed logo doc reads back: PNG and each WebP layout, from a data: URI whose type comes from the magic
+  ---
+  duration_ms: 1.8051
+  ...
+# Subtest: size caps: logo 8,192 bytes and 256 px, pass 14,000 bytes and 384 px, the code 19,500 bytes
+ok 128 - size caps: logo 8,192 bytes and 256 px, pass 14,000 bytes and 384 px, the code 19,500 bytes
+  ---
+  duration_ms: 3.9191
+  ...
+# Subtest: SVG is refused however it is dressed: as the image, after a PNG, or as a link
+ok 129 - SVG is refused however it is dressed: as the image, after a PNG, or as a link
+  ---
+  duration_ms: 0.2723
+  ...
+# Subtest: only PNG and WebP, by their magic bytes and a structure that tiles the file
+ok 130 - only PNG and WebP, by their magic bytes and a structure that tiles the file
+  ---
+  duration_ms: 0.4902
+  ...
+# Subtest: animation is refused: APNG, the WebP animation flag, ANIM and ANMF
+ok 131 - animation is refused: APNG, the WebP animation flag, ANIM and ANMF
+  ---
+  duration_ms: 0.1779
+  ...
+# Subtest: the wrapper is fixed byte for byte: a doc with any other code is not a doc
+ok 132 - the wrapper is fixed byte for byte: a doc with any other code is not a doc
+  ---
+  duration_ms: 0.2598
+  ...
+# Subtest: base64 must be canonical: no whitespace, no base64url, no stray padding bits, no bad length
+ok 133 - base64 must be canonical: no whitespace, no base64url, no stray padding bits, no bad length
+  ---
+  duration_ms: 0.2288
+  ...
+# Subtest: links: https on the real hosts only; javascript:, data:, look-alike hosts and every trick are refused
+ok 134 - links: https on the real hosts only; javascript:, data:, look-alike hosts and every trick are refused
+  ---
+  duration_ms: 1.4497
+  ...
+# Subtest: links JSON: at most 1,024 bytes, an object of known keys with string values, or the doc is refused
+ok 135 - links JSON: at most 1,024 bytes, an object of known keys with string values, or the doc is refused
+  ---
+  duration_ms: 0.4192
+  ...
+# Subtest: kinds: a pass doc is an image and nothing else; a logo doc is an image, links, or both
+ok 136 - kinds: a pass doc is an image and nothing else; a logo doc is an image, links, or both
+  ---
+  duration_ms: 0.3206
+  ...
+# Subtest: references: dmz:<64 lowercase hex>, and nothing else is ever looked up
+ok 137 - references: dmz:<64 lowercase hex>, and nothing else is ever looked up
+  ---
+  duration_ms: 0.3157
+  ...
+# Subtest: reads go through the node with code, at most three at a time, once per scid; invalid docs give null
+ok 138 - reads go through the node with code, at most three at a time, once per scid; invalid docs give null
+  ---
+  duration_ms: 36.7325
+  ...
+# Subtest: the Go vectors agree with this reader
+ok 139 - the Go vectors agree with this reader
+  ---
+  duration_ms: 0.966
+  ...
+# Subtest: safeUrl accepts dmz:<64 hex> and still refuses everything else
+ok 140 - safeUrl accepts dmz:<64 hex> and still refuses everything else
+  ---
+  duration_ms: 0.7675
+  ...
+# Subtest: setup: the data layer read every market
+ok 141 - setup: the data layer read every market
+  ---
+  duration_ms: 0.0486
+  ...
+# Subtest: Markets declares every drawn row until the observer reports, then exactly the rows on screen, as it scrolls and pages
+ok 142 - Markets declares every drawn row until the observer reports, then exactly the rows on screen, as it scrolls and pages
+  ---
+  duration_ms: 27.7261
+  ...
+# Subtest: the summary counts every market, so it carries the tag of the oldest read
+ok 143 - the summary counts every market, so it carries the tag of the oldest read
+  ---
+  duration_ms: 4.5714
+  ...
+# Subtest: navigating to Home: the sections' markets exactly, the old list's observer declares nothing more
+ok 144 - navigating to Home: the sections' markets exactly, the old list's observer declares nothing more
+  ---
+  duration_ms: 6.8814
+  ...
+# Subtest: back to Markets: a new set in a new navigation, from a new observer
+ok 145 - back to Markets: a new set in a new navigation, from a new observer
+  ---
+  duration_ms: 3.6111
+  ...
+# Subtest: the Trade hub and the Launch screen declare the rows they draw
+ok 146 - the Trade hub and the Launch screen declare the rows they draw
+  ---
+  duration_ms: 2.1685
+  ...
+# Subtest: the market page declares its market; the chart says older history is loading while it is trimmed
+ok 147 - the market page declares its market; the chart says older history is loading while it is trimmed
+  ---
+  duration_ms: 6.3721
+  ...
+# Subtest: the trade sheet declares its market and the picker its rows; closed, it is cleared; alone it declares nothing
+ok 148 - the trade sheet declares its market and the picker its rows; closed, it is cleared; alone it declares nothing
+  ---
+  duration_ms: 3.5336
+  ...
+1..148
+# tests 148
+# suites 0
+# pass 148
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 689.2198
+exit=0

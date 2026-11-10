@@ -1,0 +1,58 @@
+$ .tools/node-v22.10.0-win-x64/node.exe --test tests/js/vaultkeys.test.mjs
+# 2026-11-10T00:37:03Z
+TAP version 13
+# Subtest: vault.bas keys uc_ / ul_ / ua_ / w_*_by by the raw 33 bytes, never by the dero1 string
+ok 1 - vault.bas keys uc_ / ul_ / ua_ / w_*_by by the raw 33 bytes, never by the dero1 string
+  ---
+  duration_ms: 0.8237
+  ...
+# Subtest: every other contract keys per-address records by ADDRESS_STRING
+ok 2 - every other contract keys per-address records by ADDRESS_STRING
+  ---
+  duration_ms: 0.4356
+  ...
+# Subtest: V.addressRaw gives the bytes SIGNER() stores, for the dero1 and the deto1 spelling alike
+ok 3 - V.addressRaw gives the bytes SIGNER() stores, for the dero1 and the deto1 spelling alike
+  ---
+  duration_ms: 1.9209
+  ...
+# Subtest: the text spelling of a raw key is a different key, and keysstring cannot carry the raw one
+ok 4 - the text spelling of a raw key is a different key, and keysstring cannot carry the raw one
+  ---
+  duration_ms: 1.9018
+  ...
+# Subtest: myVault finds the connected wallet's index, its deposit address and only its own withdrawals
+ok 5 - myVault finds the connected wallet's index, its deposit address and only its own withdrawals
+  ---
+  duration_ms: 3.0544
+  ...
+# Subtest: fail closed: a node that does not answer the raw read, or an address that cannot be encoded, is an error, not 'no index'
+ok 6 - fail closed: a node that does not answer the raw read, or an address that cannot be encoded, is an error, not 'no index'
+  ---
+  duration_ms: 1.1787
+  ...
+# Subtest: the Wrap screen's Register and Burn probes select the contract version's encoding, and Deposit & withdraw decodes raw
+ok 7 - the Wrap screen's Register and Burn probes select the contract version's encoding, and Deposit & withdraw decodes raw
+  ---
+  duration_ms: 0.766
+  ...
+# Subtest: WT-17: a v4 vault loads before its Register or Burn can be called
+ok 8 - WT-17: a v4 vault loads before its Register or Burn can be called
+  ---
+  duration_ms: 0.5521
+  ...
+# Subtest: WT-17: v4's ADDRESS_STRING keys are visible to the Register and Burn probes
+ok 9 - WT-17: v4's ADDRESS_STRING keys are visible to the Register and Burn probes
+  ---
+  duration_ms: 0.7945
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 59.7316
+exit=0
