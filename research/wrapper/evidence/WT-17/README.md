@@ -7,7 +7,7 @@
 | Supporting owners | vault-contract |
 | Status | `in-progress` — app-side fixed and passing; DVM and uitest still required |
 | Date | 2026-11-10 |
-| Code under test | `a723bbb` plus this fix (code tree `a417a8e01b0c0741df35d396ad2e2a44e51b3b60`, `origin/main`) |
+| Code under test | `a55ce01` (code tree `a417a8e01b0c0741df35d396ad2e2a44e51b3b60`, `origin/main`) |
 | Tests | `tests/js/vaultkeys.test.mjs` |
 | Toolchain | Node `22.10.0`, Windows |
 

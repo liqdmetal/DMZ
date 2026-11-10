@@ -1,7 +1,7 @@
 # Wrap acceptance citation triage
 
 **Date:** 2026-11-10
-**Tree:** `a723bbb` plus the WT-17/WT-69 app fix in the working tree (code tree `a417a8e`, `origin/main`)
+**Tree:** `a55ce01` (WT-17/WT-69 app fix; code tree `a417a8e`, `origin/main`)
 **Source:** `docs/WRAP_ACCEPTANCE_MATRIX.md` — all 74 rows
 
 This is a citation and implementation audit of the merged tree, not an acceptance run. It resolves every prefixed
