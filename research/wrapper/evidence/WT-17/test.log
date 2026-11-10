@@ -1,0 +1,66 @@
+WT-17 failing test log
+date (UTC): 2026-11-10
+code under test: a417a8e01b0c0741df35d396ad2e2a44e51b3b60 (origin/main)
+toolchain: node v22.10.0, Windows
+command: node --test tests/js/vaultkeys.test.mjs
+
+TAP version 13
+# vault version 4 is not the version this app reads
+# Subtest: vault.bas keys uc_ / ul_ / ua_ / w_*_by by the raw 33 bytes, never by the dero1 string
+ok 1 - vault.bas keys uc_ / ul_ / ua_ / w_*_by by the raw 33 bytes, never by the dero1 string
+# Subtest: every other contract keys per-address records by ADDRESS_STRING
+ok 2 - every other contract keys per-address records by ADDRESS_STRING
+# Subtest: V.addressRaw gives the bytes SIGNER() stores, for the dero1 and the deto1 spelling alike
+ok 3 - V.addressRaw gives the bytes SIGNER() stores, for the dero1 and the deto1 spelling alike
+# Subtest: the text spelling of a raw key is a different key, and keysstring cannot carry the raw one
+ok 4 - the text spelling of a raw key is a different key, and keysstring cannot carry the raw one
+# Subtest: myVault finds the connected wallet's index, its deposit address and only its own withdrawals
+ok 5 - myVault finds the connected wallet's index, its deposit address and only its own withdrawals
+# Subtest: fail closed: a node that does not answer the raw read, or an address that cannot be encoded, is an error, not 'no index'
+ok 6 - fail closed: a node that does not answer the raw read, or an address that cannot be encoded, is an error, not 'no index'
+# Subtest: the Wrap screen's Register and Burn probes read the contract's encoding, and Deposit & withdraw decodes raw
+ok 7 - the Wrap screen's Register and Burn probes read the contract's encoding, and Deposit & withdraw decodes raw
+# Subtest: WT-17: a v4 vault loads before its Register or Burn can be called
+not ok 8 - WT-17: a v4 vault loads before its Register or Burn can be called
+  ---
+  duration_ms: 1.5785
+  failureType: 'testCodeFailure'
+  error: 'the app must read a v4 vault; a v3-only read leaves v4 Burn and Register unavailable'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: ~
+  operator: '=='
+  ...
+# Subtest: WT-17: v4's ADDRESS_STRING keys are visible to the Register and Burn probes
+not ok 9 - WT-17: v4's ADDRESS_STRING keys are visible to the Register and Burn probes
+  ---
+  duration_ms: 0.8667
+  failureType: 'testCodeFailure'
+  error: |-
+    uc_ is keyed by ADDRESS_STRING in v4, not by the 33 raw bytes
+
+    0 !== 1
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 7
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+
+exit status: 1
+
+Full suite at the same commit: node --test tests/js
+# tests 148
+# pass 144
+# fail 4
+The other two failures are WT-69.

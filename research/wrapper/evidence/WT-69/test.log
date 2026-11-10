@@ -1,0 +1,55 @@
+WT-69 failing test log
+date (UTC): 2026-11-10
+code under test: a417a8e01b0c0741df35d396ad2e2a44e51b3b60 (origin/main)
+toolchain: node v22.10.0, Windows
+command: node --test tests/js/wrap.heightgate.test.mjs
+
+TAP version 13
+# Subtest: WT-69: Reclaim is sent at a fixed fee, not refused by the height-0 estimator
+not ok 1 - WT-69: Reclaim is sent at a fixed fee, not refused by the height-0 estimator
+  ---
+  duration_ms: 2.593
+  failureType: 'testCodeFailure'
+  error: |-
+    Reclaim must not be estimated: DERO.GetGasEstimate runs the contract at BLOCK_HEIGHT() 0
+
+    1 !== 0
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  ...
+# Subtest: WT-69: Register is sent at a fixed fee, not refused by the height-0 estimator
+not ok 2 - WT-69: Register is sent at a fixed fee, not refused by the height-0 estimator
+  ---
+  duration_ms: 1.2859
+  failureType: 'testCodeFailure'
+  error: |-
+    Register must not be estimated: DERO.GetGasEstimate runs the contract at BLOCK_HEIGHT() 0
+
+    1 !== 0
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 0
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+
+exit status: 1
+
+Full suite at the same commit: node --test tests/js
+# tests 148
+# pass 144
+# fail 4
+The other two failures are WT-17.

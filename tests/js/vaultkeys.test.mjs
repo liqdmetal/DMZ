@@ -25,7 +25,7 @@ const contract = (n) => readFileSync(join(ROOT, "contracts", n), "utf8");
 const app = (n) => readFileSync(join(ROOT, "app", n), "utf8");
 
 // read off the simulator on 2026-09-15: wallet 30014 (index 1 of the XMR vault) and the owner of index 0
-const ME = { deto: "deto1qyyvq8xp22kkzta3g25r8eful0nqsm9jr23522mqfn4xmp89skhkgqqc62nc9", raw: "08c01cc152ad612fb142a833e53cfbe6086cb21aa3452b604cea6d84e585af6400" };
+const ME = { deto: "deto1qyyvq8xp22kkzta3g25r8eful0nqsm9jr23522mqfn4xmp89skhkgqqc62nc9", raw: "08c01cc152ad612fb142a833e53cfbe6086cb21aa3452b604cea6d84e585af6400", dero1: "dero1qyyvq8xp22kkzta3g25r8eful0nqsm9jr23522mqfn4xmp89skhkgqqzrktad" };
 const OTHER = { raw: "0da6f57058e06383fbc2d0133562cd567df15fa8f99d03ea2c3d9c5245bba6ca01" };
 const STRANGER = "deto1qy9zd2uaw5hahz628n863sszfuzupy2npmzlsjq3342erpfvze2kzqqr3axw3"; // wallet 30015: no index, no burn
 const SCID = "e".repeat(64);
@@ -48,6 +48,20 @@ function vaultState() {
   const burn = (j, by, v, st, ftx) => { str("w_" + j + "_to", "44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A"); u("w_" + j + "_v", v); u("w_" + j + "_f", 100);
     str("w_" + j + "_by", bytes(R(by))); u("w_" + j + "_h", 100 + j); u("w_" + j + "_st", st); u("w_" + j + "_rel", 160 + j); if (ftx) str("w_" + j + "_ftx", ftx); };
   burn(0, ME.raw, 900, 0); burn(1, OTHER.raw, 400, 0); burn(2, ME.raw, 1900, 1, "ab".repeat(32));
+  return s;
+}
+// v4 keys the same records by ADDRESS_STRING (wv:vault.bas:285-292, 414): uc_<dero1>, ul_<dero1>_c and
+// w_<j>_by = dero1. This is the shape a v4 Burn/Register leaves; the app must read it before it can report either
+// call as confirmed.
+function v4State() {
+  const s = new Map(), u = (k, v) => s.set(k, { t: "u", v: BigInt(v) }), str = (k, v) => s.set(k, { t: "s", v });
+  str("kind", "vault");
+  for (const [k, v] of Object.entries({ v: 4, k: 2, n: 3, na: 3, sup: 50000, cap: 100000, capratio: 3, bondtot: 60000, minbond: 1, minburn: 1000, wfee: 100, mindep: 1, regfee: 0, wdelay: 0, winmax: 0, bigbps: 0, bigdelay: 0, halted: 0, sealed: 1, un: 1, wn: 1, feepool: 0 })) u(k, v);
+  str("viewkey", "");
+  str("ua_0", ME.dero1); u("ul_" + ME.dero1 + "_0", 0); u("uc_" + ME.dero1, 1);
+  str("da_0", "sim:0"); u("dh_0", 93); u("dver_0", 1);
+  str("w_0_to", "44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A");
+  u("w_0_v", 900); u("w_0_f", 100); u("w_0_h", 100); u("w_0_rel", 160); u("w_0_st", 0); str("w_0_by", ME.dero1);
   return s;
 }
 // DERO.GetSC as rpc_dero_getsc.go answers it: keysstring names a key by the UTF-8 bytes of a JSON string, keysbytes by
@@ -166,4 +180,20 @@ test("the Wrap screen's Register and Burn probes read the contract's encoding, a
   assert.match(v, /by\["w_" \+ j \+ "_by"\] === raw/);
   // move.js reads ua_<j> and w_<j>_by (both raw) through rawToAddr
   assert.match(app("move.js"), /D\.rawToAddr\(v\) === me/);
+});
+
+test("WT-17: a v4 vault loads before its Register or Burn can be called", async () => {
+  const V = loadApp(makeNode(v4State()));
+  const w = await V.data.loadVault(SCID);
+  assert.ok(w, "the app must read a v4 vault; a v3-only read leaves v4 Burn and Register unavailable");
+});
+
+test("WT-17: v4's ADDRESS_STRING keys are visible to the Register and Burn probes", async () => {
+  const V = loadApp(makeNode(v4State()));
+  // bypass loadVault's version gate to isolate the key encoding: this is the state a successful v4 Register/Burn
+  // leaves, and the probe reads it through uc_<string> and w_<j>_by = <string>.
+  V.data.vault = { scid: SCID, wn: 1n };
+  const m = await V.data.myVault(ME.deto);
+  assert.equal(m.indexes, 1, "uc_ is keyed by ADDRESS_STRING in v4, not by the 33 raw bytes");
+  assert.deepEqual(m.withdrawals.map((x) => x.j), [0], "w_0_by is ADDRESS_STRING in v4, not 66 hex characters");
 });

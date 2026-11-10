@@ -31,3 +31,5 @@ import("./perfscale.test.mjs");
 import("./promo.test.mjs");
 // the screens' declarations to that layer (D.see): each surface's ids, scrolling, paging, navigation, read-age tags
 import("./see.test.mjs");
+// WT-69: height-gated Reclaim and Register must not go through the height-0 estimator
+import("./wrap.heightgate.test.mjs");
