@@ -61,6 +61,11 @@ calendar-critical items, not the coding.
 
 **Objective:** know what code exists before planning around it.
 
+**Recovery note, 2026-11-10:** `wm` and `wv` were not recovered. A different, recoverable Monero backend
+(`feat/vaultsigner-monero-retries`, `e15e442`) was merged on `chore/wrap-recovery`; it is not the cited
+`wm:xmrvault` tree, and no `wv` ref or worktree exists. G0 remains open; see
+`research/wrapper/evidence/RECOVERY_2026-11-10.md`.
+
 1. Locate the `wrap-monero`, `wrap-zcash` and `wrap-vault` worktrees on the operator's machines. Commit and push
    every one, even mid-edit, on its own branch. If they are lost, say so immediately and rebuild; do not let the
    plan assume they exist.

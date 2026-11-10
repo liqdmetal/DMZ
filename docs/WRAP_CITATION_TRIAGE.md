@@ -1,7 +1,8 @@
 # Wrap acceptance citation triage
 
 **Date:** 2026-11-10
-**Tree:** `a55ce01` (WT-17/WT-69 app fix; code tree `a417a8e`, `origin/main`); this citation refresh is docs-only on top.
+**Tree:** `chore/wrap-recovery` at `1ae7d74` (`674836f` plus the recovered Monero PR `e15e442`); `wm`/`wv`
+  are still not the cited trees. Recovery record: `research/wrapper/evidence/RECOVERY_2026-11-10.md`.
 **Source:** `docs/WRAP_ACCEPTANCE_MATRIX.md` — all 74 rows
 
 This is a citation and implementation audit of the merged tree, not an acceptance run. It resolves every prefixed
@@ -15,8 +16,9 @@ many rows cite the code that demonstrates the gap.
   `tools/vaultsigner/main.go`, `wrap.js` → `app/wrap.js`, and so on).
 - `wc:` and `zfee:` landed on main and were read there. `wz:` was read under `tools/vaultsigner` and
   `tools/zcashtx`.
-- `wm:` and `wv:` have no branch or worktree in this clone. Their 43 and 27 cite tokens resolve to no merged file.
-  A row that needs them cannot be `implemented` against this tree.
+- `wm:` and `wv:` still have no matching tree. The recovered `feat/vaultsigner-monero-retries` branch implements
+  `tools/vaultsigner/monerovault`, not the cited `xmrvault`/`monero.go` paths, and `wv` has no ref. Their 43 and 27
+  cite tokens remain unresolved; a row that needs them cannot be `implemented` against this tree.
 - Every prefixed cited line range was checked against the current file. `WT-45`'s old `zfee:wrapkit.js:62-64`
   reference is past the current file end and has been replaced with the current config/formatting code. `WT-58`'s
   document ranges were refreshed to the passages that now carry the contradictions; the row moves from `stale` to
@@ -51,8 +53,9 @@ many rows cite the code that demonstrates the gap.
   unmerged backend or a test-only gap; they remain `partial`.
 - **Every critical row is short of its required mitigation.** Fifteen are `partial`; `WT-08`, `WT-11`, `WT-13` and
   `WT-14` are `missing`.
-- **The largest single cause is the unmerged v4/Monero work.** `wm:` and `wv:` do not exist in this clone, so the
-  Monero release path, the v4 contract, and the v4 app cannot be verified or counted.
+- **The largest single cause is the missing v4/Monero trees.** A Monero backend branch was recovered and merged,
+  but it is not the cited `wm` code; `wv` remains absent. The Monero release path, v4 contract and v4 daemon cannot
+  be verified or counted from this tree.
 - **`wz:`, `wc:` and `zfee:` resolve.** The Zcash backend, coordination nodes and the Deposit & withdraw hub are
   present under their merged paths; their rows are still partial where a required change was never made.
 - **Citation drift is real but narrower than the branch gap.** WT-45's out-of-range `wrapkit.js` cite and WT-58's
@@ -62,6 +65,16 @@ many rows cite the code that demonstrates the gap.
 - **The app-side WT-17 and WT-69 fixes are present in this tree.** Both rows remain `partial`, not `implemented`,
   because WT-17 still needs its DVM/uitest checks and WT-69 still needs simulator e2e; the v4 contract/daemon cites
   are also still unavailable here.
+
+## Recovery rerun (2026-11-10)
+
+`chore/wrap-recovery` merges the recovered `e15e442` Monero backend on top of the work-board commit. It is
+green (`go test ./vaultsigner/... ./zcashtx/...`; JS 148/148), but it does not resolve the audit:
+
+- `wm:` has 43 tokens; none points at a file that exists in the recovered branch (`monerovault`, not `xmrvault`).
+- `wv:` has 27 tokens; no `vault.bas` v4, `tests/vault_v4_test.go` or `wv:main.go` exists. The app-side v4 read is
+  present, but the cited contract and daemon are not.
+- The row states are therefore unchanged. The full search record is `research/wrapper/evidence/RECOVERY_2026-11-10.md`.
 
 ## Rows
 
