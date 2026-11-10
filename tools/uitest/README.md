@@ -4,6 +4,11 @@
 and wallet passes), `ui.mjs --mainnet` (the mainnet-shaped pass) and `tools/check.sh --ui`. `capture.mjs` and
 `xswdprobe.mjs` are helpers.
 
+`ui-vault.mjs` is the read-only WT-17 pass run by `ui.mjs` in the ordinary simulator mode. It sets the page's
+wallet address to the owner of the configured vault's index 0, then checks that the Wrap screen renders the
+attested deposit address and a withdrawal `#j` row, and that `D.burnOpened` accepts the exact Burn record and
+rejects a wrong net amount. It signs nothing; it needs the simulator's vault and an attested index 0.
+
 ## The Playwright pin (MT-H03)
 
 Playwright is not vendored. `PW_DIR` names a directory where it is installed, and the passes load it from there.

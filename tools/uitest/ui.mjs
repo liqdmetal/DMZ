@@ -1,8 +1,9 @@
 // Headless browser test of the Veil app against a live simulator.
 //   node tools/uitest/ui.mjs http://127.0.0.1:8082/index.html <outdir> [--wallet] [--follow=<address>] [--mainnet] [--perf [--runs=5]]
 // --perf: app start and first render, cold and warm, measured against the node the build names (perfPass, at the
-// foot of this file); writes perf.json and perf-<width>-<cold|warm>.png. Both passes also run
-// tools/uitest/ui-swaps.mjs: Deposit & withdraw (app/move.js) and the Wrap screen's limits, at 390 and 1280 px.
+// foot of this file); writes perf.json and perf-<width>-<cold|warm>.png. The normal pass also runs
+// tools/uitest/ui-swaps.mjs: Deposit & withdraw (app/move.js) and the Wrap screen's limits, at 390 and 1280 px,
+// and tools/uitest/ui-vault.mjs: the WT-17 index/address/withdrawal and Burn-probe checks.
 // --mainnet: the same app under a mainnet-shaped config (network "mainnet", no vault), served by rewriting the
 // config.js response inside the browser; writes mainnet-<width>-<screen>.png and checks the no-vault copy.
 // PW_DIR must point at a directory with playwright installed (node_modules/playwright), i.e.
@@ -72,6 +73,7 @@ const fail = (m) => { console.error("FAIL: " + m); console.error(errors.join("\n
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const text = async () => (await page.locator("#screen").innerText()).replace(/\s+/g, " ");
 if (!perfMode) try { await (await import("./ui-swaps.mjs")).default({ browser, url, out, step, fail, sleep, mainnet: mainnetMode }); } catch (e) { fail("ui-swaps: " + (e.stack || e)); }
+if (!perfMode && !mainnetMode) try { await (await import("./ui-vault.mjs")).vaultPass({ browser, url, out, step, fail, sleep }); } catch (e) { fail("ui-vault: " + (e.stack || e)); }
 
 // The mainnet-shaped pass runs on its own and ends the process: its registry may be empty or unreadable, which
 // the ordinary pass (it waits for a loaded registry) cannot survive and this one is written to report.
