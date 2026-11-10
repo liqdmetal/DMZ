@@ -35,3 +35,7 @@ import("./see.test.mjs");
 import("./wrap.heightgate.test.mjs");
 // the v1 signal validator: app/signal.js and tools/signal share one fixture
 import("./signal.vectors.test.mjs");
+// the seeded randomized signal corpus: valid and mutated records shared by both validators
+import("./signal.random.test.mjs");
+// the first read-only signal board's local reader and field-level rejection path
+import("./signals.test.mjs");

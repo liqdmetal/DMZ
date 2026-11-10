@@ -1,0 +1,3597 @@
+{
+  "version": 1,
+  "seed": 20897,
+  "rounds": 180,
+  "cases": [
+    {
+      "name": "000-sol-valid",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:189708066",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "930e8e8f0f30d6c0222d410dc554c325c8b1b3e9bb4ab8beb3f5b48899b9edca",
+        "pay": "native",
+        "price": "701971505",
+        "ref": "594439dcedb6b21ae57fb9ffe4b84560ae63b3d254df5cfa4faef5747c1696f6",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"sol\",\"asset\":\"So11111111111111111111111111111111111111112\",\"token\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"side\":\"sell\",\"price\":\"701971505\",\"pay\":\"native\",\"expiry\":\"height:189708066\",\"maker\":\"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\"nonce\":\"930e8e8f0f30d6c0222d410dc554c325c8b1b3e9bb4ab8beb3f5b48899b9edca\",\"adapter\":\"blur/1.0.0\",\"ref\":\"594439dcedb6b21ae57fb9ffe4b84560ae63b3d254df5cfa4faef5747c1696f6\"}",
+      "live": [
+        {
+          "now": 0,
+          "height": 189708065,
+          "valid": true
+        },
+        {
+          "now": 0,
+          "height": 189708066,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "001-sol-wrong version",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:97946812",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "49cfd8374d1ab0620b4d0f92b71b327155d160a9ce1c08d0dc91088a73ef9f14",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "32378384",
+        "ref": "3388664114ae6a8597ced7160078b11c23b25a9e62f48e233b720a723864cc1f",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 2
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "002-eth-zero version",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x1f99911b01658251527002e7e0a336e2e0b99685",
+        "chain": "eth",
+        "expiry": "time:217581149",
+        "maker": "0xb37b3a5b63555ecb7a9dba54dced3c7c03408df4",
+        "nonce": "bf40d261b7c3d4a9624ff2e7f8874111ec42f332471b7d3740e12e3622f4a635",
+        "pay": "0x6b06d7616ed730c37861bfe3ae70428118b3ab90",
+        "price": "875536154",
+        "ref": "593942a20409a52a61c6c5b2360d5372bf86b5f5df4b006366cbfffcc9fd82c3",
+        "side": "sell",
+        "token": "14452093727939924934",
+        "v": 0
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "003-base-unknown chain",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "base",
+        "expiry": "height:192873371",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "1700e4045f799071aaf09c0896674b32d379629067a72e785e9a804969297b6a",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "92167365",
+        "ref": "ddb0bfccdec4be514760f05044c5dfe9f6f9400dd9a28af74154af16ae6d8f61",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "chain"
+    },
+    {
+      "name": "004-sol-empty asset",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "",
+        "chain": "sol",
+        "expiry": "height:196182235",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "85305ca0e03d296337ce89270bcaaf48dd6859c6a1228ad3c31a152904d0e26d",
+        "pay": "native",
+        "price": "833365636",
+        "ref": "5b51e205f9022ce1955d55bfbf679fc9562d51d5293c36b79668d22deb692c81",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "005-sol-zero asset",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x0000000000000000000000000000000000000000",
+        "chain": "sol",
+        "expiry": "height:495731433",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "d3bcff9d995c72bbdef6974334421b3f9b9102243e2ee220a0aafb18e056f75e",
+        "pay": "native",
+        "price": "114741638",
+        "ref": "9f254eb1420ebf4f8a9e47ffce89e26606bd90bbb2ca66a3cc89b0df9ad1dbb0",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "006-sol-zero maker",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:933359624",
+        "maker": "0x0000000000000000000000000000000000000000",
+        "nonce": "290a88c2a61091d7028c27b8329d9d0ed915438bd94be84ec291da17a806a4a5",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "584599722",
+        "ref": "f1375532576ffd47d03a0cabc5b218f952285559e958293a786081f17fb0b98a",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "maker"
+    },
+    {
+      "name": "007-eth-leading-zero token",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x131be6bb6b60562a43c311ffb7c6b56ff9b698b1",
+        "chain": "eth",
+        "expiry": "height:414599378",
+        "maker": "0xd3286eec5c29616ab3554dc33bf32240adf31b41",
+        "nonce": "6b12f2d5b1ceb41d76d7cc923831824e3eccc271555c5b1ea6b28ab44a8cfe27",
+        "pay": "0x37131f17421f43f3194a8e526f7279c0f7a88d36",
+        "price": "668363367",
+        "ref": "55f5c1d692d88e85f7ffe43bd286e8431d3f7de67e8a4cfc1eae4dd85984bf35",
+        "side": "sell",
+        "token": "01",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "008-sol-token overflow",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:139013015",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "8d89c93fc553dcf77eddeecab1c2091cdf91d9ffbc95cc75bcb351887015c14d",
+        "pay": "native",
+        "price": "808768553",
+        "ref": "6da9f80fdc008ca6edd2a7075b800969368d8cd7fbcce3eeb1be509bf6f38c8b",
+        "side": "buy",
+        "token": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "009-eth-bad side",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0x5f72cad4b1a699e94a8f46a67e5a581a9c7db056",
+        "chain": "eth",
+        "expiry": "height:234998834",
+        "maker": "0x13c26084bf7cfa858ffdea4661d25746f03b4cbc",
+        "nonce": "d757175ba942167716a90b7f3e40dc252a00dd4525dcca68c5e58979fb475cff",
+        "pay": "0xb527f68d27e8d5e75d325fff94a0af8e98fbc9fe",
+        "price": "514042593",
+        "ref": "2f593959d1240199552999f238250ff8e316fc12426c3af6c469692c21f7cd74",
+        "side": "trade",
+        "token": "11770258207220522650",
+        "v": 1
+      },
+      "valid": false,
+      "field": "side"
+    },
+    {
+      "name": "010-sol-zero price",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:775230083",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "5598ae406a3ef81ca8b857be044cc70a2b90a412bac0a261d6f8db910ee49c4f",
+        "pay": "native",
+        "price": "0",
+        "ref": "7983445c50630e50b1aef5e37baad7ab00d6bbdb38ddd21db3b8c77bcf852fd2",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "011-sol-leading-zero price",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:524054893",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "a7c5e6f597799b041e696a46a16e23a5e6ea27d64f2bc73121494d04f294dbd7",
+        "pay": "native",
+        "price": "01",
+        "ref": "2d436568e6866dd501c1ea767f1b7f8d3e5913b624c9a3258caf9b7eb6f605b8",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "012-sol-price overflow",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:164125421",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "c9513b9850e00263b0a6e372775d55cd29219dbab3e7e45ee56848b3a17feb46",
+        "pay": "native",
+        "price": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "ref": "15650e58969e3af1662a2a78472b2c597c1f58579b579aa5721109c896689aed",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "013-eth-symbol pay",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x71bd3d8cf0cfa7f91d8a20e3906171289023d64a",
+        "chain": "eth",
+        "expiry": "height:520211557",
+        "maker": "0xa7a47ab7f05ce8184440665f5ab9652c927c5ee1",
+        "nonce": "ff0034fce6dc08a538a03663d72b4cf7ad4fa2f7b1b5a807c10da6d37d41532a",
+        "pay": "USDC",
+        "price": "179523558",
+        "ref": "8fd00f476ce6d637dfbde48dc0ae59dff48d49ccbb35f2d90306241a71105b1b",
+        "side": "buy",
+        "token": "2978463337818227575",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "014-eth-empty pay",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0xc3d9d3f7c939faa8c41dc14f2aea8319b60cdb39",
+        "chain": "eth",
+        "expiry": "height:441524425",
+        "maker": "0xd9256ba8e668ed72d8c851cb153ddfcbb7aed00e",
+        "nonce": "61c61ab4488f69f59f0434b6d52251c9d19563fb9f5fde596a9d55df86b6409f",
+        "pay": "",
+        "price": "665291761",
+        "ref": "fb5ef77f2139532e9d77fdf668af17ece0432abdb5dc4e506c7be102ebeb15c8",
+        "side": "sell",
+        "token": "17053247363487094720",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "015-eth-zero time expiry",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0xf3f0a23d12a78ee4d95a83743d1de5f0a2460a82",
+        "chain": "eth",
+        "expiry": "time:0",
+        "maker": "0x553d976aecbbb06641749375fb763c7eb4a93d9d",
+        "nonce": "c11a0ddba6969c7f744ccd015bf6246d96ce38ac21fae457307abad31e696af3",
+        "pay": "0x9d9cec99425864051cd0effddad6a6b9eff1bc31",
+        "price": "439065088",
+        "ref": "7971336a56462a6434f7dfdf484ef48c7d1d72801dcaac130d405f3ffa1beed9",
+        "side": "buy",
+        "token": "9050121127811183134",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "016-eth-zero height expiry",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x6110e783741486ff048b254a313cb29346cd5bc9",
+        "chain": "eth",
+        "expiry": "height:0",
+        "maker": "0x6777efc15d8fa02263abde60f017753169c0d98d",
+        "nonce": "4d00c5ae020196f6dc8d5ed27802c6ff18ead601f26e7cec38514e06bc888c1f",
+        "pay": "native",
+        "price": "152905813",
+        "ref": "cdeb16316144c2c545cc6fb3c06220052efb04bbf4cd30ad9d2b37824fc41c86",
+        "side": "buy",
+        "token": "12129586449520673821",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "017-sol-unknown expiry kind",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "block:100",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "c7beaec5dcd6aaae3456d0425f9a0bf1507bfce2179b7d8872c4d1a69449afe8",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "387189105",
+        "ref": "b552e68a7d58015f25925dd97f4dc526b224567b55c8d340ebdc85e248134fea",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "018-sol-short nonce",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:75226066",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "aa",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "955239855",
+        "ref": "2fcd622f383453bccb5c5e147ca801238ad5bd52b5180c81624b04134adf1505",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "019-eth-zero nonce",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x959b1d2afe0fa4b55acc45cbe1fb75adba2efa58",
+        "chain": "eth",
+        "expiry": "height:100680001",
+        "maker": "0xc9cdfb20537ada3fb18cac954763518618673854",
+        "nonce": "0000000000000000000000000000000000000000000000000000000000000000",
+        "pay": "0xc9fbad4daa6eed9b3ea74f630daff38cc906a613",
+        "price": "1095802",
+        "ref": "91b7dfef6dffab25d46cc42395c4e79692086e7bcaec0f0c227eb19c749a0b7a",
+        "side": "sell",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "020-sol-short ref",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:408630742",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "f1f635e5cf7ac2e644044fd3341be48da82d68e1cbf27ba1a76d2cbb45517ac3",
+        "pay": "native",
+        "price": "161667371",
+        "ref": "bb",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "021-eth-zero ref",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0xb5ea1168eeb3282646e437a36bc734926f454cd3",
+        "chain": "eth",
+        "expiry": "height:854783281",
+        "maker": "0x9b8300ca82eebdd84b29d0b05ecc70908d5e5293",
+        "nonce": "6740d60c5df72a25f1c0aed75542463172b54f3199089374ac03e08504b5bbc1",
+        "pay": "0x3b9b194f46ecbd49f221ab981c1b24a415595423",
+        "price": "625588125",
+        "ref": "0000000000000000000000000000000000000000000000000000000000000000",
+        "side": "buy",
+        "token": "2438019441470679398",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "022-sol-adapter without version",
+      "record": {
+        "adapter": "seaport",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:137245213",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "9f055623ee035a4650781ff7a51bd6fcf9b2184dedffe302f20d8f3eb0cab0ae",
+        "pay": "native",
+        "price": "615033519",
+        "ref": "a59d4c5c7f2ee2c3022c4c718b27ec8fbe14a6fd9c6ac24f8f94b8fb5eb6c0b0",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "adapter"
+    },
+    {
+      "name": "023-sol-unknown field",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:683028549",
+        "extra": 1,
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "7f717278f234c3c3ce063c3db150c03ad87ac5c8bbc5acfa36ee227e620cb660",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "900430116",
+        "ref": "a724adb7615f3a82b652757d3b4e29096d3aa49e0e7318e3d75ca7b4f381b180",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "extra"
+    },
+    {
+      "name": "024-sol-missing asset",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "chain": "sol",
+        "expiry": "height:465854193",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "cf64839f7f5bd5fff1b193ad28d0d7815ccec4e95c66378dacb09f77006c10f5",
+        "pay": "native",
+        "price": "398394635",
+        "ref": "59211c7fb0826d4b4f474debc340ac225b5bd0138d1382e860fb3f1c1fc8d6d3",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "025-eth-expired time",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x7149124782db6efc61764070a353e6d318533fd4",
+        "chain": "eth",
+        "expiry": "time:1",
+        "maker": "0x7da73532cb7dc2e01407be60b5e8099724709024",
+        "nonce": "d58536e0c0f99063852f53e006d098b5614d1b62aab303976175872bc2350003",
+        "pay": "0x5358e6f67f677d4911f0610cc170949410bc90b2",
+        "price": "292525554",
+        "ref": "3d6e81c6c6fdde6d407b75c4ccd5cc32ba6b90210fec3a888c2482da207b6708",
+        "side": "sell",
+        "token": "18391235681134243409",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"eth\",\"asset\":\"0x7149124782db6efc61764070a353e6d318533fd4\",\"token\":\"18391235681134243409\",\"side\":\"sell\",\"price\":\"292525554\",\"pay\":\"0x5358e6f67f677d4911f0610cc170949410bc90b2\",\"expiry\":\"time:1\",\"maker\":\"0x7da73532cb7dc2e01407be60b5e8099724709024\",\"nonce\":\"d58536e0c0f99063852f53e006d098b5614d1b62aab303976175872bc2350003\",\"adapter\":\"magiceden/2.0.0\",\"ref\":\"3d6e81c6c6fdde6d407b75c4ccd5cc32ba6b90210fec3a888c2482da207b6708\"}",
+      "live": [
+        {
+          "now": 0,
+          "height": 0,
+          "valid": true
+        },
+        {
+          "now": 1,
+          "height": 0,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "026-sol-valid",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:357559320",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "8b61d8aea17540ef5681a23230606e7c888d0c6842278d01b45efe91c93bf943",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "393249725",
+        "ref": "4144f4e336e3a809ff319fde97fc30ae25b4b1386fdca08c3a6967cd8ff4b15d",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"sol\",\"asset\":\"So11111111111111111111111111111111111111112\",\"token\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"side\":\"buy\",\"price\":\"393249725\",\"pay\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"expiry\":\"height:357559320\",\"maker\":\"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\"nonce\":\"8b61d8aea17540ef5681a23230606e7c888d0c6842278d01b45efe91c93bf943\",\"adapter\":\"seaport/1.6.0\",\"ref\":\"4144f4e336e3a809ff319fde97fc30ae25b4b1386fdca08c3a6967cd8ff4b15d\"}",
+      "live": [
+        {
+          "now": 0,
+          "height": 357559319,
+          "valid": true
+        },
+        {
+          "now": 0,
+          "height": 357559320,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "027-sol-wrong version",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:27533169",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "dffcf26c59fc580264e4455658e3d25fe93ca4c09c7eb73e1eac458d6de4a477",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "573703416",
+        "ref": "375157bcae3804804c47a25a33c6ba639199612ba6fe6319092ccc47e5ef5eeb",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 2
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "028-eth-zero version",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0xa5d6f1b32548255b312e4d746bc8ed107bb4ea94",
+        "chain": "eth",
+        "expiry": "time:505888415",
+        "maker": "0x092cbe3586afc6a69a66e906bcb21fff004f909f",
+        "nonce": "bbd6276b115e61b53c2b0df770f30d34399782b0c91193f16d46a0cf6e4e6678",
+        "pay": "native",
+        "price": "648272857",
+        "ref": "c37970118525901100ccb3e315912164e646385d8ed87706a49bb30d24ee5347",
+        "side": "buy",
+        "token": "17689427961180783948",
+        "v": 0
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "029-base-unknown chain",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0x977e5c101f00f8433e96f6056372c1c2c1122c33",
+        "chain": "base",
+        "expiry": "time:1193334826",
+        "maker": "0x17f89feeb72394473eea7bfb2072acd19bb86e9a",
+        "nonce": "cff967dc6fd9a8a96f6b9a71bbce09a210b03ab2ff02b73766a158805083bd69",
+        "pay": "0x9938cfa297c8f329e6cb2876385a9875fcff85de",
+        "price": "711082216",
+        "ref": "3333027b1ff04cabddc0637db4ddce1b8e2d6e2ee8a2a5c90645f8537b781a36",
+        "side": "sell",
+        "token": "8246893023327395590",
+        "v": 1
+      },
+      "valid": false,
+      "field": "chain"
+    },
+    {
+      "name": "030-eth-empty asset",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "",
+        "chain": "eth",
+        "expiry": "height:979394414",
+        "maker": "0x212d2b3534224cd9930054a2afc99de7829193ba",
+        "nonce": "4d1295ca1964b5f01c46e20cc8ae3a915e8de13b8a9886a650fa9cfcd3678fa0",
+        "pay": "native",
+        "price": "967397692",
+        "ref": "13592188fc90dfd17e92f5b833f55f3201a39e008b64635bf3ac22f3a2af4b54",
+        "side": "buy",
+        "token": "1311158111858689872",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "031-sol-zero asset",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x0000000000000000000000000000000000000000",
+        "chain": "sol",
+        "expiry": "height:595097465",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "a145eb2d505d990c50d15946b8114077dd927f327e6c12d3b92e281db39de52b",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "204038317",
+        "ref": "35d8bd8f65806d9135886cf19907e6c21dfdb1524246ced0accfc62ab83ead97",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "032-sol-zero maker",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:220517114",
+        "maker": "0x0000000000000000000000000000000000000000",
+        "nonce": "b92d9e277b91b82f17957948012751f42cec92a879d4a6f86fad537b00108586",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "216727364",
+        "ref": "771dbc177adc485ac15ef5dae5e12061a00e6c1f700cdf9795d883d42b0c7c12",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "maker"
+    },
+    {
+      "name": "033-sol-leading-zero token",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:180222",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "f589ed5b2f425842c83ee100cd334da506c699cd8cc1f3ce332e01fa627ee104",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "244895965",
+        "ref": "679254e60c27797965d7e6e260f8fe0c9ffc3faa9fe42f8b2819d51138cbb130",
+        "side": "buy",
+        "token": "01",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "034-sol-token overflow",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:586736516",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "e13894a193b7452446163c5781ebbd8088f7edb7c52e9f991a010391d5bfbce6",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "672070319",
+        "ref": "f3747f0283f8cb6ec901de5f63463fe9ff5b0433d8939474fe521e05ea615ac6",
+        "side": "sell",
+        "token": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "035-sol-bad side",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:188520087",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "d37ae78e4badd1d106a61b0125181d1322d2ef7690fef54175e033000061c6b8",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "226094002",
+        "ref": "35312cd887e6a85bd8ae15c912b6b9f63a97a6575b7cee6f94a983d958a4d242",
+        "side": "trade",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "side"
+    },
+    {
+      "name": "036-sol-zero price",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:98079739",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "bd896c394c7df71ae80ff0931e4b53e495d91d54a719a137410506c162342ebe",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "0",
+        "ref": "8b4c86aa738d7b2104cf6030d65a25901edbd13e2ef33d83c78ef51cc28ce906",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "037-sol-leading-zero price",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:286236256",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "6fd9be0c0f2fba22f777003438589b2101ae00f7359f69270ebcc6ba8d0a26eb",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "01",
+        "ref": "85864d1aec76aff33ddb6c26f356237bff7e63d2227dcd2dcc8d05cdf5296837",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "038-eth-price overflow",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x87e652ed1cde26e311703147a49a3116286a2649",
+        "chain": "eth",
+        "expiry": "time:1123901887",
+        "maker": "0xdf0c9f27726b610cf41dc27d19cd4982a54cefcf",
+        "nonce": "d55ee48e12589b3de55444c85835480cf092143d0179d294c99bb26a9544b54d",
+        "pay": "native",
+        "price": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "ref": "b7f5c71c63b298dcb981296e0454043b9e2079d0e6f1664736c9e007623b371d",
+        "side": "sell",
+        "token": "17478121719931913884",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "039-eth-symbol pay",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x5bfe77b30baa8775b931fd8ffb153f6452dc843f",
+        "chain": "eth",
+        "expiry": "time:727721499",
+        "maker": "0xfdd5e9424fbe5dae20c7db6696e071ab706a9a31",
+        "nonce": "9b9e0923642de3839f3ca5e92283ff8c42e0088976ee4736c32ffee6a0931647",
+        "pay": "USDC",
+        "price": "465984331",
+        "ref": "39a0fa9fb86824822c1520941a65f04a6e53c10048a9c47a59ea76cad366620d",
+        "side": "sell",
+        "token": "15253053809165291218",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "040-eth-empty pay",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x49cc19abfdc22e0c67c05cc30ab20a142688577c",
+        "chain": "eth",
+        "expiry": "height:808702249",
+        "maker": "0xa520856d0fc186fabaadd606289c9e2edcab079b",
+        "nonce": "7b8810b573f7fbe5750ef1a7c2bd5a2c9a2b1eaeee209e6bd88089195dce2188",
+        "pay": "",
+        "price": "197016019",
+        "ref": "d5bf189d9d10b5c35f301ef3dffbb87e6b2c397026b73782cf7c16d4b2b92a33",
+        "side": "sell",
+        "token": "1432598129224757581",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "041-eth-zero time expiry",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x1f37c60aa8fcd1badff62f0f3cef65f85a4dbbc4",
+        "chain": "eth",
+        "expiry": "time:0",
+        "maker": "0xe92d35c53f41bff86429aca04315464d0765862a",
+        "nonce": "e376d4e6d6030492b9abafa2c7f56982ad736b89b79d4dbd1ca1cfc4ca427926",
+        "pay": "0xf170dd710b5faea182fc61afb88f38bd1577ba6b",
+        "price": "749799170",
+        "ref": "59c53eb0b721b0c38fc70aeb919203a4ee30a313b7718dbc78d09ea99d56dfd6",
+        "side": "buy",
+        "token": "3676050504150548644",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "042-sol-zero height expiry",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:0",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "8d3f6dff21808c2098093a5fe1c15bf7d290927ad563496902000264ff368339",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "615019987",
+        "ref": "4b14da6c6790cb09fed0ba9067d507e3c64f352a59eabd08b713d2bc3440e35f",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "043-eth-unknown expiry kind",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x156253a9266cc1864792ae972512c0e41bbe027a",
+        "chain": "eth",
+        "expiry": "block:100",
+        "maker": "0x3f7e61bf8eb941f28c927449606b22f79f278f90",
+        "nonce": "898dd802fec0a941831c0e164d12f7404dbf2b413cb9d103070b1a88bf17022c",
+        "pay": "native",
+        "price": "377824943",
+        "ref": "d55c20b1ba47e63548acae6a33cf6895906d86575d46997985d78b04873ea717",
+        "side": "buy",
+        "token": "11197511953824033845",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "044-eth-short nonce",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0xf9d0c38276a21a7c7b260b48ea9a89dc8f68f894",
+        "chain": "eth",
+        "expiry": "height:316498203",
+        "maker": "0x4f6e3d20b450818b8cad09cd13918bf53bb4ada9",
+        "nonce": "aa",
+        "pay": "0xd13b75c1a3cc994db79d8e6ccd93c7b093d57743",
+        "price": "793576613",
+        "ref": "c3a041239f91e9ca8283ca7434638604c3394d17bf488236029573f53d4a2e24",
+        "side": "sell",
+        "token": "9328954555970081094",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "045-sol-zero nonce",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:911528619",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "0000000000000000000000000000000000000000000000000000000000000000",
+        "pay": "native",
+        "price": "832617931",
+        "ref": "8be48b5d1602aca6aee9e2172417f5b37d1a6fbd6b7706cdfd267db3f2dfefe5",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "046-sol-short ref",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:30034715",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "6f282ca8850377f1966769ef8b93a5ae430f52cad2fc0e963f3d46267d70fe69",
+        "pay": "native",
+        "price": "834130024",
+        "ref": "bb",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "047-eth-zero ref",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x83ef29d462747b56d839885198ca14bb418a2888",
+        "chain": "eth",
+        "expiry": "time:1066303416",
+        "maker": "0x85c764b1604caa8e17a7a42167bfeccf051baf78",
+        "nonce": "7124a044e11d516956d87959e89f6e75cec8af059932c3fd5f8c4d2646a88470",
+        "pay": "0xf37340f72268c5536597ebc84e15d0c99b2e1b3b",
+        "price": "667592916",
+        "ref": "0000000000000000000000000000000000000000000000000000000000000000",
+        "side": "sell",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "048-eth-adapter without version",
+      "record": {
+        "adapter": "seaport",
+        "asset": "0x1d8c9423bed568361b073c94a6846105aee63f59",
+        "chain": "eth",
+        "expiry": "height:291803269",
+        "maker": "0x55a6fd0f33f38c824382200e4d83873752a57ab2",
+        "nonce": "e139d91ea1ec7b878a049c9fae6e7b0ceacd0895751481f781d4697e43079c92",
+        "pay": "native",
+        "price": "486167111",
+        "ref": "59b09147db2f734acbbe6cbcee2bb98eafe327a26be380af64ad3777f2373b77",
+        "side": "buy",
+        "token": "3893503767351910518",
+        "v": 1
+      },
+      "valid": false,
+      "field": "adapter"
+    },
+    {
+      "name": "049-sol-unknown field",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:901712068",
+        "extra": 1,
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "bb954939648fb75c7d3bd325c4228ae4ac85776988e452785ed8c7ffc9ffa6d9",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "416563216",
+        "ref": "91688106c2fccb60738ed7560e48e91e6ae6f35d929ae91328c69acd26826cbb",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "extra"
+    },
+    {
+      "name": "050-eth-missing asset",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "chain": "eth",
+        "expiry": "height:607056191",
+        "maker": "0xd317a62804940a699ffe52d9cd8ec44b539e57c1",
+        "nonce": "59342e0fa5d596297adbaf3b78790e69c9aea6d1e4dd01a3dc8aa26b4607aecb",
+        "pay": "native",
+        "price": "948057887",
+        "ref": "b7456024eb751695c20d98aa68ea2fdf9870027639450a43f4d3e438ff625849",
+        "side": "sell",
+        "token": "13598403138622077514",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "051-eth-expired time",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x57e66f3c492bf459a76873953e39a480e5b449d8",
+        "chain": "eth",
+        "expiry": "time:1",
+        "maker": "0x8b91f44811129a9bf47ca04a4be36eb9a57e9495",
+        "nonce": "ab0a6a0b9a5d7b699581730919ee5ff7e150b46170e0d9369e6ae62cf4beef13",
+        "pay": "native",
+        "price": "713884782",
+        "ref": "d7cb350baa9acff256a5fccb4d9a8c5f6cc05730a31c2bedd73ec1ea44088cf6",
+        "side": "buy",
+        "token": "12032473790523440983",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"eth\",\"asset\":\"0x57e66f3c492bf459a76873953e39a480e5b449d8\",\"token\":\"12032473790523440983\",\"side\":\"buy\",\"price\":\"713884782\",\"pay\":\"native\",\"expiry\":\"time:1\",\"maker\":\"0x8b91f44811129a9bf47ca04a4be36eb9a57e9495\",\"nonce\":\"ab0a6a0b9a5d7b699581730919ee5ff7e150b46170e0d9369e6ae62cf4beef13\",\"adapter\":\"magiceden/2.0.0\",\"ref\":\"d7cb350baa9acff256a5fccb4d9a8c5f6cc05730a31c2bedd73ec1ea44088cf6\"}",
+      "live": [
+        {
+          "now": 0,
+          "height": 0,
+          "valid": true
+        },
+        {
+          "now": 1,
+          "height": 0,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "052-eth-valid",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0xd7839d2f588d6d09d237787a2d66229cfa4206a9",
+        "chain": "eth",
+        "expiry": "time:777297135",
+        "maker": "0x4ddecc6cb1efe4e7c70d4c35002155bf262a905d",
+        "nonce": "c1889c3a946df560cc5b287de154774e840e7a82d98cbbe24aa029281b5b91f0",
+        "pay": "0x153a08d30453f4e8195296bc69fe56e4499242af",
+        "price": "991915007",
+        "ref": "9d2ca8b3ea587714a6516c803eb915fb119973af7c5e8d61128ac3d4bf39a2fd",
+        "side": "sell",
+        "token": "0",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"eth\",\"asset\":\"0xd7839d2f588d6d09d237787a2d66229cfa4206a9\",\"token\":\"0\",\"side\":\"sell\",\"price\":\"991915007\",\"pay\":\"0x153a08d30453f4e8195296bc69fe56e4499242af\",\"expiry\":\"time:777297135\",\"maker\":\"0x4ddecc6cb1efe4e7c70d4c35002155bf262a905d\",\"nonce\":\"c1889c3a946df560cc5b287de154774e840e7a82d98cbbe24aa029281b5b91f0\",\"adapter\":\"magiceden/2.0.0\",\"ref\":\"9d2ca8b3ea587714a6516c803eb915fb119973af7c5e8d61128ac3d4bf39a2fd\"}",
+      "live": [
+        {
+          "now": 777297134,
+          "height": 0,
+          "valid": true
+        },
+        {
+          "now": 777297135,
+          "height": 0,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "053-eth-wrong version",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0xfdb269bc860e09518710334247513f819f25ff36",
+        "chain": "eth",
+        "expiry": "time:1761805523",
+        "maker": "0xef3d78f0fe7ab239dfd32b6fbd2a6a61bf7e3206",
+        "nonce": "a300bc83703354d2ed4870fe8459e4870580bfefc513fc77f6fbff0f95d642cd",
+        "pay": "0xe16ddd298cfe66d5e6221d7d5e47edd36a421571",
+        "price": "779474480",
+        "ref": "eb1e207ebb4db63afe0e2f8e0c1ee6c2469d4e81cd4583f50826441a183329bf",
+        "side": "buy",
+        "token": "0",
+        "v": 2
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "054-sol-zero version",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:762960024",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "27c7c4a8304997725044111260e7de0b703f8dae2c1cb90490df7843d8206eec",
+        "pay": "native",
+        "price": "125331657",
+        "ref": "6552acb906b6da614cc5e786462f66c0abad9f985d1b3a36fcdbdbbd8343b0f1",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 0
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "055-base-unknown chain",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "base",
+        "expiry": "height:99861864",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "693d368a399314d632cb135a5d6ca67c3d48530fc11c9d28459c77d70bc6dcd5",
+        "pay": "native",
+        "price": "354258854",
+        "ref": "91f33a82919404ea086c5855ce1fc9db63ec331462e2708e50250753c5e85b0c",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "chain"
+    },
+    {
+      "name": "056-eth-empty asset",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "",
+        "chain": "eth",
+        "expiry": "height:493762145",
+        "maker": "0xefe56ce53a8cf746817d61c3987229eae90d9815",
+        "nonce": "59288f2d89bb1e4384a7f399c8a00a92b559fb9c849f5769b2119f8f9f2535f5",
+        "pay": "native",
+        "price": "245643249",
+        "ref": "43ca27ab8bcbba76b66073e46fb8ad7537e8ff7d041493902ace94bf50586880",
+        "side": "sell",
+        "token": "18387423191455270769",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "057-eth-zero asset",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x0000000000000000000000000000000000000000",
+        "chain": "eth",
+        "expiry": "height:189540651",
+        "maker": "0x737a5bf04c1ddd30b8c564321ff404acac8e0dd1",
+        "nonce": "83b8a4e08ea3199388d08db81a1ebab45f6589f061589eee4b88779c12f35520",
+        "pay": "0x5bdb8b611dbd492bc263cd7e4fba0629dbf9831e",
+        "price": "488774052",
+        "ref": "ffbe610f8ce48c94099488c21bf5799650134d563b152f7d58aa649ce78aaf66",
+        "side": "buy",
+        "token": "14669502291013180701",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "058-sol-zero maker",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:734969001",
+        "maker": "0x0000000000000000000000000000000000000000",
+        "nonce": "012c83c3c3b935de6eec40a3b385c5f271854f57594eb295d2c3bc1f2b1ff81d",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "321058229",
+        "ref": "772f73a3d85b5faa25e12acc605b05343545d154b0150a9e8bc3cfc705cd97de",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "maker"
+    },
+    {
+      "name": "059-eth-leading-zero token",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x856c9202fecc220dd8ae8cf1567d1008c2c86e80",
+        "chain": "eth",
+        "expiry": "time:413025637",
+        "maker": "0x0b556dd6b674168beb32d469b6dd95a36c79a85c",
+        "nonce": "750d1db7ffe5c65c0a61084044330c6e32760aa7acc118bcba51daddcf1813b7",
+        "pay": "0x75c8b364e615b4d6754fe540dd178076c44fdffb",
+        "price": "700468644",
+        "ref": "b901bded93b8e74c1f584bbbd3689dde2134b498dca5bcf423e9461f1a2beccd",
+        "side": "buy",
+        "token": "01",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "060-eth-token overflow",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0xd1700e78b2cee45d0bb1c663dbbed8a5f61ddaee",
+        "chain": "eth",
+        "expiry": "height:400786170",
+        "maker": "0xfb4019b00e5d7d879527cb342945798145ee3864",
+        "nonce": "c9c2a67cf9766345666677485b7ea2f0a22290e3bb31f0a812e8474c9cf30e1c",
+        "pay": "0xbbcc9237f9b1dbc51f99bfd8ca60ef206b6c49b4",
+        "price": "271170552",
+        "ref": "dfaeeb9369a1a19aac0715556dc86ec4e4e9ee254ea7ff2bdcc2ef8db47a1952",
+        "side": "buy",
+        "token": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "061-sol-bad side",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:311645774",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "eb9c70d02b6a140591b4fdd43a5025e2fccf3879f66edea728f2b23836d3ee62",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "827049397",
+        "ref": "3dc2ca1c229a2fd3a9a657a6b99e0694adb0ea28ac23b018dbd6cc891a6bbb9c",
+        "side": "trade",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "side"
+    },
+    {
+      "name": "062-sol-zero price",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:287713325",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "7f14c76424bab7f3d34f8dd4f22bdb66a79b9a5acf11c21fcefb9b66419e5c37",
+        "pay": "native",
+        "price": "0",
+        "ref": "d70c5e9addde1c27c8750e090a41581009e6d76d2b2ba0191441c95e0b3b6491",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "063-sol-leading-zero price",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:335984392",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "4f20a19460d72e890a103cbaea1fd9d1ec14b52baf268e28d652e19c6c6b169e",
+        "pay": "native",
+        "price": "01",
+        "ref": "d3b17a8e1bb2c210a9289a83b4da24b785fae8f2fe7839925d87a4e8b4339362",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "064-eth-price overflow",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0xbb0f567792af84560c6245396807c1059d200461",
+        "chain": "eth",
+        "expiry": "time:1491727400",
+        "maker": "0x5d57b1ce08d73398e4afb70f7faf3f0156907549",
+        "nonce": "3f33e2e904d0d46bd4a06b70b16390fa3ff4030b688bc3e8e94cee5f58a809ea",
+        "pay": "0x29a60d13a9754aac49bfc8192592dade595b3ba0",
+        "price": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "ref": "9358cc46d6bc32a40e7948c6a3e55c6fa250f22a6f45149175d173e5033e0315",
+        "side": "sell",
+        "token": "416962576365636820",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "065-sol-symbol pay",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:259394514",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "3ff4872a8ecb681498e85c3120052b583a532488ea5c9de47f43828f2a8a4b13",
+        "pay": "USDC",
+        "price": "416713700",
+        "ref": "95a4a8b3e18e167ecd5f2847f9462021fde26e574b84eb20961011efabb051f0",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "066-eth-empty pay",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0xc38858447a1088abd1744bbe2e6265cc8fad680c",
+        "chain": "eth",
+        "expiry": "time:1972560730",
+        "maker": "0x8393b0ca46fd2d6b8c839435b31a74e7d553588b",
+        "nonce": "155f0a564be4e3a08a98656940d276725c654b07612978afc287b45520a4d03d",
+        "pay": "",
+        "price": "60734308",
+        "ref": "07aa16e231eec2d397b6d8b49a304d502390f8b52000b8ed8a1a519905154957",
+        "side": "sell",
+        "token": "18217535184363978418",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "067-eth-zero time expiry",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0xd90d12cc3abbdbe5c649ec666eb740bad6a32ebe",
+        "chain": "eth",
+        "expiry": "time:0",
+        "maker": "0xc1339bfcfa2602ddf1009abfe1e2187e9ed6f9eb",
+        "nonce": "f73237664a3f8ae8c90d6f093a993e542c5e36d91b791492402af7a39f86bb7c",
+        "pay": "native",
+        "price": "277299192",
+        "ref": "150ffb6b0025d3191c3b57689191a26ea6f59cc4b6e9d817831854825a8969c0",
+        "side": "buy",
+        "token": "6558175618177299248",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "068-sol-zero height expiry",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:0",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "539fbe17ab46e0dd9ba333737d3c64d929b7ad216231ff69a7c7975f548d5e73",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "2978576",
+        "ref": "235fdeff9a59a4733bec5b24f20aa7d730d6573826aa857408d4531370d838bc",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "069-sol-unknown expiry kind",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "block:100",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "db41bea48db05e0299df93cf44cbdb23be2306075069bd2bc24dd7eb9cb66366",
+        "pay": "native",
+        "price": "205374599",
+        "ref": "25f83b07ec0a06a777c984fd205808b6a90113d932e346a98677bfc16997526a",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "070-sol-short nonce",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:668850793",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "aa",
+        "pay": "native",
+        "price": "603894313",
+        "ref": "517d6f24a047306cea387b4263d262e68c0f18520961903240b5134b31a035b0",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "071-eth-zero nonce",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0x1577d451775cd448b9b9de1ef5fab9fdd89e83f8",
+        "chain": "eth",
+        "expiry": "height:536407099",
+        "maker": "0x67fa3a8273edae6ab34ae818b0e7004c55446b09",
+        "nonce": "0000000000000000000000000000000000000000000000000000000000000000",
+        "pay": "0xa59efe9af3f9c92b9bf2d62c3b26690850a127bd",
+        "price": "495284273",
+        "ref": "076331f246bd98bc76ceacee77e81af9c1397154613da808e885606656bf80e7",
+        "side": "sell",
+        "token": "8716706151748514242",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "072-sol-short ref",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:744630748",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "f5056922c80a50cafde3288d0a9d8850435b1e67a756575db7040c81d7d09ee9",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "751177833",
+        "ref": "bb",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "073-sol-zero ref",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:334714058",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "ed2d9c755f464d142ab7d73db73dfe9db0edf58a6937313e84546916b9527b5e",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "210015005",
+        "ref": "0000000000000000000000000000000000000000000000000000000000000000",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "074-eth-adapter without version",
+      "record": {
+        "adapter": "seaport",
+        "asset": "0x612b117d6070705083f0732679003735694b40dc",
+        "chain": "eth",
+        "expiry": "height:943561740",
+        "maker": "0x8d98bb36ace47b63716b29a9d6d81df759104952",
+        "nonce": "6f91ef04deda4594452a476eab9c99babe5f557f22c64d6e415d8854625dbbff",
+        "pay": "native",
+        "price": "43348896",
+        "ref": "4375159c809c920fa1f2ad5efb4884d0aa78f62cf99c1801034c8bd002bf6e9b",
+        "side": "sell",
+        "token": "8804238769056378872",
+        "v": 1
+      },
+      "valid": false,
+      "field": "adapter"
+    },
+    {
+      "name": "075-eth-unknown field",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0xe1ac2d2a656fbcfe1c2cd6d9e21126c37858ea66",
+        "chain": "eth",
+        "expiry": "height:288995005",
+        "extra": 1,
+        "maker": "0x8532e51f453a030e06edddfb4923698c49a3b4be",
+        "nonce": "67e90da43d642bcc1905fab46b10b2b827121d64733421202e32bdbd68b3975e",
+        "pay": "0x5987795ce8880dba5acc41cd495ad975a5407509",
+        "price": "641064905",
+        "ref": "b9bc59dd5592c70c53ea4aca5259e4227a891da71e7aa2e67ed1d87f1db023d5",
+        "side": "buy",
+        "token": "8810473674924781351",
+        "v": 1
+      },
+      "valid": false,
+      "field": "extra"
+    },
+    {
+      "name": "076-sol-missing asset",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "chain": "sol",
+        "expiry": "height:848323633",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "1b741337c7bc953d44d6b80fda8ad3064564bb5171489e844cad05010c5919d7",
+        "pay": "native",
+        "price": "857243071",
+        "ref": "f33b801736a5f6ff7cf6a30fe8426d162cb3400b5da7a904d442d803ca4c923b",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "077-eth-expired time",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x7f43e7e08a397946d9a47b3776d874e6ceca847c",
+        "chain": "eth",
+        "expiry": "time:1",
+        "maker": "0xa59c282cee455140ef51b59f62e6374bcceceeff",
+        "nonce": "17a8a956378a755a88e62d43f2cb5ba661a8dfce7e5441d668dec1d3d4fc6415",
+        "pay": "native",
+        "price": "846540397",
+        "ref": "1be23ec627e7de3ee8fea5653d880d5f4a3fcc0ac88bf982c4438aebb5d911da",
+        "side": "buy",
+        "token": "10417109520378920436",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"eth\",\"asset\":\"0x7f43e7e08a397946d9a47b3776d874e6ceca847c\",\"token\":\"10417109520378920436\",\"side\":\"buy\",\"price\":\"846540397\",\"pay\":\"native\",\"expiry\":\"time:1\",\"maker\":\"0xa59c282cee455140ef51b59f62e6374bcceceeff\",\"nonce\":\"17a8a956378a755a88e62d43f2cb5ba661a8dfce7e5441d668dec1d3d4fc6415\",\"adapter\":\"seaport/1.6.0\",\"ref\":\"1be23ec627e7de3ee8fea5653d880d5f4a3fcc0ac88bf982c4438aebb5d911da\"}",
+      "live": [
+        {
+          "now": 0,
+          "height": 0,
+          "valid": true
+        },
+        {
+          "now": 1,
+          "height": 0,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "078-eth-valid",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0x4f5d58ef86f5a3cc4dbc425a42649e3ebe87d167",
+        "chain": "eth",
+        "expiry": "time:1919061049",
+        "maker": "0x5dd194703f71273f922daa41107ded791f9de84a",
+        "nonce": "7927db6b03d9676ee3197b7c5e0cdf64c2cd3381116e94d74d702893bfca7bdb",
+        "pay": "native",
+        "price": "193280563",
+        "ref": "0d9b15d3e300c00ed9c2552a014c4dafeabbb62bab3b3f8457410f219e88011b",
+        "side": "buy",
+        "token": "13573260970796277420",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"eth\",\"asset\":\"0x4f5d58ef86f5a3cc4dbc425a42649e3ebe87d167\",\"token\":\"13573260970796277420\",\"side\":\"buy\",\"price\":\"193280563\",\"pay\":\"native\",\"expiry\":\"time:1919061049\",\"maker\":\"0x5dd194703f71273f922daa41107ded791f9de84a\",\"nonce\":\"7927db6b03d9676ee3197b7c5e0cdf64c2cd3381116e94d74d702893bfca7bdb\",\"adapter\":\"blur/1.0.0\",\"ref\":\"0d9b15d3e300c00ed9c2552a014c4dafeabbb62bab3b3f8457410f219e88011b\"}",
+      "live": [
+        {
+          "now": 1919061048,
+          "height": 0,
+          "valid": true
+        },
+        {
+          "now": 1919061049,
+          "height": 0,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "079-eth-wrong version",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0xd1fd3760a9a8059da0ea3ca7e5cb5deaca1ded68",
+        "chain": "eth",
+        "expiry": "height:817427308",
+        "maker": "0x298a164073aa3c2dc6492f7f659e78ed42b54a97",
+        "nonce": "addc04b886f340acbbb1b4e208c5522ebc7e7546430b29d36c75563a1187568d",
+        "pay": "0x3f2e1958581be7fa912da0ec63c6e1edbb9672dd",
+        "price": "728583674",
+        "ref": "1b5064150f962337105a2b72e434b914d3b33fef0d3277998ae8ef783a7be3e9",
+        "side": "sell",
+        "token": "0",
+        "v": 2
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "080-sol-zero version",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:487045049",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "1551944bdf464b53346bd0ba515d1bd54d2daefdedfe58010bdb36b0b458e535",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "115382874",
+        "ref": "896e0a3b57d4259ec0ecb5667c38a4016a7febe1e8a712b2d3fb7e37b5e7a6bd",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 0
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "081-base-unknown chain",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x4be1ce0f3daf1dd836baff4e1c8c85ded4b0bbec",
+        "chain": "base",
+        "expiry": "time:762099842",
+        "maker": "0xede6a291e4c6ad457364d651582d43d273dc007f",
+        "nonce": "afeb86c57f623e6907b90223299049ad52573fc295d062cc6663ffbd99d9fabe",
+        "pay": "0xbdad6970021b7714bee1ee70fde5339e393dcd4f",
+        "price": "856806750",
+        "ref": "4fdc55b95fdaa5a0e59d2a78506f6403417aea8959b82b19b6324cb0bf8f338b",
+        "side": "sell",
+        "token": "2678245746222571094",
+        "v": 1
+      },
+      "valid": false,
+      "field": "chain"
+    },
+    {
+      "name": "082-eth-empty asset",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "",
+        "chain": "eth",
+        "expiry": "height:89847605",
+        "maker": "0x7f65da5b783460cf34d22306db0ce24ab7c8787a",
+        "nonce": "653caa2829059481637586e59200e5ce1d0e02031dad88bc8eccde10fb2536a2",
+        "pay": "native",
+        "price": "104269132",
+        "ref": "59043ded35712994aeebef1eea62d914a88e76dacb9b724591568d0f8e891859",
+        "side": "buy",
+        "token": "5534071706788726242",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "083-sol-zero asset",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0x0000000000000000000000000000000000000000",
+        "chain": "sol",
+        "expiry": "height:351472781",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "9d5fe030aad360795a677a50ceaa30b48efd6a7f09db9c0ae253c9662922e74f",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "891273172",
+        "ref": "2976da81f1ef8b1961f260817e508cde27a6e4692d756da3f64ab5aa27dc7a95",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "084-eth-zero maker",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x2f07ad5f0639c365bc47a4faaf4d4a43908ad7af",
+        "chain": "eth",
+        "expiry": "time:1431679484",
+        "maker": "0x0000000000000000000000000000000000000000",
+        "nonce": "a19fcec23f092286363ce883d76ea8310e06ef1c9b214b73b02d35df17f9aa22",
+        "pay": "0x4fc2bf2476c4762c3b2305cb6ebd0c474b82f6b1",
+        "price": "651415792",
+        "ref": "1d55d2361bed31cc73632f868888074a269841966abfc891389b98278a645365",
+        "side": "buy",
+        "token": "839647607732417553",
+        "v": 1
+      },
+      "valid": false,
+      "field": "maker"
+    },
+    {
+      "name": "085-eth-leading-zero token",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x3d5a321491794fcb096c2a16e4f02adaf32bd22b",
+        "chain": "eth",
+        "expiry": "height:183826055",
+        "maker": "0x518f1d7b70f238a9aca85f64fe9902ab505d1664",
+        "nonce": "17e30f0321d69734600d10f341cf1ef666256a4448bec62744b6f91c6b6d5253",
+        "pay": "native",
+        "price": "984197029",
+        "ref": "e93a67e1b2faaf65237c034387fd0e8513ffff145f602717bca309a530b89f44",
+        "side": "sell",
+        "token": "01",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "086-eth-token overflow",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x8937b8b8d04b4fb25ab4a99f22b0f9f929373bd3",
+        "chain": "eth",
+        "expiry": "height:54250642",
+        "maker": "0xa74b13638078dcbf9b13689735587461e8164387",
+        "nonce": "1549aa1d368c9f0c9ae721325b7248d542c40cd050e96c3caedb22bbbef6ac51",
+        "pay": "0x377974e78fdda304c7243bd48ac80eb78c531a36",
+        "price": "754264154",
+        "ref": "8935fb13f12dc38d78a12e35466081dc5fbb4d13888b831f3f9a76e107a594f3",
+        "side": "buy",
+        "token": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "087-sol-bad side",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:604333253",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "5b7e8bd7f0404b4d2adb347037cdebd7c8ccd7b5f97c381b390237bd936daeef",
+        "pay": "native",
+        "price": "221722291",
+        "ref": "93bb32e2496aec4b69b7f52acddadd17ef710d78dc7799127a7d604cf8f594b4",
+        "side": "trade",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "side"
+    },
+    {
+      "name": "088-eth-zero price",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0xf1a84f699323f9e7ad39bb22dc6ce13f3a3a9e74",
+        "chain": "eth",
+        "expiry": "height:44379248",
+        "maker": "0xa517df5c59f8015f87aac13a3d4d714deb34cd8c",
+        "nonce": "fd33d92a5083108e1c3c2fc6bfa0b546bdbeee9ae9dddb50d868fbff79efdc5c",
+        "pay": "native",
+        "price": "0",
+        "ref": "f5da86a2d6d21df496e45096502c48ebe6b65772a3d19fb5ce85dadba547325e",
+        "side": "sell",
+        "token": "10231423260880655946",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "089-eth-leading-zero price",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x07fb76116f49c18ad83d5902c086815753349571",
+        "chain": "eth",
+        "expiry": "height:961394900",
+        "maker": "0xdd6a970f7dc44d32dd38de11e46625d4dd1c1d2a",
+        "nonce": "f30e358ea1386de8e376d0264c47daac053e43181eec04b4a3f2fd9beeea5d03",
+        "pay": "0x0f6f6f8a837ad4fd17a8119769459e54aebd76e7",
+        "price": "01",
+        "ref": "e7f87ebb83d97276c19cfcc085f20bd1cd6436a6a590194bfdecfeb9e55c98fc",
+        "side": "buy",
+        "token": "8264515253185643859",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "090-eth-price overflow",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x1524cb339bf2e90b16cae726688902f3af256687",
+        "chain": "eth",
+        "expiry": "time:955178876",
+        "maker": "0x458ffefb31be0a8ba8b29be5babfeed2c1dc1975",
+        "nonce": "254eb20a5daa4eca6fd8d79d001c08ba077adcf7225a3eac6cfc81a705ecb57e",
+        "pay": "native",
+        "price": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "ref": "6967e5ed27a36cd6eb02b7ff3ff72d2a96a8317d8eba31ef3f1b6b3a8cf940ca",
+        "side": "sell",
+        "token": "2624323871243263792",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "091-eth-symbol pay",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0xf101216f9cca825c4ff4eaab2cdd5204daf90a67",
+        "chain": "eth",
+        "expiry": "time:665765948",
+        "maker": "0xb7db8b15f4f9bb386f1e1dfce2fac74ea09e50b8",
+        "nonce": "c1105ebbbbdcab9349e161410157fc357acc05b2efd2667732425723f48a1977",
+        "pay": "USDC",
+        "price": "664323419",
+        "ref": "bd307a97134dd0fe8529e68637d1dbef8186a912fc69309c1d48a5d5db92f23b",
+        "side": "buy",
+        "token": "2829668406290863401",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "092-sol-empty pay",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:87775092",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "3b55ba452fbe3d7f4429fd1e891be5d6e460d739ec84829bb028480ba2feefca",
+        "pay": "",
+        "price": "167033865",
+        "ref": "218c8e1b4b1adbbc84d4d5eb07e754f9996e6d22032728a91d14ea0aa0f810d1",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "093-sol-zero time expiry",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "time:0",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "ef019726f341b09adac6038ffe9f7ca6ed3ca055ada6a076068ecf30dbb3a804",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "467034725",
+        "ref": "e97cd2f71fa1e0c01719d3271ce87c01d43a95e970fcbea45bec000cc96064da",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "094-sol-zero height expiry",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:0",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "4538d0420e19bd654cf1f8dcc85632172a4023a23b1d0d9944e876bbce3606b2",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "452206667",
+        "ref": "a91a4aa69e72292b1bf2f45dc7cc221a6a7c36cb34411a3eac26660e5786e9a1",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "095-sol-unknown expiry kind",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "block:100",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "0746c4eb3c3447e272bb1d8fb81622ac40e73073f3bb599f3bf2243bedf9ef57",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "633575875",
+        "ref": "6526ba49e64a49eb72893715c5b1761cb52808f201b08a6a29314659aae187f7",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "096-sol-short nonce",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:642396415",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "aa",
+        "pay": "native",
+        "price": "348398742",
+        "ref": "ef2e4b0c4b6d06afdd636538714668d0c7ffd9eaf68116c3a5359c49c81210f3",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "097-eth-zero nonce",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0xfd904f5046df076800f698a184e9c3df627a13de",
+        "chain": "eth",
+        "expiry": "time:551048604",
+        "maker": "0xa9d5f96a58d92ef962cba4cd5932c3e1b9ae52e5",
+        "nonce": "0000000000000000000000000000000000000000000000000000000000000000",
+        "pay": "native",
+        "price": "164670352",
+        "ref": "c1216d9c81d4e3426ced8b5b286a2546fc8f8054d6c2bfc96dbcf6bbf89c627a",
+        "side": "sell",
+        "token": "2548885669890278157",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "098-sol-short ref",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:700605687",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "a979d342c7119db8fe5e5590ec2644363d103270342c67d287f14609a5abf712",
+        "pay": "native",
+        "price": "81133388",
+        "ref": "bb",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "099-sol-zero ref",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:181967316",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "bd5f01a9306d1b3f608a468f10cbcc722ea6066ce887d9791c69124d878158f9",
+        "pay": "native",
+        "price": "674433840",
+        "ref": "0000000000000000000000000000000000000000000000000000000000000000",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "100-eth-adapter without version",
+      "record": {
+        "adapter": "seaport",
+        "asset": "0xa10112bd9b398d38373bf4c4b60875b5e1597e68",
+        "chain": "eth",
+        "expiry": "time:193134999",
+        "maker": "0x4b8e233cac8faa1fb3949c098b20164bd1fdcd80",
+        "nonce": "87277354f41d278ac3c8faa386eb2e7c7a9329d95a87f36f6d1f491858efead4",
+        "pay": "0x91b14e058910b6410b72517b6c42965a31c3d04a",
+        "price": "25310785",
+        "ref": "1fa5b268d25ad20abd2d74daa7d34e622db0000565a748346aab1bee1af483ed",
+        "side": "buy",
+        "token": "5602750885314596204",
+        "v": 1
+      },
+      "valid": false,
+      "field": "adapter"
+    },
+    {
+      "name": "101-sol-unknown field",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:408362160",
+        "extra": 1,
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "b7a946be4c39775d40a32ddc1e1c45436b03ff1ae620784b78ce42f348a07ae6",
+        "pay": "native",
+        "price": "457499229",
+        "ref": "1b08a185c0a9a9e77a0613113c049e2e5e5081fd6326ac9c384f2cb6b36a0516",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "extra"
+    },
+    {
+      "name": "102-sol-missing asset",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "chain": "sol",
+        "expiry": "height:934933932",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "77355cde8d6c57d2d941ab1c375f3d229eec92b2d7b7a61a5a938b7498613cbc",
+        "pay": "native",
+        "price": "970368033",
+        "ref": "3f9981f9666f94322145ce552b2ec48c479f83c65889ba36e60f36f578767e69",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "103-eth-expired time",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x636099fd19fcda6360133d4b55048460f9b5f0ec",
+        "chain": "eth",
+        "expiry": "time:1",
+        "maker": "0x91a0a58ec9973f690e0fc593bc00caf9202b3c9c",
+        "nonce": "69b24f870e6510c1807961d21d56a339ce06c7f659632df4564c3eb053c8f5fe",
+        "pay": "0x25b3ab588758b697988cd2ba2cb481143120b7e0",
+        "price": "101396662",
+        "ref": "35d754342c97bc8c2a7ccdae93e6cbe32cfba0d0c43d07a6a256441b6a77d5b6",
+        "side": "buy",
+        "token": "15109289850680773539",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"eth\",\"asset\":\"0x636099fd19fcda6360133d4b55048460f9b5f0ec\",\"token\":\"15109289850680773539\",\"side\":\"buy\",\"price\":\"101396662\",\"pay\":\"0x25b3ab588758b697988cd2ba2cb481143120b7e0\",\"expiry\":\"time:1\",\"maker\":\"0x91a0a58ec9973f690e0fc593bc00caf9202b3c9c\",\"nonce\":\"69b24f870e6510c1807961d21d56a339ce06c7f659632df4564c3eb053c8f5fe\",\"adapter\":\"opensea/2.3.1\",\"ref\":\"35d754342c97bc8c2a7ccdae93e6cbe32cfba0d0c43d07a6a256441b6a77d5b6\"}",
+      "live": [
+        {
+          "now": 0,
+          "height": 0,
+          "valid": true
+        },
+        {
+          "now": 1,
+          "height": 0,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "104-sol-valid",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:300476103",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "23e010efb0802ace92882ddcdd75c427c11d2d868254aabb575e0bd72c0b7dd2",
+        "pay": "native",
+        "price": "859652727",
+        "ref": "553266ccded5d2f4f9cc8c2b52042de8aad80407ea33c7719a63a82423ab1c06",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"sol\",\"asset\":\"So11111111111111111111111111111111111111112\",\"token\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"side\":\"buy\",\"price\":\"859652727\",\"pay\":\"native\",\"expiry\":\"height:300476103\",\"maker\":\"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\"nonce\":\"23e010efb0802ace92882ddcdd75c427c11d2d868254aabb575e0bd72c0b7dd2\",\"adapter\":\"opensea/2.3.1\",\"ref\":\"553266ccded5d2f4f9cc8c2b52042de8aad80407ea33c7719a63a82423ab1c06\"}",
+      "live": [
+        {
+          "now": 0,
+          "height": 300476102,
+          "valid": true
+        },
+        {
+          "now": 0,
+          "height": 300476103,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "105-eth-wrong version",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0xc119216bf1ea5963d3d2259a7e7257b9d6b909ed",
+        "chain": "eth",
+        "expiry": "height:295789434",
+        "maker": "0x796db497079321760a8632aa6a417fd4923aede4",
+        "nonce": "0303705b3e799cdfb6375003febe5b048cc8b5c0abaf957e72af34690537a9f8",
+        "pay": "0x2b6816f8dae40623524666075e38b280bb7b8c4e",
+        "price": "730025824",
+        "ref": "d7e911140b90465b4851ea6fb4e8614f85d3fe823328b32f74a229e1fe9c4b75",
+        "side": "buy",
+        "token": "13217786423428125776",
+        "v": 2
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "106-sol-zero version",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:566571071",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "6fb39136c0e39a5858f911250a437d37dd778883b4acb9c889bb732054498c76",
+        "pay": "native",
+        "price": "526893385",
+        "ref": "c59babca4ad5e34bddc26a54dcf8619daca62a5b2d3a9359682a4a3b00d06dc5",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 0
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "107-base-unknown chain",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "base",
+        "expiry": "height:298829189",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "031945687845f9c1699cdce051290dcf6c25c53616779cd2bccd679d174885c9",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "444972532",
+        "ref": "b96f0dfaff5a19c3db37248881297f798ceb0e518012c736ec5ae3a2ef550e79",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "chain"
+    },
+    {
+      "name": "108-sol-empty asset",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "",
+        "chain": "sol",
+        "expiry": "height:599559580",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "617fb4eec1a5ffb597da9b2614b379ba56a751297c24adeeb5c1148f8fea7f38",
+        "pay": "native",
+        "price": "112853664",
+        "ref": "0d988bdd209f35de28b22875ea4678b4220397f8e6f3e5c0eca70245613c9a54",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "109-eth-zero asset",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x0000000000000000000000000000000000000000",
+        "chain": "eth",
+        "expiry": "height:969845866",
+        "maker": "0x7174f4953d2b02c8dcf5a9c8e167a9b012d9edeb",
+        "nonce": "cd122b1febc7ff3b8eaf5d3cc34161cfea2d5e0d3a710ff3a300daf0a3286fb1",
+        "pay": "native",
+        "price": "703578506",
+        "ref": "3fcb04d7d6b61bf5ac3ab2717f10ae2be231b08153cd1210a3b661e336c039c9",
+        "side": "buy",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "110-eth-zero maker",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0xdb88b07211db5e8d8744cda29ac0d326f098caf7",
+        "chain": "eth",
+        "expiry": "time:1821902618",
+        "maker": "0x0000000000000000000000000000000000000000",
+        "nonce": "516ea6d7bfa03ce4aab6175d6d60cf3f4135eba02914d75b8df77337e793f4cd",
+        "pay": "0x2d56ae0830338ab23c258764b633a16b6c7df212",
+        "price": "49578887",
+        "ref": "0bb9ae454d088ce48a99e31b0de5e72eef888e3b0dc7bd2cb0ffc936d95660f8",
+        "side": "sell",
+        "token": "11798430217654335311",
+        "v": 1
+      },
+      "valid": false,
+      "field": "maker"
+    },
+    {
+      "name": "111-eth-leading-zero token",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0xefadc0537dc0ca52a1af9c72a59faf0366c53006",
+        "chain": "eth",
+        "expiry": "height:382457079",
+        "maker": "0xffa744cd68f0a96210c99698425b93002e8544e8",
+        "nonce": "9573671d0c7dc362e7860b2e8fe68edcf346c0a2d29f78d73cf77962f51968b7",
+        "pay": "0x1fa25d391d1ac6a779fcbf8d32130548cbefdbae",
+        "price": "363143776",
+        "ref": "0f6bb4891f286601f3b11400760be64cb76d793ace0af7b1ffb821020b1a1089",
+        "side": "sell",
+        "token": "01",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "112-eth-token overflow",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x5f459df07809b2e8b69f5052f4c80a30be8d0f83",
+        "chain": "eth",
+        "expiry": "time:1708388896",
+        "maker": "0xd1ba7875a3bea17dcd91af43577825a079e73655",
+        "nonce": "1bcc5937db24725ac1c0373d8262af04027f009f6ceb232e85c91c8417702f39",
+        "pay": "native",
+        "price": "366255972",
+        "ref": "63b6aeff737e2354db81ca159aae0bd67df547a95a15ce9a0825b48f5de549a6",
+        "side": "sell",
+        "token": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "113-sol-bad side",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:17788009",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "d3d3d5726eb368eb6edf0db4609c1f70dede8382636e040ebf17db97f8b94697",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "705651034",
+        "ref": "b1cf12af8095cdce5c17072c346c63deef323764427a233b7f3d7451306c7179",
+        "side": "trade",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "side"
+    },
+    {
+      "name": "114-eth-zero price",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0xa110a7d0980008786855dea2917b000a2bb5d6b6",
+        "chain": "eth",
+        "expiry": "time:1944810570",
+        "maker": "0xb7800ba76f3343b06cb743ef25a50d09bc9f5925",
+        "nonce": "0de7180665d338749dcaa62001d4038a16056a20bf8428ff51f8ed29756ff566",
+        "pay": "0x9b6c13568f596de4b66f5fce85db6a36233c4688",
+        "price": "0",
+        "ref": "67578fac1d4376cebc8265fd4455d54372a63d70588375a6df3a2736f3b255d6",
+        "side": "buy",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "115-sol-leading-zero price",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:187767052",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "c5ea1141cf4844ea7421156a6657ed40aa3196bf64395a8f9c570870465f97ed",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "01",
+        "ref": "bd8829db8b0021066ffcadc3e0c0fefc9bbf7b259cb46567c83352cef0d3e057",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "116-sol-price overflow",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:66909686",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "ad0d0e3db406f884a299f3759ef6716a8cfa9a69e975237f08aaf5afd3b528f9",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "ref": "51ccab0231ad11fa0ff3226d8626dbfa1f33a1d2a317222aa6c0a9595cce29d6",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "117-sol-symbol pay",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:272718046",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "4b786cf3ca68505a5f1d64f3b1ace116b03d1fa27b3ed3c56e6b5d9500ba4a0a",
+        "pay": "USDC",
+        "price": "34736912",
+        "ref": "5986db1a1db2750f5a22281435dd89953493d3d17a5472d70f66cbe47dc8be51",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "118-sol-empty pay",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:761719834",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "a93789a4060f1dc7cda1d4968cce42a418e3459fedeff31bfca033566923604c",
+        "pay": "",
+        "price": "448409051",
+        "ref": "85c2c0a3ddba4e71d67e3029908e75ff00c30b780f7b4c4fa0e9adcd16272b76",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "119-sol-zero time expiry",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "time:0",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "97d9c21ac2f20544bc3db2baa175f409bb7d66b6c584fbf1e6e0cc3ba1a7e830",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "101072962",
+        "ref": "b76d6faa8278fcdb501c4a14c5387a0d4788322c188cc43c91a028e9adadcbe1",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "120-sol-zero height expiry",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:0",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "b1d04862eaf9690a16fb81d7e5467acc3b42c8cd5ec37bd31dde37ce72e3c7c8",
+        "pay": "native",
+        "price": "229169507",
+        "ref": "7d5fb31165c7457a28eb7acd1ef3cb3b6eda9d8f019b59f2654526f3fc731940",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "121-eth-unknown expiry kind",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x99e1fbbfcdbf8144ee77bb6eab231be33b1ef3e1",
+        "chain": "eth",
+        "expiry": "block:100",
+        "maker": "0xb96011f980bedae641ad0e6632e27d32029d2e54",
+        "nonce": "2d3838116d674796693ee89338b9129f072dc6f127482cf478b60027523677e1",
+        "pay": "0x33e239e3945bac0ab8c3bc409a4a0080c375d1cb",
+        "price": "243144915",
+        "ref": "dd0ec4a31da63800fab0ac69ea3c9c373e54ec3ecb0ba8f6e08fae580b87809d",
+        "side": "buy",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "122-eth-short nonce",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x41667f69f39e7452b29fa058fc4b6f232dfbea49",
+        "chain": "eth",
+        "expiry": "height:896297253",
+        "maker": "0x6bbd79a89a3eb4e26831ec656ae853916aada20a",
+        "nonce": "aa",
+        "pay": "0x87f958c25caf5e36d6e2f5de6401131c5f5f96bf",
+        "price": "163695139",
+        "ref": "c9241e441d6301e48642c946ceca93d8ddf1d6b68f29adea3e8d04f278f5fa06",
+        "side": "buy",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "123-eth-zero nonce",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x6309cfed5f38a7ca61a3a6eee79ebb5c7682308a",
+        "chain": "eth",
+        "expiry": "time:114770446",
+        "maker": "0xd15290b7662d6857212ee537ecd7013aa2741e47",
+        "nonce": "0000000000000000000000000000000000000000000000000000000000000000",
+        "pay": "0x6f4ff5c06f60324b89575eed177c26dcdcd1879b",
+        "price": "487297590",
+        "ref": "df5acf94353de03b1ad3a89edb1a94d886f6713c2b9ce81076e1d0ced476aec5",
+        "side": "buy",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "124-eth-short ref",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x83b22db8fe138b94c4e42d44b11758499efff6fc",
+        "chain": "eth",
+        "expiry": "time:1522389504",
+        "maker": "0xbdfb2f45fac1ef6a741ab1955e969375c355b7c8",
+        "nonce": "cdba0caa121e3c7dd13a7f6c03bf0b2b2c973d675f35081c1a3e2aab4df6f20d",
+        "pay": "0x2f8b75fabb60543ecbb3f7de8a6476b330fedc61",
+        "price": "939579164",
+        "ref": "bb",
+        "side": "sell",
+        "token": "11267479967817244326",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "125-eth-zero ref",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x473fddc7150aac20f66be9d4479c8495ce7dd6fc",
+        "chain": "eth",
+        "expiry": "height:738144844",
+        "maker": "0x8b1cd0116271fdb538198df8e6cac2b6fdd72d7f",
+        "nonce": "8509a6953718aa9d7ba631e886585954a5625b88d6c9e2ce82646c46ec25eba8",
+        "pay": "0x4b2639980f5f1b7fb974e9ce0906814016d80feb",
+        "price": "415194270",
+        "ref": "0000000000000000000000000000000000000000000000000000000000000000",
+        "side": "sell",
+        "token": "10994247104756635666",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "126-eth-adapter without version",
+      "record": {
+        "adapter": "seaport",
+        "asset": "0xb7768ffd589be88261aeed08b0882ecbae21467e",
+        "chain": "eth",
+        "expiry": "time:1206686763",
+        "maker": "0x7d168933a9a9ab6fb7f6779a588261cfceeb8c72",
+        "nonce": "b3d28b5b27455a7acd11c0d00e1af2bb4f44dedda7d181496e88e34c64d82a2d",
+        "pay": "native",
+        "price": "195624311",
+        "ref": "b5c1872856da836bff0d6172ec719ae09ef417141dc147dd74491638a93599aa",
+        "side": "sell",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "adapter"
+    },
+    {
+      "name": "127-eth-unknown field",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x098168b6940f84f4f54f4a6c4318981f7999551f",
+        "chain": "eth",
+        "expiry": "height:69246163",
+        "extra": 1,
+        "maker": "0x674c7568da22deabc80c18cde430fa224a807cc5",
+        "nonce": "a9e98fc5004589e3a9d8cfd28f2f2f9667099bfd6452da5ce47188bf7ac1a0d6",
+        "pay": "native",
+        "price": "643242968",
+        "ref": "e1b109634ce73e96b40db9e02795d132e20a53f71d361853109649877cd87183",
+        "side": "buy",
+        "token": "4624220867042108155",
+        "v": 1
+      },
+      "valid": false,
+      "field": "extra"
+    },
+    {
+      "name": "128-sol-missing asset",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "chain": "sol",
+        "expiry": "height:68269785",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "c7122988765c2745a8f718de56ea0b3afb4018ffb8e2968a94794c1c9e3b26af",
+        "pay": "native",
+        "price": "967974938",
+        "ref": "095d9ca7aaafb85e59b059307972c74eabea46b0163ac920f286c76ae52399f5",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "129-sol-expired time",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "time:1",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "e59041db2906c60cf1488273230de0a1175ddb48f8e52e1074715ae53081c7f9",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "434781919",
+        "ref": "25c39c4ccbfd960cac1fa96f4d2c28c7f8f9a7b580fb219fe71950b455a72610",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"sol\",\"asset\":\"So11111111111111111111111111111111111111112\",\"token\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"side\":\"buy\",\"price\":\"434781919\",\"pay\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"expiry\":\"time:1\",\"maker\":\"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\"nonce\":\"e59041db2906c60cf1488273230de0a1175ddb48f8e52e1074715ae53081c7f9\",\"adapter\":\"seaport/1.6.0\",\"ref\":\"25c39c4ccbfd960cac1fa96f4d2c28c7f8f9a7b580fb219fe71950b455a72610\"}",
+      "live": [
+        {
+          "now": 0,
+          "height": 0,
+          "valid": true
+        },
+        {
+          "now": 1,
+          "height": 0,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "130-sol-valid",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:450908604",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "41c3603a8295d59b7a8493c24e4c8a298f04f688919a1129aaba2196f809bc87",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "340194262",
+        "ref": "332d6c4779e6967e9cff121ee9367b4b68223b86c59b2d9a65b049cc2b8fc496",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"sol\",\"asset\":\"So11111111111111111111111111111111111111112\",\"token\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"side\":\"sell\",\"price\":\"340194262\",\"pay\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"expiry\":\"height:450908604\",\"maker\":\"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\"nonce\":\"41c3603a8295d59b7a8493c24e4c8a298f04f688919a1129aaba2196f809bc87\",\"adapter\":\"magiceden/2.0.0\",\"ref\":\"332d6c4779e6967e9cff121ee9367b4b68223b86c59b2d9a65b049cc2b8fc496\"}",
+      "live": [
+        {
+          "now": 0,
+          "height": 450908603,
+          "valid": true
+        },
+        {
+          "now": 0,
+          "height": 450908604,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "131-sol-wrong version",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:74991380",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "a3c59f00fb5c9869961a21814565c10ca6c5e66832efab30436c1a7c1b7623e9",
+        "pay": "native",
+        "price": "208702487",
+        "ref": "cd55840981c4cf3a403c580005a07aaabcc7a1a45c9a9938ca154f1fa9e73d12",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 2
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "132-eth-zero version",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0xfb6db7f2001ee8c76c7405559ce7b658981a9c13",
+        "chain": "eth",
+        "expiry": "time:1691100017",
+        "maker": "0x6ba98136e817556d288c949e5799a090396b02ed",
+        "nonce": "8b20b7502f6dafa066213c29404b1f66de30514c639f5e202c7f0361618d57a8",
+        "pay": "0x8f8eb876052fd10b6a49346429e0607942c9e617",
+        "price": "732944908",
+        "ref": "b9ce537fa0d7d1fce3ae4c25a8c329ae430472634b26635c57efbaeda179a977",
+        "side": "sell",
+        "token": "9802102217635264296",
+        "v": 0
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "133-base-unknown chain",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0xb3dff9ba48c6c991f01578f90130f43e1ee65ff6",
+        "chain": "base",
+        "expiry": "time:1055018136",
+        "maker": "0x8fb098b3279119bf72d1703279e1e9c61c9faa3b",
+        "nonce": "5943e2e5a79b9176059bb7e28ed54b46c2afc222c3d67d5c460ba66c2c6723bf",
+        "pay": "0x474419c1a09d9a77dfa2939b87bcec0f76f7a518",
+        "price": "18804813",
+        "ref": "3d318b9f76cf239ab6b5cf90a0b81bdd230f887f08ce0f6dafc9f0579fba42ca",
+        "side": "buy",
+        "token": "6042402999831451927",
+        "v": 1
+      },
+      "valid": false,
+      "field": "chain"
+    },
+    {
+      "name": "134-eth-empty asset",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "",
+        "chain": "eth",
+        "expiry": "time:1245333268",
+        "maker": "0xd518bc3358084fadbc851840c30e5ef52339837c",
+        "nonce": "1b8e9528c6f3903d0b102f94c5352e2fdd19026a5f27439ce5d0e77a45e1b55d",
+        "pay": "0x538b24ff9e97cf24cb482345ce8276460ce6c87e",
+        "price": "985477396",
+        "ref": "231ad1154eb1a1885bda8995011168b405015c43a3f2fa388cecd304c9129762",
+        "side": "sell",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "135-sol-zero asset",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x0000000000000000000000000000000000000000",
+        "chain": "sol",
+        "expiry": "height:456824106",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "f595bb841c695520dbd8ddb4ef7150b3c8fecaa543c79266f58fff67fb0dc41b",
+        "pay": "native",
+        "price": "513730450",
+        "ref": "6995bdb224da3fb45dab8d7fc66c198f58261c371336235bd057a09e78ba1719",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "136-eth-zero maker",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0xd5d1f4cdaece99caff755f1bef1df33c86b6cc03",
+        "chain": "eth",
+        "expiry": "height:492641180",
+        "maker": "0x0000000000000000000000000000000000000000",
+        "nonce": "935b3b6803a1dd5dc43168a9057f9ef274ae0cb027b83727f730395623824ff4",
+        "pay": "0x4f113e5e7453ba18ab0b704ca30bcdaa76325201",
+        "price": "793372547",
+        "ref": "df002b12dcca16727a388354aaf5c57adf9587b2e76de0b068973142e4580888",
+        "side": "buy",
+        "token": "11599863909125359055",
+        "v": 1
+      },
+      "valid": false,
+      "field": "maker"
+    },
+    {
+      "name": "137-eth-leading-zero token",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x7919eeaeedac3debd5b9de6828643ea45d706694",
+        "chain": "eth",
+        "expiry": "height:196535941",
+        "maker": "0x113b7a44a699cfab22124dc148f26defdeb83361",
+        "nonce": "314d282e1c3607fa659b2cbbe4586fddd3c3bb72708357d5c399ebc44b511eb6",
+        "pay": "0xd9d7cdce55fae00036acf41a883b99609d1aa318",
+        "price": "739688486",
+        "ref": "b3b03931d5c1c59c23ea3c2ecd1a7d540cdb845a25e7c5ec4c47d11f19b0a37a",
+        "side": "buy",
+        "token": "01",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "138-eth-token overflow",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x192f92a778a6a59e2d5e095bbfa94be258ea5914",
+        "chain": "eth",
+        "expiry": "height:894914815",
+        "maker": "0x177b6146204a43cbf5f874443f26fdf93ce49ef0",
+        "nonce": "91248dc15b5144bd048cfeebb124b1d0cfced739ed4395193aa87ed3866c3f8b",
+        "pay": "0xb709bcbf4518b4983f761e88ad823d2f8b25904a",
+        "price": "913637673",
+        "ref": "bb0aa84f1230e1a47c62ec8bc6cb81244c1701108425bd567273c83fd2fb000a",
+        "side": "sell",
+        "token": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "139-sol-bad side",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:38688945",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "8ffb6f294e9747a18a63f5563363d4a01a5a09dffcd9f4fe4c6adfb764c3ef66",
+        "pay": "native",
+        "price": "884116816",
+        "ref": "9fddce44719e85c819b7f935930d58ea5788cdf2237087703068e0c38c8ac3ac",
+        "side": "trade",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "side"
+    },
+    {
+      "name": "140-sol-zero price",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:878531510",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "458c71e4e793a5c6780e501c8014ce9b08fe322f947d5c702e44756136a1f2e7",
+        "pay": "native",
+        "price": "0",
+        "ref": "73e27e409c6829da118f7f031e6ded52cab1ac17a3ec688bf723324f3470032f",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "141-eth-leading-zero price",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0xd7afd1e4143a9a2d2cb17729e9e67327d63ff79f",
+        "chain": "eth",
+        "expiry": "height:859725167",
+        "maker": "0xc524281a016ba168727f63ca3924b126f41aea48",
+        "nonce": "f1cadee7e6550199988490b49e5e407c6f1fed37dc37ef725b54307c4738ab56",
+        "pay": "0xf761b96e7ef438b0218574ebe90910f7707c590f",
+        "price": "01",
+        "ref": "af752a00a1f656a214c12d8af55cc6b1931b4763200790516b7051616f917fbb",
+        "side": "sell",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "142-sol-price overflow",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:137193985",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "751f987ba809139e61aaa7de5a558a645ff267660d2f7c45c09adb2fe46787c3",
+        "pay": "native",
+        "price": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "ref": "355cbebe144e8278151a8e63c50fb250a5573a8cf4f6f5f0f8310bce867f81de",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "143-sol-symbol pay",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:988241528",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "d33d4b21458244aa0bc3af0743d10cfa36ef9b4e84dcbf052de69c019defc64e",
+        "pay": "USDC",
+        "price": "513349395",
+        "ref": "374c4ec08150f604d3e23809980d612789d1de0d462564eee449d47d99459c86",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "144-eth-empty pay",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x5173b31372d7228c25d2379efe6c284b00693b62",
+        "chain": "eth",
+        "expiry": "time:1998517081",
+        "maker": "0xb1f648b081aeab268462c6eb68b1813aa874962d",
+        "nonce": "1da7519acbb12878599bad47cadba86b5694f9e78e73370173e275036fed5195",
+        "pay": "",
+        "price": "214340669",
+        "ref": "a76059868bed74b9985aded26b370b63217c7f9a16ed916718f0a31d9665f8eb",
+        "side": "sell",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "145-sol-zero time expiry",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "time:0",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "3365da0721f7e51971371d15803a4e88b15e1f202d5a81e167c3f57d147a18a9",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "119319368",
+        "ref": "3b2f1bd6a6d1585e165843a0d4324c324642f9f6325b98bb76d3e822a8e31d48",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "146-sol-zero height expiry",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:0",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "27dac6b3ce12deae3309f3580466e5fe9333174c6396e640ded7bd5861e24dee",
+        "pay": "native",
+        "price": "450649832",
+        "ref": "732ba597253e4b546aa5e0e6436625d21b2944291ca87b94891b169415137560",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "147-eth-unknown expiry kind",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x03b037764e6e127caaaa95073c4fc29d0084d0c5",
+        "chain": "eth",
+        "expiry": "block:100",
+        "maker": "0x877a60e4bc819a6df985dc5b640adda67269dd35",
+        "nonce": "9596ef1a9e87a462bdf90c7136068eea407fd2a7a11f47ff4ed46a83e8c8a101",
+        "pay": "0x2ff48dc65a6eded9488550491d9967f2b98e7fa3",
+        "price": "803042",
+        "ref": "d53c9447b80dc12a2437c247d8616c2e0cc6515682063d0bd33a0cd5b07a7e7d",
+        "side": "sell",
+        "token": "10789630656011242377",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "148-eth-short nonce",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0xd9ba78fb62970dda0d5011d3a5b9688da8985254",
+        "chain": "eth",
+        "expiry": "time:1940670778",
+        "maker": "0xadc26c2105b1958651682ef5c8258ab8a91eaa2c",
+        "nonce": "aa",
+        "pay": "0x6fcc55d1851966f7a74eb478f5ce37717c3b6159",
+        "price": "841002489",
+        "ref": "815d23e1bbecbde4337b911d1d222f53d7d471efb27960d509959180388043cd",
+        "side": "buy",
+        "token": "6235161095847662571",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "149-eth-zero nonce",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0xc5b971a22e213ecf47a486d8ca9847965132159e",
+        "chain": "eth",
+        "expiry": "height:827826215",
+        "maker": "0x9f2ee251980f51b888db764c124254fa0ee02876",
+        "nonce": "0000000000000000000000000000000000000000000000000000000000000000",
+        "pay": "0x6743a62d6eb8a2bdafb98f80cc1a8669a9275c68",
+        "price": "141052186",
+        "ref": "2b2f107081ce1fb737e025b4788bc6e48cc47ebe2ecac4a82e6ea4be1c4f3afc",
+        "side": "sell",
+        "token": "5110559804645661140",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "150-sol-short ref",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:325558826",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "ad2d05d02cd550584aa88720d10f7346a0937c3e5198589e8a3398fb6ac7c72b",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "649817313",
+        "ref": "bb",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "151-sol-zero ref",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:507991560",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "01572c386f533080bda7efa7044a70ad6bd8af2124477e93f4824a1d78065c44",
+        "pay": "native",
+        "price": "688782908",
+        "ref": "0000000000000000000000000000000000000000000000000000000000000000",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "152-sol-adapter without version",
+      "record": {
+        "adapter": "seaport",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:874325694",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "cf04b50a33a3404602d63a93e68d47e1e8c11146eb5cdda4078d3de38fc41d39",
+        "pay": "native",
+        "price": "579693006",
+        "ref": "7d5f5d1439d48efbe6c25757584989234ac7e26c0db3663091a16880ac0b1eba",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "adapter"
+    },
+    {
+      "name": "153-sol-unknown field",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:92196101",
+        "extra": 1,
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "912a5c00c41c6d076f719527e4446418f274f08440904a934f57d7ab3747f27f",
+        "pay": "native",
+        "price": "263953871",
+        "ref": "9596c252c73583b30ccbce517e310d4fe78713a735366dcf0fa80e7f57d0dfe4",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "extra"
+    },
+    {
+      "name": "154-eth-missing asset",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "chain": "eth",
+        "expiry": "height:393837531",
+        "maker": "0xe9fef91d35f77ce80de21747e00ec7613cd883da",
+        "nonce": "0bf621d07a7b09691b30d7d42526aa82ccedd8ec7ead7bf6c77d3403c5b96fb4",
+        "pay": "0x6783451018d8f37b2556861b40e3a3c50c370fe0",
+        "price": "803606063",
+        "ref": "5d5e7caac6d49ef5776e4eb61bc80a69f9fb993370fc400eee52ac0819173f86",
+        "side": "sell",
+        "token": "3476314487753380170",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "155-eth-expired time",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x1300989912d56b359b6a12d7dd9e847410c2a940",
+        "chain": "eth",
+        "expiry": "time:1",
+        "maker": "0xc10bb43e860af32aeeac6bd044695aa4d09ae5fb",
+        "nonce": "d50ba81eaa3445caa539214bd2256ff86b5dc959db03ccfa6a62f92fe6414f50",
+        "pay": "0x0b22a0172e43fc891ded1710f2ff0ae004d57545",
+        "price": "730484180",
+        "ref": "bd477ef6511fc2ec4c758a0a33cb18b06a2e27538f762c80f04f0aaec2abb59a",
+        "side": "buy",
+        "token": "2792230201121120062",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"eth\",\"asset\":\"0x1300989912d56b359b6a12d7dd9e847410c2a940\",\"token\":\"2792230201121120062\",\"side\":\"buy\",\"price\":\"730484180\",\"pay\":\"0x0b22a0172e43fc891ded1710f2ff0ae004d57545\",\"expiry\":\"time:1\",\"maker\":\"0xc10bb43e860af32aeeac6bd044695aa4d09ae5fb\",\"nonce\":\"d50ba81eaa3445caa539214bd2256ff86b5dc959db03ccfa6a62f92fe6414f50\",\"adapter\":\"seaport/1.6.0\",\"ref\":\"bd477ef6511fc2ec4c758a0a33cb18b06a2e27538f762c80f04f0aaec2abb59a\"}",
+      "live": [
+        {
+          "now": 0,
+          "height": 0,
+          "valid": true
+        },
+        {
+          "now": 1,
+          "height": 0,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "156-eth-valid",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0x4df7db968abf35dbf696d0ee9ccb9bcf5def96b3",
+        "chain": "eth",
+        "expiry": "height:438856979",
+        "maker": "0x15db059de68d11668d8b94323742f5e0be6e1cc6",
+        "nonce": "abed6d8b514e14b20615a94a95a625355f894ac17544ad1c9e9b52f552750888",
+        "pay": "0xf1d816a4238842777aa83b1daaa64806c4e64b9c",
+        "price": "818869868",
+        "ref": "5b0b566d36819a66efc92333a8d40dc28042ee79a02e976b593b16006c9b557f",
+        "side": "buy",
+        "token": "0",
+        "v": 1
+      },
+      "valid": true,
+      "canonical": "{\"v\":1,\"chain\":\"eth\",\"asset\":\"0x4df7db968abf35dbf696d0ee9ccb9bcf5def96b3\",\"token\":\"0\",\"side\":\"buy\",\"price\":\"818869868\",\"pay\":\"0xf1d816a4238842777aa83b1daaa64806c4e64b9c\",\"expiry\":\"height:438856979\",\"maker\":\"0x15db059de68d11668d8b94323742f5e0be6e1cc6\",\"nonce\":\"abed6d8b514e14b20615a94a95a625355f894ac17544ad1c9e9b52f552750888\",\"adapter\":\"blur/1.0.0\",\"ref\":\"5b0b566d36819a66efc92333a8d40dc28042ee79a02e976b593b16006c9b557f\"}",
+      "live": [
+        {
+          "now": 0,
+          "height": 438856978,
+          "valid": true
+        },
+        {
+          "now": 0,
+          "height": 438856979,
+          "valid": false,
+          "field": "expiry"
+        }
+      ]
+    },
+    {
+      "name": "157-sol-wrong version",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:824755900",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "4b650bbc09fd32df50a1a2baf553c82a3132cd3324e94b149c2e5fe3a6644129",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "874468107",
+        "ref": "57534736a35f41316187463a0123f1de80663c8500db87aa3d812534a833a9e0",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 2
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "158-sol-zero version",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:910349856",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "6fbb77d0599693e533e34732f289daf6b9f52290e7a0d69c717b7d71cb50a36a",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "833349515",
+        "ref": "09276de06e9391873fb1622fbd1a41b1661ecf022cb221ee4c3acbbeffbd4f41",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 0
+      },
+      "valid": false,
+      "field": "v"
+    },
+    {
+      "name": "159-base-unknown chain",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "base",
+        "expiry": "height:644879287",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "a78a3e1f3c2815a0a2fe0ffff6d210ddbc1cbefb75413862d52cfabd32825dfa",
+        "pay": "native",
+        "price": "197687504",
+        "ref": "ef2cdf4a9a5ff185272b0c716dedbad9b08de146a43296385c348be5f048097f",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "chain"
+    },
+    {
+      "name": "160-sol-empty asset",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "",
+        "chain": "sol",
+        "expiry": "height:808492535",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "edea6d4908f1011e34f6f2e7227303afe32f1969f704fc2b28e9c77e06b3361d",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "741876548",
+        "ref": "bb9b627572bd374cf7d80241e0736552752b222c6dd483100ec6ca9ee17e0f7a",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "161-sol-zero asset",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0x0000000000000000000000000000000000000000",
+        "chain": "sol",
+        "expiry": "height:572473078",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "07c9c8e4eb6d80bfdc42aa8cc500c37192b878e60d5199f8998865d4a2215e2f",
+        "pay": "native",
+        "price": "434596959",
+        "ref": "27ac24af6949e75c1c3fec8a1925c8d95bfc3bdcd98a21b602de68711eb25e70",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "asset"
+    },
+    {
+      "name": "162-eth-zero maker",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x1704b9a18aa296ec642b857b0033510c24cfa194",
+        "chain": "eth",
+        "expiry": "time:210048249",
+        "maker": "0x0000000000000000000000000000000000000000",
+        "nonce": "ff4acbac1566080f4fc1c567b7c7c7036ccd4ced680c22270fa2d79ce1c82b57",
+        "pay": "native",
+        "price": "154166979",
+        "ref": "fb0b384d24633f354128439512865e756de6930a766511397f70e1a5b2c975f0",
+        "side": "sell",
+        "token": "6970773714788993269",
+        "v": 1
+      },
+      "valid": false,
+      "field": "maker"
+    },
+    {
+      "name": "163-sol-leading-zero token",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:483734172",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "b50c697a6bdf17b8f86d4dbe6ba2edf3bf3060fb3cc138dd8b6a5e8adab3a053",
+        "pay": "native",
+        "price": "335391524",
+        "ref": "2f18061a0432b491d5fa6b8871a68aa03396178c4c183f866727e7a866bd65c0",
+        "side": "buy",
+        "token": "01",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "164-eth-token overflow",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "0xb9cbd6a155536c0a39a7377af9a194417e920bd3",
+        "chain": "eth",
+        "expiry": "time:910984022",
+        "maker": "0x49996ac32267660bdf607557e93f57459c58968b",
+        "nonce": "e716c8507fbb7a3efe766e2f90df6ab2df697a53d6901a60d2ef03f054ab700a",
+        "pay": "native",
+        "price": "472272118",
+        "ref": "9f73a52aff1fc53382dc86bee6c0f240e4b500e11353bcae14e184b94f200009",
+        "side": "buy",
+        "token": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "v": 1
+      },
+      "valid": false,
+      "field": "token"
+    },
+    {
+      "name": "165-eth-bad side",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0x73e4eed581f20b13bbee63acd02c787b878ef2e9",
+        "chain": "eth",
+        "expiry": "height:618989770",
+        "maker": "0xa589cd2c138e07a1b9a9cdc2ef189248398d44ba",
+        "nonce": "6f16f31d06862999eed71d7de8dcb343506ee83fa2ff3b1142597ece2e5f4c9a",
+        "pay": "native",
+        "price": "296466551",
+        "ref": "755c57487d4070410061be4a5ee3fc5a5037d66c8abcc53d70ccc9b483549172",
+        "side": "trade",
+        "token": "13639119770488485312",
+        "v": 1
+      },
+      "valid": false,
+      "field": "side"
+    },
+    {
+      "name": "166-sol-zero price",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:271874841",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "61f557568b28b8659560f9b182035e6f5aa5eb63cd3dc5a16b36cbde1a602b31",
+        "pay": "native",
+        "price": "0",
+        "ref": "49ff8265b6006049391dfd94ef79bccee751d58ddf3ab4acd5d4e50f1f6434b7",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "167-sol-leading-zero price",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:567485589",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "8b83c8de6929b68db8786d6eea0a18847e0fd2698d5d6e24f85c1570b0dedca0",
+        "pay": "native",
+        "price": "01",
+        "ref": "b90acda09398b984e0f5f4cfbe2ab55eca4580373b86e058d22174c177c5e85a",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "168-eth-price overflow",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0xa548396667c84a293fb02a50f5631dab213a475d",
+        "chain": "eth",
+        "expiry": "height:5820804",
+        "maker": "0x0db313608954aaa3e3e1d069dde736498f7501cf",
+        "nonce": "6ddd6992da253450cd94a66bf8ad1cb3675d619b495264896cabd2746504363b",
+        "pay": "0xb58f4eb3e3822c66126a8a6f6ea5e98226d54b6c",
+        "price": "999999999999999999999999999999999999999999999999999999999999999999999999999999",
+        "ref": "33cf4f3c1df06b08219a8a27a7a6e9194deb7aade44c646e6f19f49677713ecf",
+        "side": "buy",
+        "token": "11010637375708445616",
+        "v": 1
+      },
+      "valid": false,
+      "field": "price"
+    },
+    {
+      "name": "169-sol-symbol pay",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:211044523",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "216536842155eb5401a0e4036ff80862d555290c45123f2ca96473513ab69737",
+        "pay": "USDC",
+        "price": "557152267",
+        "ref": "a94ba5202ef74ecaf29aa9fb936c430f6cf60ed8b73000db40c0a24aaf14741b",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "170-eth-empty pay",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x837e569bf620f3309ab6f475939f6cf78f417d61",
+        "chain": "eth",
+        "expiry": "time:1999164376",
+        "maker": "0x3f96204365076239492f0018b2ef7a3b51f8c060",
+        "nonce": "8d7fdeba46f9e7ea471b4efdd6fe5a6db7d0e56e0fa3fbdf106ee88121104070",
+        "pay": "",
+        "price": "355519165",
+        "ref": "5fc36383cd74765c04f548dd9583e5f00835fee66d93aa681ba5a9d9385e7465",
+        "side": "sell",
+        "token": "9435749791584239987",
+        "v": 1
+      },
+      "valid": false,
+      "field": "pay"
+    },
+    {
+      "name": "171-eth-zero time expiry",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0x6760aca87255acd8327ab4f22ad22824d638aa79",
+        "chain": "eth",
+        "expiry": "time:0",
+        "maker": "0x7987ed16b29d180ee2ce7ceaca5843d5d76e239f",
+        "nonce": "29c369794fd99613e5abcda1c98bde2cc95e96a85369c048869452a466f0dfd7",
+        "pay": "0x9f918b259580d42e4fa256aa4f23f927b1c7a1dc",
+        "price": "361095645",
+        "ref": "e7878677b4d271031a5e2d1b7fc4d714c554f16543f1df0d27a765a74fc6ac43",
+        "side": "buy",
+        "token": "16651271286624089069",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "172-sol-zero height expiry",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:0",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "717fa1f077eab649ffa927dfd8bba25c130d15820634c3b575769cbb7041a6e7",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "348959026",
+        "ref": "290fffc7c876e18607ac52ac2c33250dedcb8666251a4f200004ac018a26a037",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "173-sol-unknown expiry kind",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "block:100",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "09b247c66d32c967f0bbb5151f0d860ded6109f5b5024bbba16ccdd990f6bdd2",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "572554908",
+        "ref": "f750f9685792b26fff83bc50914ee703a232932327347524c98419d10a4b6099",
+        "side": "sell",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "expiry"
+    },
+    {
+      "name": "174-eth-short nonce",
+      "record": {
+        "adapter": "opensea/2.3.1",
+        "asset": "0xbf66cd46595a06924962ccc4d2d69bfb43721913",
+        "chain": "eth",
+        "expiry": "height:890067470",
+        "maker": "0xf58d1fa38a9991b3de0c5274eab8831ee3001c35",
+        "nonce": "aa",
+        "pay": "0x8328f4e7e2a27816747685048f9b723323d19697",
+        "price": "982465486",
+        "ref": "11eda9b5297d3ed58dcacec6cf7337af2c7c645ac4866ff2467b79ab3ea86d09",
+        "side": "buy",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "175-eth-zero nonce",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "0x219d041ec1a98c9e07b09c016aacf7a145ebd20e",
+        "chain": "eth",
+        "expiry": "height:933394785",
+        "maker": "0x5d22b8d698eec7df0cf24978b7a346eccc3cd3e4",
+        "nonce": "0000000000000000000000000000000000000000000000000000000000000000",
+        "pay": "native",
+        "price": "792603704",
+        "ref": "2353496edde1aeb081d98ce9a9f893c7e29c8e1821b88772d295ee48ff8623e4",
+        "side": "sell",
+        "token": "0",
+        "v": 1
+      },
+      "valid": false,
+      "field": "nonce"
+    },
+    {
+      "name": "176-sol-short ref",
+      "record": {
+        "adapter": "seaport/1.6.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:567856731",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "f7826be153404d3edcbf0fb4d06c6bb3e4c647b663ee2d10809a4dce1e2fa4f9",
+        "pay": "native",
+        "price": "632051076",
+        "ref": "bb",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "177-sol-zero ref",
+      "record": {
+        "adapter": "blur/1.0.0",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:70050213",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "838cc64a659e907a1bec6cee8c81a2c6ae8ee9d0dad7fdec6103cdff3bd5e215",
+        "pay": "native",
+        "price": "488843426",
+        "ref": "0000000000000000000000000000000000000000000000000000000000000000",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "ref"
+    },
+    {
+      "name": "178-sol-adapter without version",
+      "record": {
+        "adapter": "seaport",
+        "asset": "So11111111111111111111111111111111111111112",
+        "chain": "sol",
+        "expiry": "height:950445863",
+        "maker": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+        "nonce": "1d1a1e50c006a9b0eadaa3b527d20e2a34882138c7f8f2ef8fca333001c39ae4",
+        "pay": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "price": "434523197",
+        "ref": "5119b23391c164a6de3bb6a09c9c5fe474e8410369b1f58ea6f58ac41c13bd2e",
+        "side": "buy",
+        "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "v": 1
+      },
+      "valid": false,
+      "field": "adapter"
+    },
+    {
+      "name": "179-eth-unknown field",
+      "record": {
+        "adapter": "magiceden/2.0.0",
+        "asset": "0x697fcceaa3abb5771cf9d041331e031f42f0603b",
+        "chain": "eth",
+        "expiry": "height:463772219",
+        "extra": 1,
+        "maker": "0x0708d6c4a84a6d84880094a85d748df15fe2ca34",
+        "nonce": "fd8836cf9835165b4dbe466ca625a34e8c822de65f2470e42b3713dec938df07",
+        "pay": "0xcb853b2d49f965bf128bdea78d6956f0093ec4ce",
+        "price": "407507431",
+        "ref": "1d54ec0dca97ab761f4e4676f00f978c3ecd8cd50af2c8e3d103dfb87456f154",
+        "side": "sell",
+        "token": "2729613029141537235",
+        "v": 1
+      },
+      "valid": false,
+      "field": "extra"
+    }
+  ]
+}

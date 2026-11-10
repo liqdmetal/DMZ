@@ -89,6 +89,18 @@ allowlist; a screen must still verify ownership and settlement on the NFT's nati
 The Go tests and `tests/js/signal.vectors.test.mjs` both consume the shared fixture. Add a case once,
 then make both readers pass it; do not regenerate one side's expected result from its own output.
 
+`tools/signal/random_test.go` also generates a seeded corpus of randomized valid records and targeted
+mutations into `tools/signal/testdata/signal_v1_random_vectors.json`. Both validators run that corpus;
+the Go test fails if the committed corpus is stale. Regenerate it with:
+
+```text
+cd tools && SIGNAL_UPDATE=1 go test ./signal -run '^TestRandomVectors$'
+```
+
+`app/signals.js` is the first read-only board screen (`#signals`). It reads one record per line from a
+pasted or opened board file and shows a rejected line with the validator's `field`. It has no board
+contract, chain read, wallet, publish or store path yet; a valid record there is still only discovery data.
+
 ## Nonce and replay
 
 `nonce` is 32 bytes of lowercase hex. It must be unique for the tuple `(chain, maker)`, and a maker
