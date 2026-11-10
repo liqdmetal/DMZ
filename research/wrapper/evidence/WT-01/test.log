@@ -1,0 +1,39 @@
+WT-01 baseline test log
+row: WT-01 (critical) — foreign network fee accounting
+accountable owner: vault-contract
+date (UTC): 2026-11-10T00:12:46Z
+code under test: a417a8e01b0c0741df35d396ad2e2a44e51b3b60 (origin/main)
+HEAD: 2401a5364c9d8c8b650650b12759f4270174d6e3 (docs-only work-board commit)
+derohe checkout: e9df1205b6603c62f0651d0e18e5e77a2584b15e
+toolchain: go1.26.8 windows/amd64
+runner: tests/run.sh (copies reference/, tests/, contracts/ into vendor/derohe/veil and runs there)
+
+$ GOTOOLCHAIN=go1.26.8 tests/run.sh -list 'Test(FeeUnitsStayInSupAndNeedTheTreasuryKeyForEver|ReleasedChargesTheNetworkFeeToTheFeePool|NetworkFeeDoesNotHalt)$' -v
+?   	github.com/deroproject/derohe/veil/reference	[no test files]
+TestFeeUnitsStayInSupAndNeedTheTreasuryKeyForEver
+ok  	github.com/deroproject/derohe/veil/tests	0.039s
+?   	github.com/deroproject/derohe/veil/tests/harness	[no test files]
+exit status: 0
+result: only TestFeeUnitsStayInSupAndNeedTheTreasuryKeyForEver exists; neither WT-01 test is listed.
+
+$ GOTOOLCHAIN=go1.26.8 tests/run.sh -run '^TestFeeUnitsStayInSupAndNeedTheTreasuryKeyForEver$' -v
+?   	github.com/deroproject/derohe/veil/reference	[no test files]
+=== RUN   TestFeeUnitsStayInSupAndNeedTheTreasuryKeyForEver
+    zz_adversary_priv_test.go:158: ADV-3 CONFIRMED: sup stayed 3510 across ClaimFees; 10 fee units sit with the treasury below minburn, so they can never leave sup
+--- PASS: TestFeeUnitsStayInSupAndNeedTheTreasuryKeyForEver (0.02s)
+PASS
+ok  	github.com/deroproject/derohe/veil/tests	0.058s
+?   	github.com/deroproject/derohe/veil/tests/harness	[no test files]
+exit status: 0
+result: PASS. This is the closest existing test, and it asserts the pre-WT-01 behaviour: sup is unchanged by ClaimFees and the fee units stay in sup.
+
+$ GOTOOLCHAIN=go1.26.8 tests/run.sh -run '^(TestReleasedChargesTheNetworkFeeToTheFeePool|TestNetworkFeeDoesNotHalt)$' -v
+?   	github.com/deroproject/derohe/veil/reference	[no test files]
+testing: warning: no tests to run
+PASS
+ok  	github.com/deroproject/derohe/veil/tests	0.037s [no tests to run]
+?   	github.com/deroproject/derohe/veil/tests/harness	[no test files]
+exit status: 0
+result: NO TESTS RAN. The zero exit status is go test's no-op, not a pass; see the -list output above.
+
+verdict: WT-01 is not baselined. Both required tests are absent at the code commit, and the passing existing test protects the old accounting rather than the required v4 rule.
